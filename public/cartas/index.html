@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Cartas Contra a Humanidade Brasil — O Jogo Politicamente Incorreto</title>
+  <meta name="description" content="Minigame completo no estilo Cards Against Humanity, 100% em Português-BR com humor ácido, absurdo e sem frescura. Jogue em grupo no mesmo celular ou PC!">
+  <meta name="theme-color" content="#121214">
+
+  <!-- Google Fonts: Inter & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Outfit:wght@600;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Barra superior fixa de navegação do Hub -->
+  <nav class="cch-top-nav">
+    <a href="../" class="cch-nav-back" title="Voltar para a lista de jogos do Hub">
+      <span>⬅️</span> <strong>Hub de Jogos</strong>
+    </a>
+    <div class="cch-nav-brand">
+      <span class="cch-brand-badge">BRASIL 🇧🇷</span>
+      <span class="cch-brand-title">Cartas Contra a Humanidade</span>
+    </div>
+  </nav>
+
+  <!-- Container principal do jogo -->
+  <main id="cch-app" class="cch-app-container">
+    <!-- Renderizado dinamicamente via ui.js -->
+    <div class="cch-loading-screen">
+      <div class="cch-loading-spinner"></div>
+      <p>Embaralhando o humor politicamente incorreto...</p>
+    </div>
+  </main>
+
+  <!-- Scripts em ordem de dependência -->
+  <script src="decks.js"></script>
+  <script src="game.js"></script>
+  <script src="ui.js"></script>
+</body>
+</html>

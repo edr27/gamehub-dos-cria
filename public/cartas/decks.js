@@ -1,0 +1,6846 @@
+/**
+ * CARTAS CONTRA A HUMANIDADE (BRASIL) — BARALHO OFICIAL DO USUÁRIO
+ * Total: 364 Cartas Pretas | 1254 Cartas Brancas
+ */
+window.DEFAULT_DECK = {
+  "blackCards": [
+    {
+      "id": "b_1",
+      "text": "________: TESTADO PELAS CRIANÇAS, APROVADO PELAS MÃES.",
+      "pick": 1
+    },
+    {
+      "id": "b_2",
+      "text": "ELE PERGUNTOU: NO CÉU TEM ________? E MORREU.",
+      "pick": 1
+    },
+    {
+      "id": "b_3",
+      "text": "NO FUTURO DISTANTE, HISTORIADORES IRÃO CONCORDAR QUE ________ MARCOU O INÍCIO DO DECLÍNIO DA AMÉRICA.",
+      "pick": 1
+    },
+    {
+      "id": "b_4",
+      "text": "QUAL É O PRÓXIMO BRINQUEDO DO MCLANCHE FELIZ?",
+      "pick": 1
+    },
+    {
+      "id": "b_5",
+      "text": "NO PRÓXIMO NATAL O PAPAI NOEL VAI DAR ________ PRA CRIANÇA QUE NÃO SE COMPORTAR.",
+      "pick": 1
+    },
+    {
+      "id": "b_6",
+      "text": "A VIDA DOS ÍNDIOS MUDOU PARA SEMPRE DEPOIS QUE O HOMEM BRANCO OS APRESENTOU A ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_7",
+      "text": "DURANTE O SEXO EU GOSTO DE PENSAR SOBRE ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_8",
+      "text": "A VIDA DOS ÍNDIOS AMERICANOS MUDOU PARA SEMPRE QUANDO O HOMEM BRANCO LHES APRESENTOU ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_9",
+      "text": "MINHA MÃE ENTROU EM DESESPERO QUANDO ELA ABRIU MEU HISTÓRICO DA INTERNET E VIU ________.COM/________",
+      "pick": 2
+    },
+    {
+      "id": "b_10",
+      "text": "O PRÓXIMO LIVRO DE J.K. ROWLING: HARRY POTTER E A CÂMARA DE ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_11",
+      "text": "O QUE O MINISTÉRIO DA EDUCAÇÃO ESTÁ USANDO PARA INSPIRAR OS ESTUDANTES DO INTERIOR A SEREM BEM SUCEDIDOS?",
+      "pick": 1
+    },
+    {
+      "id": "b_12",
+      "text": "E ENTÃO, CRIANÇAS, FOI ASSIM QUE EU CONHECI ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_13",
+      "text": "O QUE EU FARIA POR UM PONTO DE EXPERIÊNCIA?",
+      "pick": 1
+    },
+    {
+      "id": "b_14",
+      "text": "TALVEZ ELA TENHA NASCIDO ASSIM. TALVEZ SEJA ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_15",
+      "text": "OS CINCO ESTÁGIOS DO LUTO: NEGAÇÃO, RAIVA, BARGANHA, ________ E ACEITAÇÃO.",
+      "pick": 1
+    },
+    {
+      "id": "b_16",
+      "text": "O PRÓXIMO FILME DE MICHAEL BAY: ________: NO OUTRO LADO DA ________.",
+      "pick": 2
+    },
+    {
+      "id": "b_17",
+      "text": "EM SEUS MOMENTOS FINAIS, MICHAEL JACKSON PENSOU EM ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_18",
+      "text": "VOCÊ NUNCA REALMENTE VIVEU ATÉ TER EXPERIMENTADO ________ E ________ AO MESMO TEMPO.",
+      "pick": 2
+    },
+    {
+      "id": "b_19",
+      "text": "NO NOVO FILME DE M. NIGHT SHYAMALAN, BRUCE WILLIS DESCOBRE QUE ________ NA VERDADE ERA ________ DESDE O INÍCIO.",
+      "pick": 2
+    },
+    {
+      "id": "b_20",
+      "text": "HOMEM BRANCO GOSTA DE ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_21",
+      "text": "SE DEUS NÃO QUISESSE QUE APROVEITÁSSEMOS ________, ELE NÃO TERIA NOS DADO ________.",
+      "pick": 2
+    },
+    {
+      "id": "b_22",
+      "text": "É PERIGOSO IR SOZINHO, LEVE ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_23",
+      "text": "________. QUEM SÃO, ONDE VIVEM, O QUE COMEM? ESSA NOITE NO GLOBO REPÓRTER.",
+      "pick": 1
+    },
+    {
+      "id": "b_24",
+      "text": "A POLÍCIA MILITAR ESTÁ AGORA USANDO ________ COMO UMA ARMA DE COMBATE AO CRIME.",
+      "pick": 1
+    },
+    {
+      "id": "b_25",
+      "text": "QUAL É O MELHOR AMIGO DE UMA MULHER?",
+      "pick": 1
+    },
+    {
+      "id": "b_26",
+      "text": "POR QUE ESTOU DOIDO?",
+      "pick": 1
+    },
+    {
+      "id": "b_27",
+      "text": "EU VI UM FILME LOUCO ONTEM. COMEÇA COM ________, AI TEM ALGO SOBRE ________, AI TERMINA COM ________.",
+      "pick": 3
+    },
+    {
+      "id": "b_28",
+      "text": "EU PRESENCIEI AS MELHORES MENTES DA MINHA GERAÇÃO SEREM DESTRUÍDAS POR ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_29",
+      "text": "FICOU SABENDO QUE ________ VAI CASAR COM ________.",
+      "pick": 2
+    },
+    {
+      "id": "b_30",
+      "text": "COMO EU ESTOU COMPENSANDO PELO MEU MINÚSCULO PÊNIS?",
+      "pick": 1
+    },
+    {
+      "id": "b_31",
+      "text": "QUANDO EU FOR O PRESIDENTE DO BRASIL, EU VOU CRIAR O MINISTÉRIO DE ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_32",
+      "text": "________ FINALMENTE VAI LIBERAR ________.",
+      "pick": 2
+    },
+    {
+      "id": "b_33",
+      "text": "VOCÊ QUER ________?FAÇA UM TESTE DE ________.",
+      "pick": 2
+    },
+    {
+      "id": "b_34",
+      "text": "A SEGUIR, NA ESPN 2: O CAMPEONATO MUNDIAL DE ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_35",
+      "text": "UM JANTAR ROMÂNTICO À LUZ DE VELAS SERIA INCOMPLETO SEM ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_36",
+      "text": "QUANDO EU ESTOU COM INSÔNIA, EU ADORO ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_37",
+      "text": "________ É A RAIZ DE TODO O MAL.",
+      "pick": 1
+    },
+    {
+      "id": "b_38",
+      "text": "EM BREVE, NUMA LIVRARIA PERTO DE VOCÊ, ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_39",
+      "text": "A ÚNICA FORMA DE COMBATER ________ É COM ________!",
+      "pick": 2
+    },
+    {
+      "id": "b_40",
+      "text": "EU BEBO PARA ESQUECER ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_41",
+      "text": "A EXCURSÃO ESCOLAR FOI UM FIASCO DEVIDO A ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_42",
+      "text": "O NOVO JOGO DA WHITE WOLF: ________: O(A) ________",
+      "pick": 2
+    },
+    {
+      "id": "b_43",
+      "text": "QUANDO TUDO FALHAR EU SEMPRE POSSO ME MASTURBAR PARA ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_44",
+      "text": "QUAL É O MELHOR AMIGO DE UMA GAROTA?",
+      "pick": 1
+    },
+    {
+      "id": "b_45",
+      "text": "VOCÊ. EU. ________. AGORA.",
+      "pick": 1
+    },
+    {
+      "id": "b_46",
+      "text": "A IDA ERA DIFÍCIL PARA OS HOMENS DAS CAVERNAS ANTES DE ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_47",
+      "text": "DOUTOR DRAUZIO, ESTOU TENDO PROBLEMAS COM ________ E GOSTARIA DE OUVIR SEU CONSELHO.",
+      "pick": 1
+    },
+    {
+      "id": "b_48",
+      "text": "POR NÃO PAGAR MINHAS CONTAS, O BANCO ME TIROU ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_49",
+      "text": "POR QUE EU LEVEI UMA SURRA NA ESCOLA?",
+      "pick": 1
+    },
+    {
+      "id": "b_50",
+      "text": "QUANDO EU FOR PRESIDENTE, CRIAREI O DEPARTAMENTO DE ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_51",
+      "text": "OLHA SÓ O NOVO JOGO QUE EU COMPREI, ________ CONTRA A HUMANIDADE.",
+      "pick": 1
+    },
+    {
+      "id": "b_52",
+      "text": "O QUE JOSÉ SARNEY PREFERE?",
+      "pick": 1
+    },
+    {
+      "id": "b_53",
+      "text": "O QUE MEUS PAIS ESTÃO ESCONDENDO DE MIM?",
+      "pick": 1
+    },
+    {
+      "id": "b_54",
+      "text": "OH NÃO! ________! MINHA ÚNICA FRAQUEZA!",
+      "pick": 1
+    },
+    {
+      "id": "b_55",
+      "text": "ACABOU SENDO QUE O HOMEM-________ NÃO ERA NEM O HERÓI QUE PRECISÁVAMOS NEM O QUE QUERÍAMOS.",
+      "pick": 1
+    },
+    {
+      "id": "b_56",
+      "text": "O QUE NUNCA FALHA EM DEIXAR UMA FESTA MAIS ANIMADA?",
+      "pick": 1
+    },
+    {
+      "id": "b_57",
+      "text": "EM UMA ESCALA DE ________ ATÉ ________? QUANTA DOR VOCÊ ESTÁ SENTINDO?",
+      "pick": 2
+    },
+    {
+      "id": "b_58",
+      "text": "ENTÃO É ASSIM QUE O MUNDO ACABA, NÃO COM UMA EXPLOSÃO, MAS COM ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_59",
+      "text": "O QUE É QUE MELHOR QUANDO ENVELHECE?",
+      "pick": 1
+    },
+    {
+      "id": "b_60",
+      "text": "INSTRUÇÕES NÃO FORAM CLARAS, PINTO PRESO EM ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_61",
+      "text": "ANTROPÓLOGOS RECENTEMENTE DESCOBRIRAM UMA TRIBO QUE LOUVA ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_62",
+      "text": "________: BOM ATÉ A ÚLTIMA GOTA.",
+      "pick": 1
+    },
+    {
+      "id": "b_63",
+      "text": "SE ENTRA ________, ENTRA QUALQUER COISA!",
+      "pick": 1
+    },
+    {
+      "id": "b_64",
+      "text": "________. É UMA CILADA, BINO!",
+      "pick": 1
+    },
+    {
+      "id": "b_65",
+      "text": "ESTOU COM 99 PROBLEMAS, MAS ________ NÃO É UM DELES.",
+      "pick": 1
+    },
+    {
+      "id": "b_66",
+      "text": "PODERIA O ESCRIVÃO DA CORTE LER DE VOLTA ESSA ÚLTIMA FRASE?",
+      "pick": 1
+    },
+    {
+      "id": "b_67",
+      "text": "ELES ESTÃO LEVANDO OS HOBBITS PARA ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_68",
+      "text": "________. É UMA ARMADILHA!",
+      "pick": 1
+    },
+    {
+      "id": "b_69",
+      "text": "EU QUERO ________ NA MINHA MESA ATÉ AS 5, OU VOCÊ ESTÁ DEMITIDO!",
+      "pick": 1
+    },
+    {
+      "id": "b_70",
+      "text": "NO SÉTIMO CÍRCULO DO INFERNO, PECADORES DEVEM SOFRER COM ________ POR TODA A ETERNIDADE.",
+      "pick": 1
+    },
+    {
+      "id": "b_71",
+      "text": "NOVO REALITY-SHOW DA MTV APRESENTA OITO CELEBRIDADES DESGASTADAS MORANDO COM ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_72",
+      "text": "É, EU TIVE QUE TERMINAR COM ELE. ELE FICAVA USANDO \"________\" COMO UM EUFEMISMO PARA TRANSAR.",
+      "pick": 1
+    },
+    {
+      "id": "b_73",
+      "text": "EU APRENDI DA FORMA DIFÍCIL QUE VOCÊ NÃO PODE CONSOLAR UM AMIGO DE LUTO COM ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_74",
+      "text": "O QUE É QUE VOVÓ ACHARIA PERTURBANTE, MAS ESTRANHAMENTE CHARMOSO?",
+      "pick": 1
+    },
+    {
+      "id": "b_75",
+      "text": "NÓS PERGUNTAMOS PARA 1000 MULHERES: O QUE ELAS REALMENTE QUEREM EM UM HOMEM?",
+      "pick": 1
+    },
+    {
+      "id": "b_76",
+      "text": "AO SE JUNTAR À SOCIEDADE DO ANEL, ________ JUROU À FRODO ________.",
+      "pick": 2
+    },
+    {
+      "id": "b_77",
+      "text": "COME ________ MEU BEM, FAZ BEM PARA ________.",
+      "pick": 2
+    },
+    {
+      "id": "b_78",
+      "text": "O JUIZ ME ABSOLVEU PORQUE ________ NÃO É TECNICAMENTE UM CRIME.",
+      "pick": 1
+    },
+    {
+      "id": "b_79",
+      "text": "________. É IMPOSSÍVEL COMER UM SÓ!",
+      "pick": 1
+    },
+    {
+      "id": "b_80",
+      "text": "O QUE É MAIS EMO, ________ OU ________?",
+      "pick": 2
+    },
+    {
+      "id": "b_81",
+      "text": "OI, NÓS SOMOS DA IGREJA DE ________, VOCÊ TEM UM MINUTO PRA FALAR SOBRE ________?",
+      "pick": 2
+    },
+    {
+      "id": "b_82",
+      "text": "AQUELE QUE CONTROLA ________ CONTROLA O MUNDO.",
+      "pick": 1
+    },
+    {
+      "id": "b_83",
+      "text": "O QUE CAUSOU O FIM DA MINHA ÚLTIMA RELAÇÃO?",
+      "pick": 1
+    },
+    {
+      "id": "b_84",
+      "text": "O BANHEIRO ESTAVA SEM PAPEL HIGIÊNICO, ENTÃO EU TIVE QUE USAR ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_85",
+      "text": "A NOVA VERSÃO DE D&D TORNA ________ UMA RAÇA JOGÁVEL.",
+      "pick": 1
+    },
+    {
+      "id": "b_86",
+      "text": "QUE SOM É ESSE?",
+      "pick": 1
+    },
+    {
+      "id": "b_87",
+      "text": "AS IGREJAS ESTÃO AGORA ACEITANDO ________ COMO FORMA DE PAGAMENTO.",
+      "pick": 1
+    },
+    {
+      "id": "b_88",
+      "text": "QUAL É O MEU PODER SECRETO?",
+      "pick": 1
+    },
+    {
+      "id": "b_89",
+      "text": "________. É ASSIM QUE EU ESPERO MORRER.",
+      "pick": 1
+    },
+    {
+      "id": "b_90",
+      "text": "MEU NOVO ATOR PORNÔ FAVORITO: JOHN \"________\" MCGILL.",
+      "pick": 1
+    },
+    {
+      "id": "b_91",
+      "text": "É UMA PENA QUE CRIANÇAS HOJE EM DIA ESTEJAM SE ENVOLVENDO COM ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_92",
+      "text": "POR QUE MINHA PELE ESTÁ PEGAJOSA?",
+      "pick": 1
+    },
+    {
+      "id": "b_93",
+      "text": "QUAIS SÃO AS 3 COISAS QUE EU LEVARIA PARA UMA ILHA DESERTA?",
+      "pick": 1
+    },
+    {
+      "id": "b_94",
+      "text": "DEVIDO À UM FIASCO DE RELAÇÕES PÚBLICAS, AS LOJAS AMERICANAS NÃO VENDEM MAIS ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_95",
+      "text": "O FUNK DO ________ ACABOU DE ATINGIR O TOP 10 BRASIL.",
+      "pick": 1
+    },
+    {
+      "id": "b_96",
+      "text": "SE EU CRIASSE O PARAÍSO, ELE TERIA ________ E ________.",
+      "pick": 2
+    },
+    {
+      "id": "b_97",
+      "text": "A INFRAERO AGORA PROÍBE ________ EM AVIÕES.",
+      "pick": 1
+    },
+    {
+      "id": "b_98",
+      "text": "QUAL É O PRÓXIMO BRINDE DO MCLANCHE FELIZ?",
+      "pick": 1
+    },
+    {
+      "id": "b_99",
+      "text": "EU IRIA COMBINAR ________ COM ________, MAS OS SIMPSONS JÁ FIZERAM.",
+      "pick": 2
+    },
+    {
+      "id": "b_100",
+      "text": "A CIA AGORA INTERROGA AGENTES INIMIGOS SUJEITANDO-OS À ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_101",
+      "text": "O QUE É QUE TEM À VONTADE NO CÉU?",
+      "pick": 1
+    },
+    {
+      "id": "b_102",
+      "text": "NÃO É MINHA CULPA, EU VOTEI PARA ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_103",
+      "text": "COM BASTANTE TEMPO E PRESSÃO, ________ VAI SE TORNAR ________.",
+      "pick": 2
+    },
+    {
+      "id": "b_104",
+      "text": "NÃO SEI COM QUE ARMAS SE LUTARÁ A TERCEIRA GUERRA MUNDIAL, MAS A QUARTA SERÁ COM ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_105",
+      "text": "EU COMECEI A SEGUIR ESSA NOVA DIETA DE MILHO, OVOS E ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_106",
+      "text": "E ENTÃO DEUS DISSE: QUE SE FAÇA ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_107",
+      "text": "ELE COLOU UM MONTE DE ________ NA PAREDE DA SALA.",
+      "pick": 1
+    },
+    {
+      "id": "b_108",
+      "text": "SE VOCÊ É O QUE VOCÊ COME, ENTÃO EU DEFINITIVAMENTE SOU ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_109",
+      "text": "O QUE DEIXOU ESSA MANCHA NO MEU SOFÁ?",
+      "pick": 1
+    },
+    {
+      "id": "b_110",
+      "text": "O QUE É TIRO-E-QUEDA PARA SE CONSEGUIR SEXO?",
+      "pick": 1
+    },
+    {
+      "id": "b_111",
+      "text": "EU ME SENTI MUITO MAL DEPOIS DE CONVENCER MEU AMIGO QUE ELE ERA ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_112",
+      "text": "NA SUA NOVA CAMPANHA DE TURISMO, O RIO DE JANEIRO ORGULHOSAMENTE ANUNCIOU QUE FINALMENTE ELIMINOU ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_113",
+      "text": "POR QUE NÃO CONSIGO DORMIR À NOITE?",
+      "pick": 1
+    },
+    {
+      "id": "b_114",
+      "text": "VAI AMOR, BATE NA MINHA BUNDA E ME CHAMA DE ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_115",
+      "text": "LEGOLAS, O QUE OS SEUS OLHOS DE ELFO VEEM?",
+      "pick": 1
+    },
+    {
+      "id": "b_116",
+      "text": "QUE CHEIRO É ESSE?",
+      "pick": 1
+    },
+    {
+      "id": "b_117",
+      "text": "________ NOS METEU NESSA SITUAÇÃO, ________ VAI NOS TIRAR.",
+      "pick": 2
+    },
+    {
+      "id": "b_118",
+      "text": "A INTERNET FOI INVENTADA PARA ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_119",
+      "text": "O QUE AJUDOU OBAMA A RELAXAR DEPOIS DO TRABALHO?",
+      "pick": 1
+    },
+    {
+      "id": "b_120",
+      "text": "O NOVO PROJETO DE LEI DECLARA O DIA DE ________ UM FERIADO NACIONAL.",
+      "pick": 1
+    },
+    {
+      "id": "b_121",
+      "text": "O QUE FICA MELHOR COM A IDADE?",
+      "pick": 1
+    },
+    {
+      "id": "b_122",
+      "text": "ANTROPÓLOGOS RECENTEMENTE DESCOBRIRAM UM TRIBO PRIMITIVA QUE CULTUA ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_123",
+      "text": "PELO PODER QUE ME FOI CONCEDIDO, EU VOS DECLARO ________ E ________.",
+      "pick": 2
+    },
+    {
+      "id": "b_124",
+      "text": "FINALMENTE! UM SERVIÇO QUE ENTREGA ________ DIRETO NA SUA PORTA!",
+      "pick": 1
+    },
+    {
+      "id": "b_125",
+      "text": "ESTUDO MOSTRA QUE RATOS DE LABORATÓRIO ATRAVESSAM LABIRINTOS 50% MAIS RÁPIDO DEPOIS DE SEREM EXPOSTOS À ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_126",
+      "text": "DURANTE MEU TEMPO EM HOGWARTS, EU DESCOBRI QUE MEU PATRONO ERA ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_127",
+      "text": "AO INVÉS DE CARVÃO, PAPAI NOEL AGORA DÁ ________ À CRIANÇAS MALCRIADAS.",
+      "pick": 1
+    },
+    {
+      "id": "b_128",
+      "text": "MEU NOME É HOMEM-________, E ESSE É O GAROTO ________, MEU AJUDANTE FIEL!",
+      "pick": 2
+    },
+    {
+      "id": "b_129",
+      "text": "EU CRIEI UM NOVO SITE, É BASICAMENTE FACEBOOK PARA ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_130",
+      "text": "MEU PROFESSOR DE EDUCAÇÃO FÍSICA FOI DEMITIDO POR ADICIONAR ________ AO CURSO DE OBSTÁCULOS.",
+      "pick": 1
+    },
+    {
+      "id": "b_131",
+      "text": "BUSCANDO AUMENTAR SUA AUDIÊNCIA, O MUSEU DE HISTÓRIA NATURAL ABRIU UMA EXPOSIÇÃO INTERATIVA SOBRE ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_132",
+      "text": "PENSANDO MELHOR, TER LEVADO MINHA NOVA NAMORADA NO ________ NÃO FOI UMA BOA IDEIA.",
+      "pick": 1
+    },
+    {
+      "id": "b_133",
+      "text": "E EU TERIA ESCAPADO SE NÃO FOSSE POR ________!",
+      "pick": 1
+    },
+    {
+      "id": "b_134",
+      "text": "GUERRA! PRA QUE SERVE?",
+      "pick": 1
+    },
+    {
+      "id": "b_135",
+      "text": "________ É O MELHOR REMÉDIO PARA DEPRESSÃO.",
+      "pick": 1
+    },
+    {
+      "id": "b_136",
+      "text": "A CIÊNCIA NUNCA VAI EXPLICAR A ORIGEM DE ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_137",
+      "text": "O QUE ME CAUSA GASES INCONTROLÁVEIS?",
+      "pick": 1
+    },
+    {
+      "id": "b_138",
+      "text": "AINDA PRECISO ENCONTRAR ________ PARA COMPLETAR O RITUAL DE INVOCAÇÃO DE ________.",
+      "pick": 2
+    },
+    {
+      "id": "b_139",
+      "text": "A MEDICINA ALTERNATIVA ESTÁ AGORA RECONHECENDO OS PODERES CURATIVOS DE ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_140",
+      "text": "IDOSOS TEM CHEIRO DE QUÊ?",
+      "pick": 1
+    },
+    {
+      "id": "b_141",
+      "text": "O SEGREDO PARA MEUS CABELOS SEDOSOS? ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_142",
+      "text": "________ NÃO É NADA QUE ________ NÃO POSSA CONSERTAR.",
+      "pick": 2
+    },
+    {
+      "id": "b_143",
+      "text": "O QUE VOU DEIXAR DE FAZER NA QUARESMA?",
+      "pick": 1
+    },
+    {
+      "id": "b_144",
+      "text": "SE ________ É BOM O BASTANTE PARA ________, ENTÃO É BOM O BASTANTE PRA MIM.",
+      "pick": 2
+    },
+    {
+      "id": "b_145",
+      "text": "EM ROMA, EXISTEM RUMORES QUE O VATICANO POSSUI UMA SALA SECRETA DEDICADA À ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_146",
+      "text": "A MEDICINA ALTERNATIVA AGORA ESTÁ EXPLORANDO OS PODERES CURATIVOS DE ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_147",
+      "text": "________. A NOVA SÉRIE ORIGINAL DO NETFLIX SOBRE ________.",
+      "pick": 2
+    },
+    {
+      "id": "b_148",
+      "text": "DINHEIRO PODE NÃO ME COMPRAR AMOR, MAS PODE ME COMPRAR ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_149",
+      "text": "O QUE OS EUA JOGARAM, DE AVIÃO, ÀS CRIANÇAS DO AFEGANISTÃO?",
+      "pick": 1
+    },
+    {
+      "id": "b_150",
+      "text": "RESOLUÇÃO DA ANAC AGORA PROÍBE ________ EM AERONAVES.",
+      "pick": 1
+    },
+    {
+      "id": "b_151",
+      "text": "________ É PROVAVELMENTE UMA HORCRUX.",
+      "pick": 1
+    },
+    {
+      "id": "b_152",
+      "text": "QUAL A COISA FAVORITA DO SILVIO SANTOS?",
+      "pick": 1
+    },
+    {
+      "id": "b_153",
+      "text": "É UMA PENA QUE AS CRIANÇAS HOJE EM DIA ESTEJAM TODAS ENVOLVIDAS EM ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_154",
+      "text": "PESSOAS BRANCAS GOSTAM DE ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_155",
+      "text": "HISTORIADORES ENCONTRAM DEZENAS DE CADERNOS DE PICASSO COM ESBOÇOS DE ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_156",
+      "text": "EM 1000 ANOS, QUANDO O DINHEIRO DE PAPEL FOR APENAS UMA LEMBRANÇA DISTANTE, ________ SERÁ A NOSSA MOEDA.",
+      "pick": 1
+    },
+    {
+      "id": "b_157",
+      "text": "O QUE EU IREI TRAZER DE VOLTA NO TEMPO PARA CONVENCER AS PESSOAS QUE EU SOU UM MAGO PODEROSO?",
+      "pick": 1
+    },
+    {
+      "id": "b_158",
+      "text": "O QUE VOCÊ ESPERA NÃO ACHAR EM SEU PRATO DE COMIDA CHINESA?",
+      "pick": 1
+    },
+    {
+      "id": "b_159",
+      "text": "CBF PROÍBE ________ POR PROPORCIONAR VANTAGEM DESLEAL AOS JOGADORES.",
+      "pick": 1
+    },
+    {
+      "id": "b_160",
+      "text": "ESSA SEMANA NO MYTHBUSTERS: ________ REALMENTE CAUSA ________?",
+      "pick": 2
+    },
+    {
+      "id": "b_161",
+      "text": "BEBO PRA ESQUECER ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_162",
+      "text": "QUAL É O PRAZER PROIBIDO DO BATMAN?",
+      "pick": 1
+    },
+    {
+      "id": "b_163",
+      "text": "A CBF BANIU ________ DO FUTEBOL POR DAR AOS JOGADORES UMA VANTAGEM INJUSTA.",
+      "pick": 1
+    },
+    {
+      "id": "b_164",
+      "text": "________. TÔ DENTRO!",
+      "pick": 1
+    },
+    {
+      "id": "b_165",
+      "text": "DESCULPE, PROFESSORA, MAS É QUE EU NÃO PUDE TERMINAR O DEVER DE CASA POR CAUSA DE ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_166",
+      "text": "EM UM MUNDO DEVASTADO POR ________, NOSSO ÚNICO CONFORTO É ________.",
+      "pick": 2
+    },
+    {
+      "id": "b_167",
+      "text": "________. AS MINA PIRA, VÉI.",
+      "pick": 1
+    },
+    {
+      "id": "b_168",
+      "text": "O QUE EU TROUXE DO PARAGUAI?",
+      "pick": 1
+    },
+    {
+      "id": "b_169",
+      "text": "JÁ DIZIA O GRANDE PROFETA ________: UMA VIDA SEM ________ É UMA VIDA NÃO VIVIDA.",
+      "pick": 2
+    },
+    {
+      "id": "b_170",
+      "text": "________. VÉI, NA BOA...",
+      "pick": 1
+    },
+    {
+      "id": "b_171",
+      "text": "________? TEM UM APP PRA ISSO.",
+      "pick": 1
+    },
+    {
+      "id": "b_172",
+      "text": "PRA ISSO.",
+      "pick": 1
+    },
+    {
+      "id": "b_173",
+      "text": "EU NUNCA REALMENTE ENTENDI ________ ATÉ EU ENCONTRAR ________.",
+      "pick": 2
+    },
+    {
+      "id": "b_174",
+      "text": "E O PRÊMIO ________ VAI PARA ________.",
+      "pick": 2
+    },
+    {
+      "id": "b_175",
+      "text": "________. APOSTO QUE UM SÓ NÃO TE SATISFAZ!",
+      "pick": 1
+    },
+    {
+      "id": "b_176",
+      "text": "E PARA MEU PRÓXIMO NÚMERO, TIRAREI ________ DE ________.",
+      "pick": 2
+    },
+    {
+      "id": "b_177",
+      "text": "QUAL É MEU ANTI-DROGA?",
+      "pick": 1
+    },
+    {
+      "id": "b_178",
+      "text": "O QUE TROUXE A ORGIA À UMA PARADA BRUSCA?",
+      "pick": 1
+    },
+    {
+      "id": "b_179",
+      "text": "DEUS INVENTOU ________, O DIABO ________.",
+      "pick": 2
+    },
+    {
+      "id": "b_180",
+      "text": "ENQUANTO OS EUA E A URSS COMPETIAM NA CORRIDA ESPACIAL, O GOVERNO BRASILEIRO INVESTIA PESADO EM ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_181",
+      "text": "PAPAI NOEL, EU FUI UM BOM MENINO ESTE ANO, E GOSTARIA DE GANHAR ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_182",
+      "text": "PASSO 1: ________. PASSO 2: ________. PASSO 3: LUCRAR.",
+      "pick": 2
+    },
+    {
+      "id": "b_183",
+      "text": "NO NOVO FILME DA DISNEY, HANNAH MONTANA ENFRENTA ________ PELA PRIMEIRA VEZ.",
+      "pick": 1
+    },
+    {
+      "id": "b_184",
+      "text": "________. E É ASSIM QUE EU QUERO MORRER.",
+      "pick": 1
+    },
+    {
+      "id": "b_185",
+      "text": "QUANDO EU ESTAVA VIAJANDO NO LSD, ________ SEM TRANSFORMOU EM ________.",
+      "pick": 2
+    },
+    {
+      "id": "b_186",
+      "text": "QUAL É MEU PODER SECRETO?",
+      "pick": 1
+    },
+    {
+      "id": "b_187",
+      "text": "EU GOSTARIA DE NÃO TER PERDIDO O MANUAL DE INSTRUÇÕES PARA ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_188",
+      "text": "ERA TANTA LARICA QUE TENTOU COMER ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_189",
+      "text": "QUAL É A DIETA DO MOMENTO?",
+      "pick": 1
+    },
+    {
+      "id": "b_190",
+      "text": "MAS ANTES DE MATÁ-LO, SR. BOND, EU DEVO LHE MOSTRAR ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_191",
+      "text": "________ É UMA LADEIRA ESCORREGADIA QUE LEVA DIRETO PARA ________.",
+      "pick": 2
+    },
+    {
+      "id": "b_192",
+      "text": "O QUE VIN DIESEL TEVE NO JANTAR?",
+      "pick": 1
+    },
+    {
+      "id": "b_193",
+      "text": "ME DESCULPE POLICIAL, EU NÃO VI O SINAL VERMELHO, EU ESTAVA MUITO OCUPADO COM ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_194",
+      "text": "EM UM MUNDO DEVASTADO POR ________, NOSSO ÚNICO CONSOLO É ________.",
+      "pick": 2
+    },
+    {
+      "id": "b_195",
+      "text": "QUANDO O FARAÓ PERMANECEU IMÓVEL, MOISÉS INVOCOU DOS CÉUS A PRAGA DOS ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_196",
+      "text": "A&E APRESENTA ________, A HISTÓRIA DE ________.",
+      "pick": 2
+    },
+    {
+      "id": "b_197",
+      "text": "NUNCA DE FATO ENTENDI ________, ATÉ ENCONTRAR ________.",
+      "pick": 2
+    },
+    {
+      "id": "b_198",
+      "text": "COMO ESTOU MANTENDO MINHA ATUAL RELAÇÃO AMOROSA?",
+      "pick": 1
+    },
+    {
+      "id": "b_199",
+      "text": "O QUE AJUDA O OBAMA A RELAXAR?",
+      "pick": 1
+    },
+    {
+      "id": "b_200",
+      "text": "DIZEM AS MÁS LÍNGUAS QUE O PRATO PREDILETO DO BOLSONARO É ________ RECHEADO COM ________.",
+      "pick": 2
+    },
+    {
+      "id": "b_201",
+      "text": "QUAL É O CÚMULO DA PORQUICE.",
+      "pick": 1
+    },
+    {
+      "id": "b_202",
+      "text": "VINDO PARA A BROADWAY, ESTA TEMPORADA, ________: O MUSICAL.",
+      "pick": 1
+    },
+    {
+      "id": "b_203",
+      "text": "HOJE NA SESSÃO DA TARDE, ________, A HISTÓRIA DE ________.",
+      "pick": 2
+    },
+    {
+      "id": "b_204",
+      "text": "DIZEM QUE EM BANGU 3 SE TROCA DEZ MAÇOS DE CIGARRO POR ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_205",
+      "text": "QUANDO EU FOR BILIONÁRIO, EU VOU ERGUER UMA ESTÁTUA DE 20 METROS PARA COMEMORAR ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_206",
+      "text": "SIM, EU MATEI ________. COMO? ________.",
+      "pick": 2
+    },
+    {
+      "id": "b_207",
+      "text": "DEPOIS DO TERREMOTO, O SEAN PENN LEVOU ________ AO HAITÍ.",
+      "pick": 1
+    },
+    {
+      "id": "b_208",
+      "text": "O QUE ME DÁ GASES INCONTROLÁVEIS?",
+      "pick": 1
+    },
+    {
+      "id": "b_209",
+      "text": "________ + ________ = ________.",
+      "pick": 3
+    },
+    {
+      "id": "b_210",
+      "text": "QUER TROCAR UM QUILO DE ________ NUM LITRO DE ________?",
+      "pick": 2
+    },
+    {
+      "id": "b_211",
+      "text": "EU NÃO SOU COMO O RESTO DE VOCÊS. EU SOU MUITO RICO E OCUPADO PARA ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_212",
+      "text": "FAÇA UM POEMA DE TRÊS VERSOS.",
+      "pick": 1
+    },
+    {
+      "id": "b_213",
+      "text": "ÀS VEZES NO SILÊNCIO DA NOITE, ________ SÓ PENSA EM ________",
+      "pick": 2
+    },
+    {
+      "id": "b_214",
+      "text": "CAI DE BOCA NO MEU ________",
+      "pick": 1
+    },
+    {
+      "id": "b_215",
+      "text": "________. HOJE, NO GLOBO REPÓRTER.",
+      "pick": 1
+    },
+    {
+      "id": "b_216",
+      "text": "SEI QUE NÃO TENHO ÁLIBI, MAS NÃO POSSO SER ACUSADO DE ________ _",
+      "pick": 1
+    },
+    {
+      "id": "b_217",
+      "text": "HOJE EU VOU ________",
+      "pick": 1
+    },
+    {
+      "id": "b_218",
+      "text": "BANDIDO BOM É BANDIDO ________",
+      "pick": 1
+    },
+    {
+      "id": "b_219",
+      "text": "GOSTO DE MORDER ________ QUANDO ESTOU NERVOSO.",
+      "pick": 1
+    },
+    {
+      "id": "b_220",
+      "text": "FILHO, A MAMÃE E O PAPAI SE AMAM, MAS A GENTE VAI SE SEPARAR PORQUE APARENTEMENTE ELA GOSTA MAIS DE ________",
+      "pick": 1
+    },
+    {
+      "id": "b_221",
+      "text": "________. QUEM NUNCA?",
+      "pick": 1
+    },
+    {
+      "id": "b_222",
+      "text": "\"SINTO MUITO\", DISSE O MÉDICO, \"ELE NÃO SOBREVIVEU. MORREU DE ________.\"",
+      "pick": 1
+    },
+    {
+      "id": "b_223",
+      "text": "MEU PLANO DE DOMINAÇÃO MUNDIAL COMEÇA COM ________",
+      "pick": 1
+    },
+    {
+      "id": "b_224",
+      "text": "VENCEDOR DO CARNAVAL 2032: UNIDOS DO ________",
+      "pick": 1
+    },
+    {
+      "id": "b_225",
+      "text": "LAMBER ________ É BOM DEMAIS!",
+      "pick": 1
+    },
+    {
+      "id": "b_226",
+      "text": "ACORDEI COM ________ FAZENDO ________ .",
+      "pick": 2
+    },
+    {
+      "id": "b_227",
+      "text": "________ TÁ CAINDO MAIS QUE O NEYMAR.",
+      "pick": 1
+    },
+    {
+      "id": "b_228",
+      "text": "ALEXANDRE, O GRANDE DOMINOU TODO O MUNDO CONHECIDO MAS PERDEU PRA ________",
+      "pick": 1
+    },
+    {
+      "id": "b_229",
+      "text": "HOJE, NA SESSÃO DA TARDE, ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_230",
+      "text": "QUANDO O MUSEU QUEIMOU, FORAM COM ELE: LIVROS, ________ E UM DINOSSAURO.",
+      "pick": 1
+    },
+    {
+      "id": "b_231",
+      "text": "SEGUNDO PESQUISADORES DA UNIVERSIDADE DE MASSACHUSETTS, ________ É BOM PARA ________",
+      "pick": 2
+    },
+    {
+      "id": "b_232",
+      "text": "EU TE BATIZO EM NOME DO ________ .",
+      "pick": 1
+    },
+    {
+      "id": "b_233",
+      "text": "________ É A MAIOR MENTIRA DO BRASIL.",
+      "pick": 1
+    },
+    {
+      "id": "b_234",
+      "text": "VOCÊ É MAIS INÚTIL QUE ________",
+      "pick": 1
+    },
+    {
+      "id": "b_235",
+      "text": "________ NOS OLHOS DOS OUTROS É REFRESCO.",
+      "pick": 1
+    },
+    {
+      "id": "b_236",
+      "text": "________: MAIS POLÊMICO QUE MAMILOS",
+      "pick": 1
+    },
+    {
+      "id": "b_237",
+      "text": "JESUS MORREU NA CRUZ PARA QUE VOCÊ POSSA ________",
+      "pick": 1
+    },
+    {
+      "id": "b_238",
+      "text": "EU PONHO MINHA MÃO NO FOGO POR (PELO) ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_239",
+      "text": "COM O WHATSAPP BLOQUEADO, SÓ ME RESTA ________",
+      "pick": 1
+    },
+    {
+      "id": "b_240",
+      "text": "VOCÊ SERIA PRESO POR CAUSA DE....?",
+      "pick": 1
+    },
+    {
+      "id": "b_241",
+      "text": "ATÉ TU ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_242",
+      "text": "________ DEIXOU SAUDADES.",
+      "pick": 1
+    },
+    {
+      "id": "b_243",
+      "text": "QUAL A SUA MAIOR VERGONHA NO COLÉGIO?",
+      "pick": 1
+    },
+    {
+      "id": "b_244",
+      "text": "VOCÊ ESTÁ PRESO POR ________ .",
+      "pick": 1
+    },
+    {
+      "id": "b_245",
+      "text": "SARRADA NO ________",
+      "pick": 1
+    },
+    {
+      "id": "b_246",
+      "text": "VOCÊ SE ORGULHA DE?",
+      "pick": 1
+    },
+    {
+      "id": "b_247",
+      "text": "TENHO UM ORGASMO OUVINDO ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_248",
+      "text": "AS COTAS EXISTEM PARA ________",
+      "pick": 1
+    },
+    {
+      "id": "b_249",
+      "text": "AH, NÃO CONSIGO COMEÇAR MEU DIA SEM ________ E ________",
+      "pick": 2
+    },
+    {
+      "id": "b_250",
+      "text": "NÓS SABEMOS QUE SUA ALMA FOI CONDENADA POR ________ .",
+      "pick": 1
+    },
+    {
+      "id": "b_251",
+      "text": "AS MARGENS DO RIO IPIRANGA, DOM PEDRO I GRITOU: ________ OU MORTE",
+      "pick": 1
+    },
+    {
+      "id": "b_252",
+      "text": "________ X ________, OS DOIS À 80KM/H. TU ACHA QUE VAI FICAR UM DO LADO DO OUTRO?",
+      "pick": 2
+    },
+    {
+      "id": "b_253",
+      "text": "NOTÍCIA URGENTE: ________ FOI ENCONTRADO ________ .",
+      "pick": 2
+    },
+    {
+      "id": "b_254",
+      "text": "ESTUPRA MAS NÃO ________",
+      "pick": 1
+    },
+    {
+      "id": "b_255",
+      "text": "PRA FECHAR O STF SÓ SÃO NECESSÁRIOS UM CABO, UM SOLDADO E ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_256",
+      "text": "PARABÉNS PRA VOCÊ, NESSA DATA QUERIDA, MUITAS FELICIDADES, MUITOS ________",
+      "pick": 1
+    },
+    {
+      "id": "b_257",
+      "text": "DE GRAÇA ATÉ ________",
+      "pick": 1
+    },
+    {
+      "id": "b_258",
+      "text": "UMA POC PERFEITA É UMA POC",
+      "pick": 1
+    },
+    {
+      "id": "b_259",
+      "text": "HÁ TRÊS COISAS NO MUNDO QUE O HOMEM NÃO COME DE COLHER: RAPADURA, MELANCIA E ________",
+      "pick": 1
+    },
+    {
+      "id": "b_260",
+      "text": "ILARI ILARIÊ Ô Ô Ô, É A TURMA DA XUXA QUE VAI ________",
+      "pick": 1
+    },
+    {
+      "id": "b_261",
+      "text": "O MAIS IMPORTANTE É QUE TODOS CONCORDAMOS QUE NOSSO ATUAL PRESIDENTE É ________",
+      "pick": 1
+    },
+    {
+      "id": "b_262",
+      "text": "TODA DIA EU FAÇO A MESMA COISA: ACORDO DE MANHÃ E ________",
+      "pick": 1
+    },
+    {
+      "id": "b_263",
+      "text": "NUNCA NA HISTÓRIA DESSE PAÍS EU VI ________",
+      "pick": 1
+    },
+    {
+      "id": "b_264",
+      "text": "O DIA FOI SALVO GRAÇAS À/AO",
+      "pick": 1
+    },
+    {
+      "id": "b_265",
+      "text": "SE EU FOSSE ________, COMERIA APENAS ________",
+      "pick": 2
+    },
+    {
+      "id": "b_266",
+      "text": "PREPARA! QUE AGORA É HORA DO ________",
+      "pick": 1
+    },
+    {
+      "id": "b_267",
+      "text": "SÓ MUDAREMOS O MUNDO QUANDO SAIRMOS ÀS RUAS PARA PROTESTAR SOBRE ________",
+      "pick": 1
+    },
+    {
+      "id": "b_268",
+      "text": "O QUE POUCOS SABEM É QUE CAPITU TRAIU BENTINHO COM ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_269",
+      "text": "SOU TODA NATURAL, BONITA PRA CARAMBA, MEU ________ É DURO",
+      "pick": 1
+    },
+    {
+      "id": "b_270",
+      "text": "O ESTOPIM DA PRÓXIMA GUERRA MUNDIAL, SEM DÚVIDAS, SERÁ ________",
+      "pick": 1
+    },
+    {
+      "id": "b_271",
+      "text": "O T, DE LGBT, SIGNIFICA ________",
+      "pick": 1
+    },
+    {
+      "id": "b_272",
+      "text": "...NA QUARTA VEZ, EU DEI UMA FRAQUEJADA E NASCEU ________",
+      "pick": 1
+    },
+    {
+      "id": "b_273",
+      "text": "O PRÓXIMO PERSONAGEM BRASILEIRO EM OVERWATCH SERÁ:",
+      "pick": 1
+    },
+    {
+      "id": "b_274",
+      "text": "AMOR, EU SÓ TE DEI ________ PORQUE EU TE AMO!",
+      "pick": 1
+    },
+    {
+      "id": "b_275",
+      "text": "________? A PENA DEVERIA SER FUZILAMENTO!",
+      "pick": 1
+    },
+    {
+      "id": "b_276",
+      "text": "TODA VEZ QUE EU VIAJAVA PELA ESTRADA DE OURO FINO. DE LONGE EU AVISTAVA A FIGURA DE ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_277",
+      "text": "SE ________, NÃO ________",
+      "pick": 2
+    },
+    {
+      "id": "b_278",
+      "text": "FALTA TECNOLOGIA PARA ESTOCAR ________",
+      "pick": 1
+    },
+    {
+      "id": "b_279",
+      "text": "EU NÃO ACREDITO, O PRESIDENTE PERGUNTOU O QUE É ________ NO TWITTER",
+      "pick": 1
+    },
+    {
+      "id": "b_280",
+      "text": "O QUE FAZER HOJE SE O MUNDO FOSSE ACABAR AMANHÃ?",
+      "pick": 1
+    },
+    {
+      "id": "b_281",
+      "text": "VAMOS SAUDAR A MANDIOCA, O MILHO E ________, QUE FORAM ESSENCIAIS PARA O DESENVOLVIMENTO DE TODA A CIVILIZAÇÃO HUMANA",
+      "pick": 1
+    },
+    {
+      "id": "b_282",
+      "text": "VEM AÍ, A NOVA NOVELA DAS SETE:",
+      "pick": 1
+    },
+    {
+      "id": "b_283",
+      "text": "MEU FILME FAVORITO É AQUELE QUE TEM ________",
+      "pick": 1
+    },
+    {
+      "id": "b_284",
+      "text": "ATRÁS DE TODA CRIANÇA TEM ________",
+      "pick": 1
+    },
+    {
+      "id": "b_285",
+      "text": "O HOMEM HÉTERO PODE SER COMPARADO À",
+      "pick": 1
+    },
+    {
+      "id": "b_286",
+      "text": "________",
+      "pick": 1
+    },
+    {
+      "id": "b_287",
+      "text": "VOCÊ É TÃO BONITA, PENA QUE GOSTA DE",
+      "pick": 1
+    },
+    {
+      "id": "b_288",
+      "text": "VAMOS LIBERAR AS ARMAS PARA O CIDADÃO DE BEM",
+      "pick": 1
+    },
+    {
+      "id": "b_289",
+      "text": "MATAR ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_290",
+      "text": "________ É O MOTIVO",
+      "pick": 1
+    },
+    {
+      "id": "b_291",
+      "text": "DE BOLSONARO ODIAR ________",
+      "pick": 1
+    },
+    {
+      "id": "b_292",
+      "text": "\"DIZ AÍ JOÃOZINHO O QUE CÊ VAI FAZER?\" \"EU VOU USAR",
+      "pick": 1
+    },
+    {
+      "id": "b_293",
+      "text": "________ PRA ME",
+      "pick": 1
+    },
+    {
+      "id": "b_294",
+      "text": "DEFENDER!\"",
+      "pick": 1
+    },
+    {
+      "id": "b_295",
+      "text": "Eu como ________ no café da manhã. Tem gosto de frango.",
+      "pick": 1
+    },
+    {
+      "id": "b_296",
+      "text": "________ é lindo como ________.",
+      "pick": 2
+    },
+    {
+      "id": "b_297",
+      "text": "50 tons de ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_298",
+      "text": "Toc, toc. Quem é? ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_299",
+      "text": "________. Véi, na boa.",
+      "pick": 1
+    },
+    {
+      "id": "b_300",
+      "text": "Ontem eu vi a Anitta no ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_301",
+      "text": "Globo Filmes apresenta: ________, a história de ________.",
+      "pick": 2
+    },
+    {
+      "id": "b_302",
+      "text": "Estou louco para ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_303",
+      "text": "Pessoas idosas tem cheiro de ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_304",
+      "text": "Racismo é bom para ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_305",
+      "text": "Comprei um PS2 mas tive que dar ________ para conseguir comprar uma.",
+      "pick": 1
+    },
+    {
+      "id": "b_306",
+      "text": "É algum crime ________?",
+      "pick": 1
+    },
+    {
+      "id": "b_307",
+      "text": "Não sabia que ________ era tão bonito.",
+      "pick": 1
+    },
+    {
+      "id": "b_308",
+      "text": "Quem nunca teve ________?",
+      "pick": 1
+    },
+    {
+      "id": "b_309",
+      "text": "Bandido bom é ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_310",
+      "text": "A Copa de 2014 foi uma ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_311",
+      "text": "Eu brochei por causa de ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_312",
+      "text": "Dadinho é o caralho. Meu nome agora é ________, porra!",
+      "pick": 1
+    },
+    {
+      "id": "b_313",
+      "text": "Eu tentei tirar uma foto com a Xuxa mas não deu porque ________ tava lá.",
+      "pick": 1
+    },
+    {
+      "id": "b_314",
+      "text": "A minha mulher é uma puta porque ela não me fez ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_315",
+      "text": "Abri uma loja para vender ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_316",
+      "text": "Um dia vou ficar rico com este simples truque de ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_317",
+      "text": "Tentei roubar dinheiro mas o Super ________ apareceu e bateu em mim.",
+      "pick": 1
+    },
+    {
+      "id": "b_318",
+      "text": "Lula é inocente porque ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_319",
+      "text": "Não sei nadar mas não é problema porque tenho um ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_320",
+      "text": "Não há nada mais foda que ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_321",
+      "text": "Descobri que o Skype também serve para ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_322",
+      "text": "Gostei de ________. Faria de novo.",
+      "pick": 1
+    },
+    {
+      "id": "b_323",
+      "text": "Flagrei meu filho se preparando para ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_324",
+      "text": "Droga! Estou cercado de ________!",
+      "pick": 1
+    },
+    {
+      "id": "b_325",
+      "text": "Homem que é homem não vai a ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_326",
+      "text": "Você me pediu hamburguer. Eu te trouxe ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_327",
+      "text": "Meu mais novo esporte é ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_328",
+      "text": "As nudes do ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_329",
+      "text": "Olha este epokémon que peguei! É o ________!",
+      "pick": 1
+    },
+    {
+      "id": "b_330",
+      "text": "Quero agradecer ao meu amigo ________ por ________.",
+      "pick": 2
+    },
+    {
+      "id": "b_331",
+      "text": "Quem me dera ter aqui um ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_332",
+      "text": "________ e ________: combinação explosiva.",
+      "pick": 2
+    },
+    {
+      "id": "b_333",
+      "text": "Nova moda da nação: ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_334",
+      "text": "Quando penso em ________, penso sempre em ________.",
+      "pick": 2
+    },
+    {
+      "id": "b_335",
+      "text": "A nossa relação acabou porque ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_336",
+      "text": "Um novo estudo revolucionário provou que os ratos são capazes de ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_337",
+      "text": "Eras capaz de piratear um ________?",
+      "pick": 1
+    },
+    {
+      "id": "b_338",
+      "text": "Dinheiro não compra amor, mas compra ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_339",
+      "text": "No 8º dia, o Senhor criou ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_340",
+      "text": "Qual o mais crocante? ________ ou ________?",
+      "pick": 2
+    },
+    {
+      "id": "b_341",
+      "text": "Que som foi aquele? ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_342",
+      "text": "Quem participou na orgia do vizinho? ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_343",
+      "text": "Ela está um pouco doente. Acho que tem ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_344",
+      "text": "________ devia de ser ilegal.",
+      "pick": 1
+    },
+    {
+      "id": "b_345",
+      "text": "________ é uma boa ideia para um excelente filme de família.",
+      "pick": 1
+    },
+    {
+      "id": "b_346",
+      "text": "________ nunca fez algo de errado.",
+      "pick": 1
+    },
+    {
+      "id": "b_347",
+      "text": "Esses dois me fazem lembrar ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_348",
+      "text": "O que é que garante uma noite na cama com alguém? ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_349",
+      "text": "Já a seguir, na SporTV: o Torneio Mundial de ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_350",
+      "text": "Odeio ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_351",
+      "text": "Para sermos melhores pessoas, devemos fazer ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_352",
+      "text": "Quando eu crescer quero ser ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_353",
+      "text": "Já não faço ________ à anos.",
+      "pick": 1
+    },
+    {
+      "id": "b_354",
+      "text": "Vou pedir ao Papai Noel ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_355",
+      "text": "O meu maior sonho é ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_356",
+      "text": "A grande novidade do Iphone 8 é ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_357",
+      "text": "Durante sexo, gosto de pensar em ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_358",
+      "text": "Ciência nunca vai explicar ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_359",
+      "text": "O que é que parou a orgia? ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_360",
+      "text": "Eu sempre dependi de ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_361",
+      "text": "Não sou capaz de sair de casa sem ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_362",
+      "text": "Armas não matam pessoas. ________, sim.",
+      "pick": 1
+    },
+    {
+      "id": "b_363",
+      "text": "Escovo meus dentes com ________.",
+      "pick": 1
+    },
+    {
+      "id": "b_364",
+      "text": "O familiar sabor a ________.",
+      "pick": 1
+    }
+  ],
+  "whiteCards": [
+    {
+      "id": "w_1",
+      "text": "UMA MALDIÇÃO CIGANA"
+    },
+    {
+      "id": "w_2",
+      "text": "CAGADAS DE FOGO"
+    },
+    {
+      "id": "w_3",
+      "text": "MAOMÉ (LOUVADO SEJA SEU NOME)"
+    },
+    {
+      "id": "w_4",
+      "text": "UM MOMENTO DE SILÊNCIO"
+    },
+    {
+      "id": "w_5",
+      "text": "A MERDA DA MINHA VIDA"
+    },
+    {
+      "id": "w_6",
+      "text": "SEXO SURPRESA"
+    },
+    {
+      "id": "w_7",
+      "text": "UM FESTIVAL DA LINGUIÇA"
+    },
+    {
+      "id": "w_8",
+      "text": "UM HOMEM À BEIRA DO ORGASMO"
+    },
+    {
+      "id": "w_9",
+      "text": "X-TUDÃO"
+    },
+    {
+      "id": "w_10",
+      "text": "UM POLICIAL HONESTO SEM NADA A PERDER"
+    },
+    {
+      "id": "w_11",
+      "text": "COZINHAR ELES VIVOS, PORQUE O MEDO ADICIONA SABOR"
+    },
+    {
+      "id": "w_12",
+      "text": "BEBER SOZINHO"
+    },
+    {
+      "id": "w_13",
+      "text": "ESCASSEZ DE COMIDA"
+    },
+    {
+      "id": "w_14",
+      "text": "ACIDENTALMENTE ENVIAR NUDES PARA A SUA MÃE"
+    },
+    {
+      "id": "w_15",
+      "text": "MÃO FURADA"
+    },
+    {
+      "id": "w_16",
+      "text": "BACTÉRIA CARNÍVORA"
+    },
+    {
+      "id": "w_17",
+      "text": "MÃE RÚSSIA"
+    },
+    {
+      "id": "w_18",
+      "text": "MÚLTIPLAS FACADAS"
+    },
+    {
+      "id": "w_19",
+      "text": "ERVA PARA AUMENTAR A LIBIDO"
+    },
+    {
+      "id": "w_20",
+      "text": "MEDIÇÃO DE PÊNIS"
+    },
+    {
+      "id": "w_21",
+      "text": "SUJAR-SE"
+    },
+    {
+      "id": "w_22",
+      "text": "NÃO DAR A MÍNIMA PARA O TERCEIRO MUNDO"
+    },
+    {
+      "id": "w_23",
+      "text": "UM CHINÊS ESCONDIDO NO MEU PORTA-MALA"
+    },
+    {
+      "id": "w_24",
+      "text": "ABUSO INFANTIL"
+    },
+    {
+      "id": "w_25",
+      "text": "SEXTING"
+    },
+    {
+      "id": "w_26",
+      "text": "ACIDENTALMENTE RECEBER NUDES DA SUA MÃE"
+    },
+    {
+      "id": "w_27",
+      "text": "CORDÃO ANAL COM NÓDULOS E ALÇA DE SEGURANÇA"
+    },
+    {
+      "id": "w_28",
+      "text": "TRANSMUTAÇÃO CORPÓREA"
+    },
+    {
+      "id": "w_29",
+      "text": "O EX-PRESIDENTE LUIZ INÁCIO LULA DA SILVA"
+    },
+    {
+      "id": "w_30",
+      "text": "VÍTIMAS CIVIS"
+    },
+    {
+      "id": "w_31",
+      "text": "ATRIZES PORNÔ"
+    },
+    {
+      "id": "w_32",
+      "text": "SONHOS MOLHADOS"
+    },
+    {
+      "id": "w_33",
+      "text": "COITO INTERROMPIDO"
+    },
+    {
+      "id": "w_34",
+      "text": "CRIANCINHAS"
+    },
+    {
+      "id": "w_35",
+      "text": "MIJAR EM TUDO QUE VOCÊ AMA"
+    },
+    {
+      "id": "w_36",
+      "text": "HOMEM DE FERRO"
+    },
+    {
+      "id": "w_37",
+      "text": "ESTUPRAR E SAQUEAR"
+    },
+    {
+      "id": "w_38",
+      "text": "2 GIRLS, 1 CUP. CARNE DE CAVALO"
+    },
+    {
+      "id": "w_39",
+      "text": "72 VIRGENS"
+    },
+    {
+      "id": "w_40",
+      "text": "A REPÚBLICA CISPLATINA"
+    },
+    {
+      "id": "w_41",
+      "text": "UM CHAPÉU SUPER TRANSADO"
+    },
+    {
+      "id": "w_42",
+      "text": "FUZILAMENTO"
+    },
+    {
+      "id": "w_43",
+      "text": "NECROFILIA"
+    },
+    {
+      "id": "w_44",
+      "text": "KIM JONG-IL"
+    },
+    {
+      "id": "w_45",
+      "text": "UM PARADOXO DE VIAGEM NO TEMPO"
+    },
+    {
+      "id": "w_46",
+      "text": "ROUBO DE TÚMULOS"
+    },
+    {
+      "id": "w_47",
+      "text": "UM PELO PUBIANO"
+    },
+    {
+      "id": "w_48",
+      "text": "AUTÊNTICA COZINHA MEXICANA"
+    },
+    {
+      "id": "w_49",
+      "text": "CLAREAMENTO ANAL"
+    },
+    {
+      "id": "w_50",
+      "text": "FRATERNIDADES JUDIAS"
+    },
+    {
+      "id": "w_51",
+      "text": "CINTILANTE"
+    },
+    {
+      "id": "w_52",
+      "text": "MÚLTIPLOS FERIMENTOS DE FACA"
+    },
+    {
+      "id": "w_53",
+      "text": "COTAS RACIAIS"
+    },
+    {
+      "id": "w_54",
+      "text": "CONSULTORES"
+    },
+    {
+      "id": "w_55",
+      "text": "O PROFETA MAOMÉ"
+    },
+    {
+      "id": "w_56",
+      "text": "(QUE ALÁ O ABENÇOE)"
+    },
+    {
+      "id": "w_57",
+      "text": "FAZER AQUILO NA BUNDA"
+    },
+    {
+      "id": "w_58",
+      "text": "DÍVIDA MONSTRUOSA"
+    },
+    {
+      "id": "w_59",
+      "text": "EQUIPAR MENDIGOS COM PONTOS DE ACESSO WI-FI"
+    },
+    {
+      "id": "w_60",
+      "text": "ENSINAR UM ROBÔ A AMAR"
+    },
+    {
+      "id": "w_61",
+      "text": "PROBLEMAS COM O PAI NA INFÂNCIA"
+    },
+    {
+      "id": "w_62",
+      "text": "EU"
+    },
+    {
+      "id": "w_63",
+      "text": "SER FODA"
+    },
+    {
+      "id": "w_64",
+      "text": "BALBÚRDIA"
+    },
+    {
+      "id": "w_65",
+      "text": "BÓRIS, A MARRETA"
+    },
+    {
+      "id": "w_66",
+      "text": "DE AMOR SOVIÉTICA"
+    },
+    {
+      "id": "w_67",
+      "text": "UM MOINHO DE VENTO CHEIO DE CADÁVERES"
+    },
+    {
+      "id": "w_68",
+      "text": "DENTRO EM BREVE"
+    },
+    {
+      "id": "w_69",
+      "text": "SUBJUGAR UM URSO PARDO E TORNÁ-LO SUA ESPOSA"
+    },
+    {
+      "id": "w_70",
+      "text": "TODDYNHO"
+    },
+    {
+      "id": "w_71",
+      "text": "CHICOTEAR UM ESCRAVO DESOBEDIENTE"
+    },
+    {
+      "id": "w_72",
+      "text": "VESTIR ROUPA ÍNTIMA AO AVESSO PRA ECONOMIZAR UMA LAVADA"
+    },
+    {
+      "id": "w_73",
+      "text": "DEIXAR O LUSTRE CAIR SOBRE SEUS INIMIGOS ENQUANTO A OUTRA PONTA DA CORDA TE LANÇA PARA CIMA"
+    },
+    {
+      "id": "w_74",
+      "text": "A MISTURA DAS RAÇAS"
+    },
+    {
+      "id": "w_75",
+      "text": "UM RAIO DA MORTE"
+    },
+    {
+      "id": "w_76",
+      "text": "O EX-PRESIDENTE MICHEL TEMER"
+    },
+    {
+      "id": "w_77",
+      "text": "ESTUPIDEZ INCONCEBÍVEL"
+    },
+    {
+      "id": "w_78",
+      "text": "TETO DE VIDRO"
+    },
+    {
+      "id": "w_79",
+      "text": "NUDEZ FRONTAL"
+    },
+    {
+      "id": "w_80",
+      "text": "LUZ DO SOL E ARCO-ÍRIS"
+    },
+    {
+      "id": "w_81",
+      "text": "UM CONGELADOR CHEIO DE ÓRGÃOS"
+    },
+    {
+      "id": "w_82",
+      "text": "INJEÇÕES HORMONAIS"
+    },
+    {
+      "id": "w_83",
+      "text": "A VIOLAÇÃO DOS NOSSOS MAIS BÁSICOS DIREITOS"
+    },
+    {
+      "id": "w_84",
+      "text": "O SONHO AMERICANO"
+    },
+    {
+      "id": "w_85",
+      "text": "PÔR UM OVO"
+    },
+    {
+      "id": "w_86",
+      "text": "BOTAR COM A PAU"
+    },
+    {
+      "id": "w_87",
+      "text": "NA MESA"
+    },
+    {
+      "id": "w_88",
+      "text": "BARRIGA DE CHOPP"
+    },
+    {
+      "id": "w_89",
+      "text": "ASSISTIR TV GLOBINHO PELADO(A)"
+    },
+    {
+      "id": "w_90",
+      "text": "OS TERRORISTAS"
+    },
+    {
+      "id": "w_91",
+      "text": "QUANDO VOCÊ PEIDA E SAI MAIS DO QUE DEVIA"
+    },
+    {
+      "id": "w_92",
+      "text": "FINGIR QUE SE IMPORTA"
+    },
+    {
+      "id": "w_93",
+      "text": "A MINORIA"
+    },
+    {
+      "id": "w_94",
+      "text": "PEGAR DE VOLTA O QUE FOI DADO"
+    },
+    {
+      "id": "w_95",
+      "text": "PAGAR MICO EM PÚBLICO"
+    },
+    {
+      "id": "w_96",
+      "text": "A ELITE BRANCA"
+    },
+    {
+      "id": "w_97",
+      "text": "BEBÊS MORTOS"
+    },
+    {
+      "id": "w_98",
+      "text": "COMPARTILHAR AGULHAS"
+    },
+    {
+      "id": "w_99",
+      "text": "EMOÇÕES"
+    },
+    {
+      "id": "w_100",
+      "text": "PREPÚCIO"
+    },
+    {
+      "id": "w_101",
+      "text": "MELECA DE NARIZ"
+    },
+    {
+      "id": "w_102",
+      "text": "ASSASSINATO VEICULAR"
+    },
+    {
+      "id": "w_103",
+      "text": "SOLOS DE SAXOFONE"
+    },
+    {
+      "id": "w_104",
+      "text": "A INEVITÁVEL MORTE DO UNIVERSO"
+    },
+    {
+      "id": "w_105",
+      "text": "A DITADURA MILITAR"
+    },
+    {
+      "id": "w_106",
+      "text": "ITALIANOS"
+    },
+    {
+      "id": "w_107",
+      "text": "O MILAGRE DO PARTO"
+    },
+    {
+      "id": "w_108",
+      "text": "AUTISMO"
+    },
+    {
+      "id": "w_109",
+      "text": "UM FETO"
+    },
+    {
+      "id": "w_110",
+      "text": "O APOCALIPSE"
+    },
+    {
+      "id": "w_111",
+      "text": "UM PINTO GRANDE"
+    },
+    {
+      "id": "w_112",
+      "text": "E NEGRO"
+    },
+    {
+      "id": "w_113",
+      "text": "DISPARAR UMA ESPINGARDA PARA O ALTO ENQUANTO TREPA COM UMA CABRA QUE ESTÁ AOS BERROS"
+    },
+    {
+      "id": "w_114",
+      "text": "PASSAR O RODO"
+    },
+    {
+      "id": "w_115",
+      "text": "EDITAR A WIKIPÉDIA PARA GANHAR UMA DISCUSSÃO"
+    },
+    {
+      "id": "w_116",
+      "text": "GUGU"
+    },
+    {
+      "id": "w_117",
+      "text": "UMA PENTADA VIOLENTA"
+    },
+    {
+      "id": "w_118",
+      "text": "UM RIFLE DE ASSALTO"
+    },
+    {
+      "id": "w_119",
+      "text": "AMPUTADOS"
+    },
+    {
+      "id": "w_120",
+      "text": "NO GRAU"
+    },
+    {
+      "id": "w_121",
+      "text": "FICAR PUTO A PONTO DE TER UMA EREÇÃO"
+    },
+    {
+      "id": "w_122",
+      "text": "EUGENIA"
+    },
+    {
+      "id": "w_123",
+      "text": "O PRIVILÉGIO DE SER BRANCO"
+    },
+    {
+      "id": "w_124",
+      "text": "INCESTO"
+    },
+    {
+      "id": "w_125",
+      "text": "O STATUS DE MINHA"
+    },
+    {
+      "id": "w_126",
+      "text": "RELAÇÃO"
+    },
+    {
+      "id": "w_127",
+      "text": "DEVERES DA ESPOSA"
+    },
+    {
+      "id": "w_128",
+      "text": "UM PINTO MAIOR E MAIS NEGRO"
+    },
+    {
+      "id": "w_129",
+      "text": "NICOLAS CAGE"
+    },
+    {
+      "id": "w_130",
+      "text": "RECATADA"
+    },
+    {
+      "id": "w_131",
+      "text": "O MAIOR E MAIS NEGRO PINTO"
+    },
+    {
+      "id": "w_132",
+      "text": "ABELHAS"
+    },
+    {
+      "id": "w_133",
+      "text": "UMA VIAGEM PARA PELOTAS"
+    },
+    {
+      "id": "w_134",
+      "text": "FAZER A COISA CERTA"
+    },
+    {
+      "id": "w_135",
+      "text": "EROTISMO BASEADO EM HARRY POTTER"
+    },
+    {
+      "id": "w_136",
+      "text": "DESODORANTE AXE"
+    },
+    {
+      "id": "w_137",
+      "text": "ESCRAVIZAR A PRÓPRIA FAMÍLIA"
+    },
+    {
+      "id": "w_138",
+      "text": "FACULDADE"
+    },
+    {
+      "id": "w_139",
+      "text": "O SANGUE DE CRISTO"
+    },
+    {
+      "id": "w_140",
+      "text": "UM LINDO NAZICÓRNIO"
+    },
+    {
+      "id": "w_141",
+      "text": "FICAR BÊBADO AO BOCHECHAR ANTI-SÉPTICO BUCAL"
+    },
+    {
+      "id": "w_142",
+      "text": "HORRIVEIS ACIDENTES CAUSADO POR DEPILAÇÃO A LASER"
+    },
+    {
+      "id": "w_143",
+      "text": "SER UM IMBECIL COM CRIANÇAS"
+    },
+    {
+      "id": "w_144",
+      "text": "NAZISTAS"
+    },
+    {
+      "id": "w_145",
+      "text": "BATMAN!"
+    },
+    {
+      "id": "w_146",
+      "text": "PEIDO MOLHADO"
+    },
+    {
+      "id": "w_147",
+      "text": "200 GRAMAS DE DOCE HEROÍNA PRETA MEXICANA"
+    },
+    {
+      "id": "w_148",
+      "text": "AGRICULTURA"
+    },
+    {
+      "id": "w_149",
+      "text": "ATAQUES DE VELOCIRAPTOR"
+    },
+    {
+      "id": "w_150",
+      "text": "STEPHEN HAWKING DIZENDO COISAS OBSCENAS"
+    },
+    {
+      "id": "w_151",
+      "text": "UM MONGOLÓIDE VIGOROSO"
+    },
+    {
+      "id": "w_152",
+      "text": "VER A VOVÓ PELADA"
+    },
+    {
+      "id": "w_153",
+      "text": "PAIS MORTOS"
+    },
+    {
+      "id": "w_154",
+      "text": "SELEÇÃO NATURAL"
+    },
+    {
+      "id": "w_155",
+      "text": "ESCONDER UMA"
+    },
+    {
+      "id": "w_156",
+      "text": "EREÇÃO"
+    },
+    {
+      "id": "w_157",
+      "text": "PERMANÊNCIA DO OBJETO"
+    },
+    {
+      "id": "w_158",
+      "text": "ABORTO CLANDESTINO"
+    },
+    {
+      "id": "w_159",
+      "text": "MAMILOS"
+    },
+    {
+      "id": "w_160",
+      "text": "POLEGARES OPOSITORES"
+    },
+    {
+      "id": "w_161",
+      "text": "COMER TODOS OS DOCES QUE DEVERIAM SER VENDIDOS NA CAMPANHA DE CARIDADE"
+    },
+    {
+      "id": "w_162",
+      "text": "UM ALUNO DE HUMANAS"
+    },
+    {
+      "id": "w_163",
+      "text": "QUESTÕES RACISTAS EM VESTIBULAR"
+    },
+    {
+      "id": "w_164",
+      "text": "OS BRAÇOS DA DILMA"
+    },
+    {
+      "id": "w_165",
+      "text": "NUDEZ FRONTAL COMPLETA"
+    },
+    {
+      "id": "w_166",
+      "text": "FALAR ABOBRINHA"
+    },
+    {
+      "id": "w_167",
+      "text": "O JOGO WORLD OF WARCRAFT"
+    },
+    {
+      "id": "w_168",
+      "text": "A EX-NAMORADA DO AMIGO"
+    },
+    {
+      "id": "w_169",
+      "text": "MOTOSSERRAS"
+    },
+    {
+      "id": "w_170",
+      "text": "COBIÇAR A MULHER DO PRÓXIMO"
+    },
+    {
+      "id": "w_171",
+      "text": "HERPES LABIAL"
+    },
+    {
+      "id": "w_172",
+      "text": "SILVIO SANTOS"
+    },
+    {
+      "id": "w_173",
+      "text": "OBESIDADE"
+    },
+    {
+      "id": "w_174",
+      "text": "UM ALUNO DE EXATAS"
+    },
+    {
+      "id": "w_175",
+      "text": "CONCURSOS DE BELEZA PARA CRIANÇAS"
+    },
+    {
+      "id": "w_176",
+      "text": "UM CLIPE HOMO-ERÓTICO SOBRE VOLEIBOL"
+    },
+    {
+      "id": "w_177",
+      "text": "GANDALF"
+    },
+    {
+      "id": "w_178",
+      "text": "EXPLOSÕES"
+    },
+    {
+      "id": "w_179",
+      "text": "TÉTANO"
+    },
+    {
+      "id": "w_180",
+      "text": "MASTURBAR O PÊNIS ALHEIO"
+    },
+    {
+      "id": "w_181",
+      "text": "CHEIRAR COLA"
+    },
+    {
+      "id": "w_182",
+      "text": "EXIBIÇÃO PARA FINS DE ACASALAMENTO"
+    },
+    {
+      "id": "w_183",
+      "text": "O ARREBATAMENTO"
+    },
+    {
+      "id": "w_184",
+      "text": "REPRESSÃO"
+    },
+    {
+      "id": "w_185",
+      "text": "TORÇÃO TESTICULAR"
+    },
+    {
+      "id": "w_186",
+      "text": "SER UM BABACA ATIVO-AGRESSIVO"
+    },
+    {
+      "id": "w_187",
+      "text": "BOA NOITE, CINDERELA"
+    },
+    {
+      "id": "w_188",
+      "text": "BUFFET DE CAMARÃO LIVRE POR R$ 4,99"
+    },
+    {
+      "id": "w_189",
+      "text": "JOSEF STALIN"
+    },
+    {
+      "id": "w_190",
+      "text": "MINHA VAGINA"
+    },
+    {
+      "id": "w_191",
+      "text": "FEIJOADA"
+    },
+    {
+      "id": "w_192",
+      "text": "MIJAR EM ALGUÉM PARA MARCAR TERRITÓRIO"
+    },
+    {
+      "id": "w_193",
+      "text": "BIQUINI FIO-DENTAL"
+    },
+    {
+      "id": "w_194",
+      "text": "KANYE WEST"
+    },
+    {
+      "id": "w_195",
+      "text": "ROUBAR UM BANCO DE ESPERMA"
+    },
+    {
+      "id": "w_196",
+      "text": "CHACINA"
+    },
+    {
+      "id": "w_197",
+      "text": "QUEIJO QUENTE"
+    },
+    {
+      "id": "w_198",
+      "text": "UM TUMOR NO CÉREBRO"
+    },
+    {
+      "id": "w_199",
+      "text": "DAR-SE 110%"
+    },
+    {
+      "id": "w_200",
+      "text": "TRANSAR NA REUNIÃO FAMILIAR"
+    },
+    {
+      "id": "w_201",
+      "text": "SUA ALTEZA REAL, RAINHA ELIZABETH II"
+    },
+    {
+      "id": "w_202",
+      "text": "TIRAR A CAMISA"
+    },
+    {
+      "id": "w_203",
+      "text": "DIA DA CONSCIÊNCIA"
+    },
+    {
+      "id": "w_204",
+      "text": "NEGRA"
+    },
+    {
+      "id": "w_205",
+      "text": "MAIS OU MENOS"
+    },
+    {
+      "id": "w_206",
+      "text": "ESMEGMA"
+    },
+    {
+      "id": "w_207",
+      "text": "O CAMINHO DE SANTIAGO"
+    },
+    {
+      "id": "w_208",
+      "text": "ALCOOLISMO"
+    },
+    {
+      "id": "w_209",
+      "text": "MÚSICA NEW AGE"
+    },
+    {
+      "id": "w_210",
+      "text": "SER"
+    },
+    {
+      "id": "w_211",
+      "text": "MARGINALIZADO"
+    },
+    {
+      "id": "w_212",
+      "text": "UM CARA DE MEIA IDADE ANDANDO DE PATINS"
+    },
+    {
+      "id": "w_213",
+      "text": "FURAR CAMISINHAS"
+    },
+    {
+      "id": "w_214",
+      "text": "GOBLINS"
+    },
+    {
+      "id": "w_215",
+      "text": "OS RAIOS DE SENTIMENTOS BONS DOS URSINHOS CARINHOSOS"
+    },
+    {
+      "id": "w_216",
+      "text": "UMA DETONAÇÃO ESPERANÇA"
+    },
+    {
+      "id": "w_217",
+      "text": "EMPANTURRAR-SE E PURGAR-SE"
+    },
+    {
+      "id": "w_218",
+      "text": "TERMONUCLEAR"
+    },
+    {
+      "id": "w_219",
+      "text": "O REVERENDO Dr. MARTIN LUTHER KING, Jr."
+    },
+    {
+      "id": "w_220",
+      "text": "PIRULITOS GIGANTES"
+    },
+    {
+      "id": "w_221",
+      "text": "PROBLEMAS DE PRIMEIRO MUNDO"
+    },
+    {
+      "id": "w_222",
+      "text": "UM MICROPÊNIS"
+    },
+    {
+      "id": "w_223",
+      "text": "AUTO-REPUGNÂNCI A"
+    },
+    {
+      "id": "w_224",
+      "text": "DEUS"
+    },
+    {
+      "id": "w_225",
+      "text": "MINHA ALMA"
+    },
+    {
+      "id": "w_226",
+      "text": "CRIANÇAS NA COLEIRA"
+    },
+    {
+      "id": "w_227",
+      "text": "A INTERNET INTEIRA"
+    },
+    {
+      "id": "w_228",
+      "text": "UMA DESOLAÇÃO"
+    },
+    {
+      "id": "w_229",
+      "text": "PRELIMINARES MEIA-BOCA"
+    },
+    {
+      "id": "w_230",
+      "text": "HARRY POTTER"
+    },
+    {
+      "id": "w_231",
+      "text": "VIKINGS"
+    },
+    {
+      "id": "w_232",
+      "text": "A BÍBLIA SAGRADA"
+    },
+    {
+      "id": "w_233",
+      "text": "PUBERDADE"
+    },
+    {
+      "id": "w_234",
+      "text": "GOSTOSAS"
+    },
+    {
+      "id": "w_235",
+      "text": "PORNÔ"
+    },
+    {
+      "id": "w_236",
+      "text": "CRIANÇAS COM CÂNCER NO RETO"
+    },
+    {
+      "id": "w_237",
+      "text": "SEDUÇÃO"
+    },
+    {
+      "id": "w_238",
+      "text": "ESTAR EM CHAMAS"
+    },
+    {
+      "id": "w_239",
+      "text": "FOTOS DE PINTOS NÃO SOLICITADAS"
+    },
+    {
+      "id": "w_240",
+      "text": "COMPLEXO DE ÉDIPO"
+    },
+    {
+      "id": "w_241",
+      "text": "GRAVIDEZ NA ADOLESCÊNCIA"
+    },
+    {
+      "id": "w_242",
+      "text": "GANSOS"
+    },
+    {
+      "id": "w_243",
+      "text": "GANDHI"
+    },
+    {
+      "id": "w_244",
+      "text": "DOCE, DOCE VINGANÇA"
+    },
+    {
+      "id": "w_245",
+      "text": "AQUECIMENTO GLOBAL"
+    },
+    {
+      "id": "w_246",
+      "text": "DEIXAR UMA MENSAGEM DE VOZ ESQUISITA"
+    },
+    {
+      "id": "w_247",
+      "text": "DESCOBRIR QUE O PÊNIS DA SUA NAMORADA É MAIOR QUE O SEU"
+    },
+    {
+      "id": "w_248",
+      "text": "VOADORA"
+    },
+    {
+      "id": "w_249",
+      "text": "AS MARAVILHAS DO"
+    },
+    {
+      "id": "w_250",
+      "text": "ORIENTE"
+    },
+    {
+      "id": "w_251",
+      "text": "HOT POCKETS SADIA"
+    },
+    {
+      "id": "w_252",
+      "text": "FUNCIONÁRIOS DO SERVIÇO DE ATENDIMENTO AO CLIENTE"
+    },
+    {
+      "id": "w_253",
+      "text": "PRÉ-ADOLESCENTES"
+    },
+    {
+      "id": "w_254",
+      "text": "FAZER BEICINHO"
+    },
+    {
+      "id": "w_255",
+      "text": "UMA EREÇÃO QUE DURA MAIS QUE QUATRO HORAS"
+    },
+    {
+      "id": "w_256",
+      "text": "ABRAÇAR A AVÓ NO MEIO DE UMA EREÇÃO"
+    },
+    {
+      "id": "w_257",
+      "text": "HOMICÍDIO EM DIREÇÃO VEICULAR"
+    },
+    {
+      "id": "w_258",
+      "text": "MINHA GENITÁLIA"
+    },
+    {
+      "id": "w_259",
+      "text": "UM PRÍNCIPE NIGERIANO"
+    },
+    {
+      "id": "w_260",
+      "text": "SUFRÁGIO FEMININO"
+    },
+    {
+      "id": "w_261",
+      "text": "SEU CÚ"
+    },
+    {
+      "id": "w_262",
+      "text": "VAZAMENTO ANAL"
+    },
+    {
+      "id": "w_263",
+      "text": "UM PRESERVATIVO DEFEITUOSO"
+    },
+    {
+      "id": "w_264",
+      "text": "FODA-SE"
+    },
+    {
+      "id": "w_265",
+      "text": "DISFUNÇÃO ERÉTIL"
+    },
+    {
+      "id": "w_266",
+      "text": "SESSÃO DA TARDE"
+    },
+    {
+      "id": "w_267",
+      "text": "FILHO DA PUTA"
+    },
+    {
+      "id": "w_268",
+      "text": "TER DOIS ÂNUS NO LUGAR DOS OLHOS"
+    },
+    {
+      "id": "w_269",
+      "text": "CRIANÇAS AFRICANAS"
+    },
+    {
+      "id": "w_270",
+      "text": "PEGAR MULHER NA CLÍNICA DE ABORTO"
+    },
+    {
+      "id": "w_271",
+      "text": "SE MASTURBAR COM COLA"
+    },
+    {
+      "id": "w_272",
+      "text": "A BOATE KISS"
+    },
+    {
+      "id": "w_273",
+      "text": "CIÊNCIA"
+    },
+    {
+      "id": "w_274",
+      "text": "DUNGEONS & DRAGONS"
+    },
+    {
+      "id": "w_275",
+      "text": "BARACK OBAMA"
+    },
+    {
+      "id": "w_276",
+      "text": "SEXO ORAL NÃO RECÍPROCO"
+    },
+    {
+      "id": "w_277",
+      "text": "MINAS TERRESTRES"
+    },
+    {
+      "id": "w_278",
+      "text": "ASIÁTICOS QUE NÃO SÃO BONS EM MATEMÁTICA"
+    },
+    {
+      "id": "w_279",
+      "text": "AVES QUE NÃO VOAM"
+    },
+    {
+      "id": "w_280",
+      "text": "UMA FISSURA ANAL"
+    },
+    {
+      "id": "w_281",
+      "text": "HOMENS JAPONESES"
+    },
+    {
+      "id": "w_282",
+      "text": "IDOSOS"
+    },
+    {
+      "id": "w_283",
+      "text": "UMA BOA CHEIRADA"
+    },
+    {
+      "id": "w_284",
+      "text": "NICKELBACK"
+    },
+    {
+      "id": "w_285",
+      "text": "TROCA DE GENTILEZAS"
+    },
+    {
+      "id": "w_286",
+      "text": "AFOGAMENTO SIMULADO"
+    },
+    {
+      "id": "w_287",
+      "text": "FICAR SEM SÊMEN"
+    },
+    {
+      "id": "w_288",
+      "text": "HETERONORMATIVI"
+    },
+    {
+      "id": "w_289",
+      "text": "DADE"
+    },
+    {
+      "id": "w_290",
+      "text": "AQUELA TORA DE CHÁ"
+    },
+    {
+      "id": "w_291",
+      "text": "ESTAR COM O PAU COÇANDO"
+    },
+    {
+      "id": "w_292",
+      "text": "SEPARAR O MAR VERMELHO"
+    },
+    {
+      "id": "w_293",
+      "text": "CAFÉ DA MANHÃ BALANCEADO"
+    },
+    {
+      "id": "w_294",
+      "text": "O SUL"
+    },
+    {
+      "id": "w_295",
+      "text": "UM ANÃO"
+    },
+    {
+      "id": "w_296",
+      "text": "FACULDADES"
+    },
+    {
+      "id": "w_297",
+      "text": "PROTEGER SUA VIRGINDADE"
+    },
+    {
+      "id": "w_298",
+      "text": "FILHOTE DE POMBA"
+    },
+    {
+      "id": "w_299",
+      "text": "LITERALMENTE ROUBAR DOCE DE CRIANÇA"
+    },
+    {
+      "id": "w_300",
+      "text": "SE MASTURBAR PARA UM PERSONAGEM DE NARUTO"
+    },
+    {
+      "id": "w_301",
+      "text": "O ACRE"
+    },
+    {
+      "id": "w_302",
+      "text": "LAR, DOCE LAR"
+    },
+    {
+      "id": "w_303",
+      "text": "ARNOLD"
+    },
+    {
+      "id": "w_304",
+      "text": "SCHWARZENEGGER"
+    },
+    {
+      "id": "w_305",
+      "text": "DE VOLTA PRA MINHA TERRA"
+    },
+    {
+      "id": "w_306",
+      "text": "PIADAS SOBRE O HOLOCAUSTO NA HORA ERRADA"
+    },
+    {
+      "id": "w_307",
+      "text": "SEXO ORAL NO CARRO"
+    },
+    {
+      "id": "w_308",
+      "text": "BANHEIRA DO GUGU"
+    },
+    {
+      "id": "w_309",
+      "text": "SER NOTADO PELO SENPAI"
+    },
+    {
+      "id": "w_310",
+      "text": "BARRIGA TANQUINHO"
+    },
+    {
+      "id": "w_311",
+      "text": "UM ARRANHÃO NA BUNDA MANTIDO EM SEGREDO"
+    },
+    {
+      "id": "w_312",
+      "text": "A SUA WAIFU"
+    },
+    {
+      "id": "w_313",
+      "text": "HOMICÍDIO CULPOSO"
+    },
+    {
+      "id": "w_314",
+      "text": "BILHETES PASSIVO-AGRESSIVO S NO TRABALHO"
+    },
+    {
+      "id": "w_315",
+      "text": "QUASE DAR DINHEIRO PARA UM MENDIGO"
+    },
+    {
+      "id": "w_316",
+      "text": "PÃO NA CHAPA"
+    },
+    {
+      "id": "w_317",
+      "text": "O TIME DE GINÁSTICA CHINÊS"
+    },
+    {
+      "id": "w_318",
+      "text": "VER AS COISAS DA PERSPECTIVA DO HITLER"
+    },
+    {
+      "id": "w_319",
+      "text": "UM LEÃO DE ZOOLÓGICO DEPRIMIDO"
+    },
+    {
+      "id": "w_320",
+      "text": "DEPENDER DO SUS"
+    },
+    {
+      "id": "w_321",
+      "text": "EXATAMENTE O QUE VOCÊ ESPERAVA"
+    },
+    {
+      "id": "w_322",
+      "text": "TARJA PRETA"
+    },
+    {
+      "id": "w_323",
+      "text": "MIJAR UM POUCO"
+    },
+    {
+      "id": "w_324",
+      "text": "UMA IDENTIDADE DE GÊNERO QUE SÓ PODE SER EXPLICADA ATRAVÉS DE POESIA"
+    },
+    {
+      "id": "w_325",
+      "text": "UM SACO DE FEIJÕES MÁGICOS"
+    },
+    {
+      "id": "w_326",
+      "text": "CAPITÃO NASCIMENTO LEVANDO BRONCA DA SOGRA"
+    },
+    {
+      "id": "w_327",
+      "text": "DIZER \"EU TE AMO.\" MÁS DECISÕES AO LONGO DA VIDA"
+    },
+    {
+      "id": "w_328",
+      "text": "POLUÇÃO NOTURNA"
+    },
+    {
+      "id": "w_329",
+      "text": "O QUE JESUS FARIA"
+    },
+    {
+      "id": "w_330",
+      "text": "MINHA VIDA SEXUAL"
+    },
+    {
+      "id": "w_331",
+      "text": "OS JUDEUS"
+    },
+    {
+      "id": "w_332",
+      "text": "MEU FILHO INÚTIL"
+    },
+    {
+      "id": "w_333",
+      "text": "UMA TARTARUGA MORDISCANDO A PONTA DO SEU PÊNIS"
+    },
+    {
+      "id": "w_334",
+      "text": "MINHAS CURVAS"
+    },
+    {
+      "id": "w_335",
+      "text": "SER UM PUTA DUM"
+    },
+    {
+      "id": "w_336",
+      "text": "FEITICEIRO"
+    },
+    {
+      "id": "w_337",
+      "text": "UMA DETONAÇÃO TERMONUCLEAR"
+    },
+    {
+      "id": "w_338",
+      "text": "COISAS PODEROSAS"
+    },
+    {
+      "id": "w_339",
+      "text": "SER LOUVADO COMO O UM DEUS VERDADEIRO"
+    },
+    {
+      "id": "w_340",
+      "text": "O CLITÓRIS"
+    },
+    {
+      "id": "w_341",
+      "text": "PISCAR PARA IDOSOS"
+    },
+    {
+      "id": "w_342",
+      "text": "UM ASSASSINATO CRUEL"
+    },
+    {
+      "id": "w_343",
+      "text": "O BIG BANG"
+    },
+    {
+      "id": "w_344",
+      "text": "REPÓRTERES DE PROGRAMA HUMORÍSTICO"
+    },
+    {
+      "id": "w_345",
+      "text": "PEIDAR E FUGIR"
+    },
+    {
+      "id": "w_346",
+      "text": "UMA CARÍCIA SUAVE NA PARTE INTERNA DA COXA"
+    },
+    {
+      "id": "w_347",
+      "text": "FRICÇÃO"
+    },
+    {
+      "id": "w_348",
+      "text": "AMIGOS QUE COMEM TODO O LANCHE"
+    },
+    {
+      "id": "w_349",
+      "text": "TENSÃO SEXUAL"
+    },
+    {
+      "id": "w_350",
+      "text": "O MEDO EM SI"
+    },
+    {
+      "id": "w_351",
+      "text": "CABRAS COMENDO"
+    },
+    {
+      "id": "w_352",
+      "text": "LATAS"
+    },
+    {
+      "id": "w_353",
+      "text": "O FRUTO PROIBIDO"
+    },
+    {
+      "id": "w_354",
+      "text": "TOCAR A"
+    },
+    {
+      "id": "w_355",
+      "text": "CAMPAINHA E SAIR CORRENDO"
+    },
+    {
+      "id": "w_356",
+      "text": "A DANÇA DA FADA AÇUCARADA"
+    },
+    {
+      "id": "w_357",
+      "text": "ESQUELETO"
+    },
+    {
+      "id": "w_358",
+      "text": "MUDANDO A OPINIÃO DE ALGUÉM COM FATOS E LÓGICA"
+    },
+    {
+      "id": "w_359",
+      "text": "CACHAÇA"
+    },
+    {
+      "id": "w_360",
+      "text": "CHURRASCO NA LAJE"
+    },
+    {
+      "id": "w_361",
+      "text": "ASIÁTICOS"
+    },
+    {
+      "id": "w_362",
+      "text": "CARNE HUMANA"
+    },
+    {
+      "id": "w_363",
+      "text": "SER RICO"
+    },
+    {
+      "id": "w_364",
+      "text": "UM BANDO DE IDIOTAS JOGANDO UM JOGO DE CARTAS AO INVÉS DE INTERAGIREM COMO HUMANOS NORMAIS"
+    },
+    {
+      "id": "w_365",
+      "text": "TEMPO PRA MIM"
+    },
+    {
+      "id": "w_366",
+      "text": "UMA HISTÓRIA ININTERRUPTA DE IMPERIALISMO E EXPLORAÇÃO"
+    },
+    {
+      "id": "w_367",
+      "text": "SEM TEMPO, AMIGO"
+    },
+    {
+      "id": "w_368",
+      "text": "REPUBLICANOS"
+    },
+    {
+      "id": "w_369",
+      "text": "UM NOVO TIPO DE"
+    },
+    {
+      "id": "w_370",
+      "text": "TÚNEIS CLANDESTINOS"
+    },
+    {
+      "id": "w_371",
+      "text": "UM ANTÍLOPE FLATULENTO"
+    },
+    {
+      "id": "w_372",
+      "text": "NADA ACONTECE,"
+    },
+    {
+      "id": "w_373",
+      "text": "IVETE SANGALO"
+    },
+    {
+      "id": "w_374",
+      "text": "GOLDEN SHOWER"
+    },
+    {
+      "id": "w_375",
+      "text": "AI QUE DELÍCIA,"
+    },
+    {
+      "id": "w_376",
+      "text": "CARA!"
+    },
+    {
+      "id": "w_377",
+      "text": "ACARICIAR ALGUÉM SEM PERMISSÃO"
+    },
+    {
+      "id": "w_378",
+      "text": "BOQUETES PARA TODOS"
+    },
+    {
+      "id": "w_379",
+      "text": "TÁ PEGANDO FOGO BICHO!"
+    },
+    {
+      "id": "w_380",
+      "text": "PILOTOS KAMIKAZE"
+    },
+    {
+      "id": "w_381",
+      "text": "UMA CAMISINHA DEFEITUOSA"
+    },
+    {
+      "id": "w_382",
+      "text": "DOMINGO LEGAL!"
+    },
+    {
+      "id": "w_383",
+      "text": "REYNALDO GIANECCHINI"
+    },
+    {
+      "id": "w_384",
+      "text": "PIADAS INOPORTUNAS SOBRE O HOLOCAUSTO"
+    },
+    {
+      "id": "w_385",
+      "text": "A AGENDA HOMOSSEXUAL"
+    },
+    {
+      "id": "w_386",
+      "text": "A METADE NEGRA DE BARACK OBAMA"
+    },
+    {
+      "id": "w_387",
+      "text": "UM MAR DE PROBLEMAS"
+    },
+    {
+      "id": "w_388",
+      "text": "O MEXICANO QUE TRABALHA DURO"
+    },
+    {
+      "id": "w_389",
+      "text": "PERDA PENIANA SÚBITA"
+    },
+    {
+      "id": "w_390",
+      "text": "HISTÓRIAS DE LENHADOR"
+    },
+    {
+      "id": "w_391",
+      "text": "UM FALCÃO ENCAPUZADO"
+    },
+    {
+      "id": "w_392",
+      "text": "FICAR OFENDIDO COM QUALQUER COISA"
+    },
+    {
+      "id": "w_393",
+      "text": "A VOZ DO MORGAN FREEMAN"
+    },
+    {
+      "id": "w_394",
+      "text": "COROINHAS"
+    },
+    {
+      "id": "w_395",
+      "text": "ENCHER O ÂNUS DE UM HOMEM COM CONCRETO"
+    },
+    {
+      "id": "w_396",
+      "text": "MULHERES EM COMERCIAIS DE IOGURTE"
+    },
+    {
+      "id": "w_397",
+      "text": "O CARA DA PREVISÃO DO TEMPO"
+    },
+    {
+      "id": "w_398",
+      "text": "O 11 DE SETEMBRO"
+    },
+    {
+      "id": "w_399",
+      "text": "COMERCIAL DE MARGARINA"
+    },
+    {
+      "id": "w_400",
+      "text": "FICAR TÃO NERVOSO A PONTO DE TER UMA EREÇÃO"
+    },
+    {
+      "id": "w_401",
+      "text": "A METADE BRANCA DE BARACK OBAMA"
+    },
+    {
+      "id": "w_402",
+      "text": "MORRER SOZINHO"
+    },
+    {
+      "id": "w_403",
+      "text": "CHOROU DE RIR"
+    },
+    {
+      "id": "w_404",
+      "text": "COXINHAS"
+    },
+    {
+      "id": "w_405",
+      "text": "AUMENTO PENIANO"
+    },
+    {
+      "id": "w_406",
+      "text": "NATURAL"
+    },
+    {
+      "id": "w_407",
+      "text": "AMOSTRA GRÁTIS"
+    },
+    {
+      "id": "w_408",
+      "text": "LADY GAGA"
+    },
+    {
+      "id": "w_409",
+      "text": "SER UM FEITICEIRO"
+    },
+    {
+      "id": "w_410",
+      "text": "UM GRANDE ESTARDALHAÇO POR NADA"
+    },
+    {
+      "id": "w_411",
+      "text": "UM MÍMICO TENDO UM DERRAME"
+    },
+    {
+      "id": "w_412",
+      "text": "SOCAR PESSOAS PARA ESTABELECER DOMINÂNCIA"
+    },
+    {
+      "id": "w_413",
+      "text": "PIERCINGS GENITAIS"
+    },
+    {
+      "id": "w_414",
+      "text": "O JEITINHO BRASILEIRO"
+    },
+    {
+      "id": "w_415",
+      "text": "TRAVESTIS QUE NÃO"
+    },
+    {
+      "id": "w_416",
+      "text": "PARECEM"
+    },
+    {
+      "id": "w_417",
+      "text": "LACTAÇÃO"
+    },
+    {
+      "id": "w_418",
+      "text": "SÍLVIO SANTOS"
+    },
+    {
+      "id": "w_419",
+      "text": "BRIGAS DE TRAVESSEIRO SENSUAIS"
+    },
+    {
+      "id": "w_420",
+      "text": "PAZ MUNDIAL"
+    },
+    {
+      "id": "w_421",
+      "text": "A FÚRIA DE VLADIMIR PUTIN"
+    },
+    {
+      "id": "w_422",
+      "text": "BOLAS"
+    },
+    {
+      "id": "w_423",
+      "text": "ROBOCOP"
+    },
+    {
+      "id": "w_424",
+      "text": "PESSOAS BRANCAS"
+    },
+    {
+      "id": "w_425",
+      "text": "VOVÓ"
+    },
+    {
+      "id": "w_426",
+      "text": "SEM-VERGONHICE"
+    },
+    {
+      "id": "w_427",
+      "text": "ABACATE"
+    },
+    {
+      "id": "w_428",
+      "text": "JUSTIN BIEBER"
+    },
+    {
+      "id": "w_429",
+      "text": "OOMPA-LOOMPAS"
+    },
+    {
+      "id": "w_430",
+      "text": "UMA VIDA REPLETA DE TRISTEZA"
+    },
+    {
+      "id": "w_431",
+      "text": "ESTRAGA-FESTA"
+    },
+    {
+      "id": "w_432",
+      "text": "CANTAR À TIROLESA INAPROPRIADAMEN TE"
+    },
+    {
+      "id": "w_433",
+      "text": "O PODER DO LADO NEGRO"
+    },
+    {
+      "id": "w_434",
+      "text": "PEIDAR E SE MANDAR"
+    },
+    {
+      "id": "w_435",
+      "text": "TORNAR OS RIOS VERMELHOS COM O SANGUE DOS INFIÉIS"
+    },
+    {
+      "id": "w_436",
+      "text": "SER CHATO COM CRIANÇAS"
+    },
+    {
+      "id": "w_437",
+      "text": "FANTASMAS"
+    },
+    {
+      "id": "w_438",
+      "text": "CÂNCER"
+    },
+    {
+      "id": "w_439",
+      "text": "ROUBAR PIRULITO DE CRIANCINHA"
+    },
+    {
+      "id": "w_440",
+      "text": "IMPLANTES DE SILICONE ASSIMÉTRICOS"
+    },
+    {
+      "id": "w_441",
+      "text": "ENFIAR NA BUNDA"
+    },
+    {
+      "id": "w_442",
+      "text": "COLOCAR"
+    },
+    {
+      "id": "w_443",
+      "text": "ARMADILHAS EM CASA PRA PEGAR ASSALTANTES"
+    },
+    {
+      "id": "w_444",
+      "text": "AXÉ"
+    },
+    {
+      "id": "w_445",
+      "text": "ALLAHU AKBAR!"
+    },
+    {
+      "id": "w_446",
+      "text": "TREPAR"
+    },
+    {
+      "id": "w_447",
+      "text": "MASTURBAÇÃO FEMININA"
+    },
+    {
+      "id": "w_448",
+      "text": "GERALMENTE NÃO FAZER A MÍNIMA IDEIA DO QUE ESTÁ ACONTECENDO"
+    },
+    {
+      "id": "w_449",
+      "text": "MORRER"
+    },
+    {
+      "id": "w_450",
+      "text": "DINHEIRO NA CUECA"
+    },
+    {
+      "id": "w_451",
+      "text": "3,7 BILHÕES DE ANOS DE EVOLUÇÃO"
+    },
+    {
+      "id": "w_452",
+      "text": "FURACÃO KATRINA"
+    },
+    {
+      "id": "w_453",
+      "text": "SACOLÉ"
+    },
+    {
+      "id": "w_454",
+      "text": "SEGURAR UMA CRIANÇA E PEIDAR NA CABEÇA DELA"
+    },
+    {
+      "id": "w_455",
+      "text": "GAYS"
+    },
+    {
+      "id": "w_456",
+      "text": "BRUTALIDADE POLICIAL"
+    },
+    {
+      "id": "w_457",
+      "text": "MIJAR NA BUNDA DE UMA GAROTA PRA FAZER UM BEBÊ"
+    },
+    {
+      "id": "w_458",
+      "text": "A LOUCURA DO HOMEM"
+    },
+    {
+      "id": "w_459",
+      "text": "FLANELINHAS"
+    },
+    {
+      "id": "w_460",
+      "text": "PESSOAS MARRONS"
+    },
+    {
+      "id": "w_461",
+      "text": "HOMENS"
+    },
+    {
+      "id": "w_462",
+      "text": "O CACHORRO QUENTE QUE EU COLOQUEI NA MINHA VAGINA, 10 DIAS ATRÁS"
+    },
+    {
+      "id": "w_463",
+      "text": "OS AMISH"
+    },
+    {
+      "id": "w_464",
+      "text": "ESCALPELAMENTO"
+    },
+    {
+      "id": "w_465",
+      "text": "UMA FESTA VEGANA DESPROVIDA DE QUALQUER DIVERSÃO"
+    },
+    {
+      "id": "w_466",
+      "text": "OVOS DE PTERODÁCTILO"
+    },
+    {
+      "id": "w_467",
+      "text": "CHEECH & CHONG"
+    },
+    {
+      "id": "w_468",
+      "text": "O QUE FAZER COM"
+    },
+    {
+      "id": "w_469",
+      "text": "TODO ESSE CHOCOLATE NO MEU PÊNIS"
+    },
+    {
+      "id": "w_470",
+      "text": "DINÂMICA DE GRUPO"
+    },
+    {
+      "id": "w_471",
+      "text": "LIMINHA"
+    },
+    {
+      "id": "w_472",
+      "text": "UM POSSÍVEL MUÇULMANO"
+    },
+    {
+      "id": "w_473",
+      "text": "UM TUMOR CEREBRAL"
+    },
+    {
+      "id": "w_474",
+      "text": "TWITTAR"
+    },
+    {
+      "id": "w_475",
+      "text": "TER MEDO DE SI PRÓPRIO"
+    },
+    {
+      "id": "w_476",
+      "text": "DARTH VADER"
+    },
+    {
+      "id": "w_477",
+      "text": "TESOUROS ALÉM DE SEUS MAIORES SONHOS"
+    },
+    {
+      "id": "w_478",
+      "text": "UMA MASTURBAÇÃO TRISTE"
+    },
+    {
+      "id": "w_479",
+      "text": "O TAMANHO DO MEU PÊNIS"
+    },
+    {
+      "id": "w_480",
+      "text": "O ENTREGADOR DE PIZZA"
+    },
+    {
+      "id": "w_481",
+      "text": "JUSTAMENTE O QUE VOCÊ ESPERARIA"
+    },
+    {
+      "id": "w_482",
+      "text": "10 INCRÍVEIS FATOS SOBRE O ÂNUS"
+    },
+    {
+      "id": "w_483",
+      "text": "DIZER O QUE PENSA"
+    },
+    {
+      "id": "w_484",
+      "text": "ESPERAR UM ARROTO E ACABAR VOMITANDO NO CHÃO"
+    },
+    {
+      "id": "w_485",
+      "text": "DAR A LUZ AO ANTICRISTO"
+    },
+    {
+      "id": "w_486",
+      "text": "LULA"
+    },
+    {
+      "id": "w_487",
+      "text": "GARDENAL"
+    },
+    {
+      "id": "w_488",
+      "text": "FINALMENTE TERMINAR DE ELIMINAR OS ÍNDIOS"
+    },
+    {
+      "id": "w_489",
+      "text": "O QUE EU TÔ FAZENDO AQUI?"
+    },
+    {
+      "id": "w_490",
+      "text": "CÉLULAS TRONCO"
+    },
+    {
+      "id": "w_491",
+      "text": "SOMBRIAS E MISTERIOSAS FORÇAS ALÉM DO NOSSO CONTROLE"
+    },
+    {
+      "id": "w_492",
+      "text": "ARREPENDIDO"
+    },
+    {
+      "id": "w_493",
+      "text": "VESTIR-SE DE MODO A EXIBIR A LATERAL DOS SEIOS COM ELEGÂNCIA"
+    },
+    {
+      "id": "w_494",
+      "text": "O QUÃO FODA EU SOU"
+    },
+    {
+      "id": "w_495",
+      "text": "COM O CÚ NA MÃO"
+    },
+    {
+      "id": "w_496",
+      "text": "SEX ENTRE PANDAS"
+    },
+    {
+      "id": "w_497",
+      "text": "TRÊS SEGUNDOS CONSECUTIVOS DE FELICIDADE"
+    },
+    {
+      "id": "w_498",
+      "text": "CREDO QUE DELÍCIA"
+    },
+    {
+      "id": "w_499",
+      "text": "LOBOTOMIA"
+    },
+    {
+      "id": "w_500",
+      "text": "PESSOAS GOSTOSAS"
+    },
+    {
+      "id": "w_501",
+      "text": "DEDO NO CÚ E GRITARIA"
+    },
+    {
+      "id": "w_502",
+      "text": "TOM CRUISE"
+    },
+    {
+      "id": "w_503",
+      "text": "ALGUM TIPO DE ASIÁTICO"
+    },
+    {
+      "id": "w_504",
+      "text": "MENÁGE COM ANIMAIS"
+    },
+    {
+      "id": "w_505",
+      "text": "O PREPÚCIO"
+    },
+    {
+      "id": "w_506",
+      "text": "CAGAR NO PAU"
+    },
+    {
+      "id": "w_507",
+      "text": "CACHALOTES"
+    },
+    {
+      "id": "w_508",
+      "text": "SARCASMO AMBÍGUO"
+    },
+    {
+      "id": "w_509",
+      "text": "CANAVIAL DE ROLA"
+    },
+    {
+      "id": "w_510",
+      "text": "CHACOTA"
+    },
+    {
+      "id": "w_511",
+      "text": "O MILAGRE DO NASCIMENTO"
+    },
+    {
+      "id": "w_512",
+      "text": "DANÇAR NA BOQUINHA DA GARRAFA"
+    },
+    {
+      "id": "w_513",
+      "text": "MORADORES DE RUA"
+    },
+    {
+      "id": "w_514",
+      "text": "ESPERAR ATÉ O CASAMENTO"
+    },
+    {
+      "id": "w_515",
+      "text": "PENTADA VIOLENTA"
+    },
+    {
+      "id": "w_516",
+      "text": "DAR UNS AMASSOS"
+    },
+    {
+      "id": "w_517",
+      "text": "A ÁFRICA"
+    },
+    {
+      "id": "w_518",
+      "text": "OSAMA BIN LADEN"
+    },
+    {
+      "id": "w_519",
+      "text": "UMA PUNHETA"
+    },
+    {
+      "id": "w_520",
+      "text": "TRISTE"
+    },
+    {
+      "id": "w_521",
+      "text": "O BOZO"
+    },
+    {
+      "id": "w_522",
+      "text": "EJACULAÇÃO PRECOCE"
+    },
+    {
+      "id": "w_523",
+      "text": "DOIS ANÕES CAGANDO EM UM BALDE"
+    },
+    {
+      "id": "w_524",
+      "text": "CRACK"
+    },
+    {
+      "id": "w_525",
+      "text": "UM MÍMICO TENDO UM AVC"
+    },
+    {
+      "id": "w_526",
+      "text": "TRAPACEAR NAS PARAOLIMPÍADAS"
+    },
+    {
+      "id": "w_527",
+      "text": "SERIA MEU SONHO?"
+    },
+    {
+      "id": "w_528",
+      "text": "HULK HOGAN"
+    },
+    {
+      "id": "w_529",
+      "text": "PAGAR O PREÇO DE"
+    },
+    {
+      "id": "w_530",
+      "text": "FERRO"
+    },
+    {
+      "id": "w_531",
+      "text": "RABO ENTRE AS PERNAS"
+    },
+    {
+      "id": "w_532",
+      "text": "BATER UMA"
+    },
+    {
+      "id": "w_533",
+      "text": "PUNHETA PARA UM GOLFINHO"
+    },
+    {
+      "id": "w_534",
+      "text": "SE FUDEU"
+    },
+    {
+      "id": "w_535",
+      "text": "COÇAR SOB AS DOBRAS DA PELE"
+    },
+    {
+      "id": "w_536",
+      "text": "PELA CIÊNCIA"
+    },
+    {
+      "id": "w_537",
+      "text": "FUDIDO"
+    },
+    {
+      "id": "w_538",
+      "text": "UROFILIA"
+    },
+    {
+      "id": "w_539",
+      "text": "TODO ESSE LÍQUIDO NA MINHA BOCA"
+    },
+    {
+      "id": "w_540",
+      "text": "MACONHEIRO"
+    },
+    {
+      "id": "w_541",
+      "text": "O UNIVERSO DO STAR WARS"
+    },
+    {
+      "id": "w_542",
+      "text": "ISSO É UMA MENTIRA, UMA PANTOMIMA, UMA PATUSCADA, É UM DEVANEIO, UM SONHO DE UMA NOITE DE VERÃO"
+    },
+    {
+      "id": "w_543",
+      "text": "LAMBER COISAS PARA ESTABELECER QUE SÃO PROPRIEDADE SUA"
+    },
+    {
+      "id": "w_544",
+      "text": "PROPAGANDA ESQUERDISTA"
+    },
+    {
+      "id": "w_545",
+      "text": "COMEU COCÔ?"
+    },
+    {
+      "id": "w_546",
+      "text": "CERVEJA QUENTE"
+    },
+    {
+      "id": "w_547",
+      "text": "O SALÁRIO MÍNIMO"
+    },
+    {
+      "id": "w_548",
+      "text": "UM CAGÃO"
+    },
+    {
+      "id": "w_549",
+      "text": "A PLACENTA"
+    },
+    {
+      "id": "w_550",
+      "text": "O BIGODE DE HITLER"
+    },
+    {
+      "id": "w_551",
+      "text": "ESTAR PEGANDO FOGO"
+    },
+    {
+      "id": "w_552",
+      "text": "COMBUSTÃO ESPONTÂNEA"
+    },
+    {
+      "id": "w_553",
+      "text": "MINHA APARENTE INABILIDADE DE LER ALGUMAS PALAVRAS SIMPLES EM VOZ ALTA"
+    },
+    {
+      "id": "w_554",
+      "text": "RACISMO"
+    },
+    {
+      "id": "w_555",
+      "text": "AMIZADE COLORIDA"
+    },
+    {
+      "id": "w_556",
+      "text": "A MACIA E PERFEITA PELE DE UMA CRIANÇA"
+    },
+    {
+      "id": "w_557",
+      "text": "PINTAR COM OS DEDOS"
+    },
+    {
+      "id": "w_558",
+      "text": "A CONSTRUÇÃO SOCIAL PATRIARCAL DA GENITÁLIA FÍSICA"
+    },
+    {
+      "id": "w_559",
+      "text": "CHEIRO DE GENTE VELHA"
+    },
+    {
+      "id": "w_560",
+      "text": "CHEIRO DE PESSOA VELHA"
+    },
+    {
+      "id": "w_561",
+      "text": "O REVERENDO"
+    },
+    {
+      "id": "w_562",
+      "text": "O SOFRIMENTO DA CLASSE MÉDIA"
+    },
+    {
+      "id": "w_563",
+      "text": "MORRER DE DISENTERIA"
+    },
+    {
+      "id": "w_564",
+      "text": "ACORDAR PELADO NO ESTACIONAMENTO DO BAHAMAS 24HRS"
+    },
+    {
+      "id": "w_565",
+      "text": "INSINUAÇÕES CLASSISTAS"
+    },
+    {
+      "id": "w_566",
+      "text": "MEUS DEMÔNIOS INTERIORES"
+    },
+    {
+      "id": "w_567",
+      "text": "PRIVILÉGIO BRANCO"
+    },
+    {
+      "id": "w_568",
+      "text": "CAGAR E ANDAR PARA O TERCEIRO MUNDO"
+    },
+    {
+      "id": "w_569",
+      "text": "PISTOLA D'ÁGUA CHEIA DE URINA DE GATO"
+    },
+    {
+      "id": "w_570",
+      "text": "ESPERANÇA"
+    },
+    {
+      "id": "w_571",
+      "text": "CHAMEGO"
+    },
+    {
+      "id": "w_572",
+      "text": "ENTRAR EM UM ESQUEMA EM PIRÂMIDE"
+    },
+    {
+      "id": "w_573",
+      "text": "OS GAYS"
+    },
+    {
+      "id": "w_574",
+      "text": "DIDI"
+    },
+    {
+      "id": "w_575",
+      "text": "O SOM DE UMA PUNHETA SENDO BATIDA NO ESCURO"
+    },
+    {
+      "id": "w_576",
+      "text": "ESCRAVIDÃO"
+    },
+    {
+      "id": "w_577",
+      "text": "A CRÔNICA"
+    },
+    {
+      "id": "w_578",
+      "text": "LIMPEZA ÉTNICA"
+    },
+    {
+      "id": "w_579",
+      "text": "ENSINO MÉDIO"
+    },
+    {
+      "id": "w_580",
+      "text": "RINHA DE GALO"
+    },
+    {
+      "id": "w_581",
+      "text": "PEIDO DE BUCETA"
+    },
+    {
+      "id": "w_582",
+      "text": "UM PIRULITÃO"
+    },
+    {
+      "id": "w_583",
+      "text": "FOGO AMIGO"
+    },
+    {
+      "id": "w_584",
+      "text": "CAIR DE UMA ESCADA ROLANTE"
+    },
+    {
+      "id": "w_585",
+      "text": "ESCOLAS PÚBLICAS"
+    },
+    {
+      "id": "w_586",
+      "text": "FERNANDO COLLOR"
+    },
+    {
+      "id": "w_587",
+      "text": "PARA SEMPRE"
+    },
+    {
+      "id": "w_588",
+      "text": "ANOREXIA"
+    },
+    {
+      "id": "w_589",
+      "text": "UMA FESTA DE ANIVERSÁRIO DECEPCIONANTE"
+    },
+    {
+      "id": "w_590",
+      "text": "A RABETA"
+    },
+    {
+      "id": "w_591",
+      "text": "O BAIANO TRABALHADOR"
+    },
+    {
+      "id": "w_592",
+      "text": "UMA MULHER ATREVIDA"
+    },
+    {
+      "id": "w_593",
+      "text": "RAIO DA MORTE"
+    },
+    {
+      "id": "w_594",
+      "text": "ATLETA DE OLIMPÍADA DE MATEMÁTICA"
+    },
+    {
+      "id": "w_595",
+      "text": "FICAR COMPLETAMENTE CHAPADO"
+    },
+    {
+      "id": "w_596",
+      "text": "MOLA MALUCA ENROLADA"
+    },
+    {
+      "id": "w_597",
+      "text": "UM CAVALO MINÚSCULO"
+    },
+    {
+      "id": "w_598",
+      "text": "INVEJA DO PÊNIS"
+    },
+    {
+      "id": "w_599",
+      "text": "FAUSTÃO"
+    },
+    {
+      "id": "w_600",
+      "text": "O PRIMAL E SUADO SEXO SELVAGEM QUE SEUS PAIS ESTÃO TENDO NESSE EXATO MOMENTO"
+    },
+    {
+      "id": "w_601",
+      "text": "UM COMPLEXO DE ÉDIPO"
+    },
+    {
+      "id": "w_602",
+      "text": "CAVALGAR RUMO AO PÔR DO SOL"
+    },
+    {
+      "id": "w_603",
+      "text": "ARNOLD SCHWARZENEGGER"
+    },
+    {
+      "id": "w_604",
+      "text": "UMA REVIRAVOLTA NUM ROTEIRO DE M"
+    },
+    {
+      "id": "w_605",
+      "text": "NIGHT SHYAMALAN"
+    },
+    {
+      "id": "w_606",
+      "text": "HODOR"
+    },
+    {
+      "id": "w_607",
+      "text": "MINHAS COXAS"
+    },
+    {
+      "id": "w_608",
+      "text": "JUDEU DE CABELO AFRO"
+    },
+    {
+      "id": "w_609",
+      "text": "FINGIR SE IMPORTAR"
+    },
+    {
+      "id": "w_610",
+      "text": "A IGREJA UNIVERSAL DO REINO DE DEUS"
+    },
+    {
+      "id": "w_611",
+      "text": "PEDÓFILOS"
+    },
+    {
+      "id": "w_612",
+      "text": "O CZAR DAS CARTAS"
+    },
+    {
+      "id": "w_613",
+      "text": "MINHA BUNDA"
+    },
+    {
+      "id": "w_614",
+      "text": "FUNGOS"
+    },
+    {
+      "id": "w_615",
+      "text": "O PEIDO QUE O JOGADOR À SUA ESQUERDA ACABOU DE SOLTAR"
+    },
+    {
+      "id": "w_616",
+      "text": "ROUBAR SEPULTURA"
+    },
+    {
+      "id": "w_617",
+      "text": "MINHA BUNDA NEGRA"
+    },
+    {
+      "id": "w_618",
+      "text": "CONSELHOS DE UM VELHO HOMEM NEGRO"
+    },
+    {
+      "id": "w_619",
+      "text": "COMER O ÚLTIMO BISÃO CONHECIDO"
+    },
+    {
+      "id": "w_620",
+      "text": "BORIS CASOY SENDO PERSEGUIDO POR UMA REVOADA DE URUBUS"
+    },
+    {
+      "id": "w_621",
+      "text": "CATAPULTAS"
+    },
+    {
+      "id": "w_622",
+      "text": "MENDIGOS"
+    },
+    {
+      "id": "w_623",
+      "text": "OS POBRES"
+    },
+    {
+      "id": "w_624",
+      "text": "PROFUNDA TRISTEZA"
+    },
+    {
+      "id": "w_625",
+      "text": "EXISTENCIAL"
+    },
+    {
+      "id": "w_626",
+      "text": "O DOCE VENENO DO ESCORPIÃO"
+    },
+    {
+      "id": "w_627",
+      "text": "UMA SURPRESA SALGADINHA"
+    },
+    {
+      "id": "w_628",
+      "text": "ÓRFÃOS ADORÁVEIS"
+    },
+    {
+      "id": "w_629",
+      "text": "PROIBIDÃO"
+    },
+    {
+      "id": "w_630",
+      "text": "A FORÇA"
+    },
+    {
+      "id": "w_631",
+      "text": "QUESTÕES DE VESTIBULAR RACISTAS"
+    },
+    {
+      "id": "w_632",
+      "text": "LIMPAR A BUNDA DELA"
+    },
+    {
+      "id": "w_633",
+      "text": "SEPPUKU"
+    },
+    {
+      "id": "w_634",
+      "text": "A FOME"
+    },
+    {
+      "id": "w_635",
+      "text": "DESIGN INTELIGENTE"
+    },
+    {
+      "id": "w_636",
+      "text": "UM PÊNIS QUE É QUASE GRANDE DEMAIS"
+    },
+    {
+      "id": "w_637",
+      "text": "PEDAÇOS DE MENDIGOS MORTOS"
+    },
+    {
+      "id": "w_638",
+      "text": "LÍNGUA SOLTA"
+    },
+    {
+      "id": "w_639",
+      "text": "BUKKAKE PIXELADO"
+    },
+    {
+      "id": "w_640",
+      "text": "CIENTOLOGIA"
+    },
+    {
+      "id": "w_641",
+      "text": "AIDS"
+    },
+    {
+      "id": "w_642",
+      "text": "FICAR COM UM PÊLO PÚBICO PRESO NOS DENTES"
+    },
+    {
+      "id": "w_643",
+      "text": "ARREMESSO DE ANÃO"
+    },
+    {
+      "id": "w_644",
+      "text": "IMAGENS DE SEIOS"
+    },
+    {
+      "id": "w_645",
+      "text": "FÚRIA MENSTRUAL"
+    },
+    {
+      "id": "w_646",
+      "text": "AMOSTRAS GRÁTIS"
+    },
+    {
+      "id": "w_647",
+      "text": "LEGIÃO DOS SUPER-HERÓIS BRASILEIROS"
+    },
+    {
+      "id": "w_648",
+      "text": "MIJANDO SEXUALMENTE"
+    },
+    {
+      "id": "w_649",
+      "text": "UM PÊLO PÚBICO PERDIDO"
+    },
+    {
+      "id": "w_650",
+      "text": "LIGA DA JUSTIÇA"
+    },
+    {
+      "id": "w_651",
+      "text": "USAR ANÕES COMO APOIOS DE BRAÇO"
+    },
+    {
+      "id": "w_652",
+      "text": "FICAR COMPLETAMENTE DOPADO"
+    },
+    {
+      "id": "w_653",
+      "text": "UM INFINITO RIACHO DE DIARRÉIA"
+    },
+    {
+      "id": "w_654",
+      "text": "ABRIR O MAR VERMELHO"
+    },
+    {
+      "id": "w_655",
+      "text": "AUTOCANIBALISMO"
+    },
+    {
+      "id": "w_656",
+      "text": "PULAR COMO UMA"
+    },
+    {
+      "id": "w_657",
+      "text": "GAZELA"
+    },
+    {
+      "id": "w_658",
+      "text": "UM TIROTEIO"
+    },
+    {
+      "id": "w_659",
+      "text": "REZAR PRA CURAR HOMOSSEXUALISMO"
+    },
+    {
+      "id": "w_660",
+      "text": "INJETAR HEROÍNA NOS OLHOS"
+    },
+    {
+      "id": "w_661",
+      "text": "MEU STATUS DE RELACIONAMENTO"
+    },
+    {
+      "id": "w_662",
+      "text": "FLERTAR"
+    },
+    {
+      "id": "w_663",
+      "text": "PERCEBER, TARDE DEMAIS, QUE O PAPEL HIGIÊNICO ACABOU"
+    },
+    {
+      "id": "w_664",
+      "text": "SE MIJAR UM POUQUINHO"
+    },
+    {
+      "id": "w_665",
+      "text": "DOIS ANÕES CAGANDO NUM BALDE"
+    },
+    {
+      "id": "w_666",
+      "text": "A KU KLUX KLAN"
+    },
+    {
+      "id": "w_667",
+      "text": "CRIMES DE GUERRA"
+    },
+    {
+      "id": "w_668",
+      "text": "CAGANDO E ANDANDO"
+    },
+    {
+      "id": "w_669",
+      "text": "GENGHIS KHAN"
+    },
+    {
+      "id": "w_670",
+      "text": "DAR RAGE QUIT PARA SEMPRE"
+    },
+    {
+      "id": "w_671",
+      "text": "METANFETAMINA"
+    },
+    {
+      "id": "w_672",
+      "text": "CAGAR NO CHAPÉU DE ALGUÉM COMO VINGANÇA"
+    },
+    {
+      "id": "w_673",
+      "text": "UMA BOLA DE CERA DE OUVIDO, SÊMEN E PEDAÇOS DE UNHAS DOS DEDOS DO PÉ"
+    },
+    {
+      "id": "w_674",
+      "text": "SERVIDÃO"
+    },
+    {
+      "id": "w_675",
+      "text": "JOSÉ SARNEY"
+    },
+    {
+      "id": "w_676",
+      "text": "PERIGO RELACIONADO À PESSOAS ESTRANHAS"
+    },
+    {
+      "id": "w_677",
+      "text": "PROLAPSO ANAL"
+    },
+    {
+      "id": "w_678",
+      "text": "O DIABO EM PESSOA"
+    },
+    {
+      "id": "w_679",
+      "text": "O MELOCOTON"
+    },
+    {
+      "id": "w_680",
+      "text": "LEPRA"
+    },
+    {
+      "id": "w_681",
+      "text": "O WORLD OF WARCRAFT"
+    },
+    {
+      "id": "w_682",
+      "text": "O XAROPINHO"
+    },
+    {
+      "id": "w_683",
+      "text": "SER FABULOSO"
+    },
+    {
+      "id": "w_684",
+      "text": "A CARREIRA DE ATOR LUCIANO HUCK"
+    },
+    {
+      "id": "w_685",
+      "text": "O FIM DO MUNDO"
+    },
+    {
+      "id": "w_686",
+      "text": "OS NORDESTINOS"
+    },
+    {
+      "id": "w_687",
+      "text": "EXIBIR-SE"
+    },
+    {
+      "id": "w_688",
+      "text": "HÁLITO DE PÊNIS"
+    },
+    {
+      "id": "w_689",
+      "text": "NUDES"
+    },
+    {
+      "id": "w_690",
+      "text": "MILÍCIAS"
+    },
+    {
+      "id": "w_691",
+      "text": "MOTOSSERRAS NO LUGAR DAS MÃOS"
+    },
+    {
+      "id": "w_692",
+      "text": "UMA GENTIL PASSADA DE MÃO NA COXA"
+    },
+    {
+      "id": "w_693",
+      "text": "SOBRECOMPENSAÇÃ O"
+    },
+    {
+      "id": "w_694",
+      "text": "O CRIANÇA ESPERANÇA"
+    },
+    {
+      "id": "w_695",
+      "text": "CENA DE \"BUKKAKE\" EM BAIXA RESOLUÇÃO"
+    },
+    {
+      "id": "w_696",
+      "text": "BOTAR UM OVO"
+    },
+    {
+      "id": "w_697",
+      "text": "O PAPA"
+    },
+    {
+      "id": "w_698",
+      "text": "UMA VIDA DE TRISTEZA"
+    },
+    {
+      "id": "w_699",
+      "text": "A TOLICE DOS HOMENS"
+    },
+    {
+      "id": "w_700",
+      "text": "PIERCING GENITAL"
+    },
+    {
+      "id": "w_701",
+      "text": "MEUS GENITAIS"
+    },
+    {
+      "id": "w_702",
+      "text": "DILMÃE"
+    },
+    {
+      "id": "w_703",
+      "text": "FELICIDADE INGÊNUA"
+    },
+    {
+      "id": "w_704",
+      "text": "GENTE POBRE"
+    },
+    {
+      "id": "w_705",
+      "text": "ESTUPRAR E PILHAR"
+    },
+    {
+      "id": "w_706",
+      "text": "UM MACACO FUMANDO CIGARRO"
+    },
+    {
+      "id": "w_707",
+      "text": "MICRO AGRESSÕES"
+    },
+    {
+      "id": "w_708",
+      "text": "BOLSOMITO"
+    },
+    {
+      "id": "w_709",
+      "text": "INUNDAÇÃO"
+    },
+    {
+      "id": "w_710",
+      "text": "PROSTITUTAS MORTAS"
+    },
+    {
+      "id": "w_711",
+      "text": "JAIR BOLSONARO"
+    },
+    {
+      "id": "w_712",
+      "text": "O TESTÍCULO AUSENTE EM LANCE ARMSTRONG"
+    },
+    {
+      "id": "w_713",
+      "text": "50.000 VOLTS DIRETO NOS MAMILOS"
+    },
+    {
+      "id": "w_714",
+      "text": "INVADIR A POLÔNIA"
+    },
+    {
+      "id": "w_715",
+      "text": "ÂNSIA DE VÔMITO"
+    },
+    {
+      "id": "w_716",
+      "text": "POBRES ESCOLHAS"
+    },
+    {
+      "id": "w_717",
+      "text": "DE VIDA"
+    },
+    {
+      "id": "w_718",
+      "text": "INÊS BRASIL"
+    },
+    {
+      "id": "w_719",
+      "text": "TERRORISTAS"
+    },
+    {
+      "id": "w_720",
+      "text": "UM JUMENTO COM FLATULÊNCIA"
+    },
+    {
+      "id": "w_721",
+      "text": "BRITNEY SPEARS AOS 55"
+    },
+    {
+      "id": "w_722",
+      "text": "CASUALIDADES"
+    },
+    {
+      "id": "w_723",
+      "text": "CIVIS"
+    },
+    {
+      "id": "w_724",
+      "text": "ATITUDE"
+    },
+    {
+      "id": "w_725",
+      "text": "A RAÇA MESTRE"
+    },
+    {
+      "id": "w_726",
+      "text": "PUTAS"
+    },
+    {
+      "id": "w_727",
+      "text": "SUBITAMENTE CANTAR E DANÇAR UMA CANÇÃO EM PÚBLICO"
+    },
+    {
+      "id": "w_728",
+      "text": "FAZER PARECER UM SUICÍDIO"
+    },
+    {
+      "id": "w_729",
+      "text": "AUSCHWITZ"
+    },
+    {
+      "id": "w_730",
+      "text": "SOCAR UM DEPUTADO NA CARA"
+    },
+    {
+      "id": "w_731",
+      "text": "O ORGASMO FEMININO"
+    },
+    {
+      "id": "w_732",
+      "text": "BURACOS GLORIOSOS"
+    },
+    {
+      "id": "w_733",
+      "text": "ALEIJADOS"
+    },
+    {
+      "id": "w_734",
+      "text": "DANONINHO"
+    },
+    {
+      "id": "w_735",
+      "text": "MAMILOS PROTUBERANTES"
+    },
+    {
+      "id": "w_736",
+      "text": "UMA ATUALIZAÇÃO DO WINDOWS"
+    },
+    {
+      "id": "w_737",
+      "text": "O CORAÇÃO DE UMA CRIANÇA"
+    },
+    {
+      "id": "w_738",
+      "text": "FILHOTES DE CACHORRO"
+    },
+    {
+      "id": "w_739",
+      "text": "A VERSÃO TOSCA DE NATAL DOS JUDEUS"
+    },
+    {
+      "id": "w_740",
+      "text": "UM ABRAÇO DOS URSINHOS CARINHOSOS"
+    },
+    {
+      "id": "w_741",
+      "text": "ACORDAR SEMI-NU NUM ESTACIONAMENTO ABERTO"
+    },
+    {
+      "id": "w_742",
+      "text": "COMBUSTÃO HUMANA ESPONTÂNEA"
+    },
+    {
+      "id": "w_743",
+      "text": "SE CAGAR TODO"
+    },
+    {
+      "id": "w_744",
+      "text": "APARELHO DENTAL"
+    },
+    {
+      "id": "w_745",
+      "text": "SEXO CONSENSUAL"
+    },
+    {
+      "id": "w_746",
+      "text": "PERÍNEO"
+    },
+    {
+      "id": "w_747",
+      "text": "PESSOAS NEGRAS"
+    },
+    {
+      "id": "w_748",
+      "text": "ESCUTA ATIVA"
+    },
+    {
+      "id": "w_749",
+      "text": "ACIDENTALMENTE SE DAR UMA DEDADA ENQUANTO LIMPA A BUNDA"
+    },
+    {
+      "id": "w_750",
+      "text": "RIVOTRIL®"
+    },
+    {
+      "id": "w_751",
+      "text": "ENFIAR AS BOLAS EM UM SUPER NINTENDO E LIGAR"
+    },
+    {
+      "id": "w_752",
+      "text": "COMER, REZAR, AMAR"
+    },
+    {
+      "id": "w_753",
+      "text": "MAMÃE"
+    },
+    {
+      "id": "w_754",
+      "text": "A MÃO INVISÍVEL"
+    },
+    {
+      "id": "w_755",
+      "text": "O CORAÇÃO DE UMA"
+    },
+    {
+      "id": "w_756",
+      "text": "CRIANÇA"
+    },
+    {
+      "id": "w_757",
+      "text": "CABELO PIXAIM"
+    },
+    {
+      "id": "w_758",
+      "text": "ESPERANDO ATÉ O CASAMENTO"
+    },
+    {
+      "id": "w_759",
+      "text": "DEPRESSÃO"
+    },
+    {
+      "id": "w_760",
+      "text": "O RETIRANTE NORDESTINO"
+    },
+    {
+      "id": "w_761",
+      "text": "ESTUPIDEZ INCOMENSURÁVEL"
+    },
+    {
+      "id": "w_762",
+      "text": "NUNCA MAIS TRANSAR"
+    },
+    {
+      "id": "w_763",
+      "text": "REPASSAR O PRESENTE"
+    },
+    {
+      "id": "w_764",
+      "text": "DESCOBRIR QUE O PAPAI NOEL NÃO É REAL"
+    },
+    {
+      "id": "w_765",
+      "text": "O MASSACRE DA CANDELÁRIA"
+    },
+    {
+      "id": "w_766",
+      "text": "AQUELE SEU PRIMO ESQUISITO"
+    },
+    {
+      "id": "w_767",
+      "text": "BORIS CASOY PRENDENDO O SACO NA PORTA DO CHUVEIRO"
+    },
+    {
+      "id": "w_768",
+      "text": "SER BURRO PRA CARALHO"
+    },
+    {
+      "id": "w_769",
+      "text": "CAVALARIA"
+    },
+    {
+      "id": "w_770",
+      "text": "MINHA COLEÇÃO DE BRINQUEDOS SEXUAIS ELETRÔNICOS"
+    },
+    {
+      "id": "w_771",
+      "text": "PENSAMENTOS SUICIDAS"
+    },
+    {
+      "id": "w_772",
+      "text": "LEVAR 2D6 DE DANO"
+    },
+    {
+      "id": "w_773",
+      "text": "EMOCIONAL"
+    },
+    {
+      "id": "w_774",
+      "text": "ROBERT DOWNEY, Jr."
+    },
+    {
+      "id": "w_775",
+      "text": "BRANCOS"
+    },
+    {
+      "id": "w_776",
+      "text": "DEVERES CONJUGAIS"
+    },
+    {
+      "id": "w_777",
+      "text": "A AGENDA GAY"
+    },
+    {
+      "id": "w_778",
+      "text": "PORNOGRAFIA ENVOLVENDO TENTÁCULOS"
+    },
+    {
+      "id": "w_779",
+      "text": "O LEAGUE OF LEGENDS"
+    },
+    {
+      "id": "w_780",
+      "text": "DATTEBAYO!"
+    },
+    {
+      "id": "w_781",
+      "text": "GEL DE CABELO EM EXCESSO"
+    },
+    {
+      "id": "w_782",
+      "text": "A NOITE APAIXONADA DA MINHA CONCEPÇÃO"
+    },
+    {
+      "id": "w_783",
+      "text": "WESLEY SAFADÃO"
+    },
+    {
+      "id": "w_784",
+      "text": "DANÇAR NO GELO COM PARCEIRO DO MESMO SEXO"
+    },
+    {
+      "id": "w_785",
+      "text": "CRUCIFICAÇÃO"
+    },
+    {
+      "id": "w_786",
+      "text": "SUICÍDIO"
+    },
+    {
+      "id": "w_787",
+      "text": "TRAPACEAR NA OLIMPÍADA PARAOLÍMPICA"
+    },
+    {
+      "id": "w_788",
+      "text": "UMA CHUPETA SANGRENTA"
+    },
+    {
+      "id": "w_789",
+      "text": "A LUZ DE UM BILHÃO DE SÓIS"
+    },
+    {
+      "id": "w_790",
+      "text": "CARISMA"
+    },
+    {
+      "id": "w_791",
+      "text": "VENDER"
+    },
+    {
+      "id": "w_792",
+      "text": "METANFETAMINA PARA CRIANÇAS"
+    },
+    {
+      "id": "w_793",
+      "text": "JOGAR UMA VIRGEM EM UM VULCÃO"
+    },
+    {
+      "id": "w_794",
+      "text": "KEANU REEVES"
+    },
+    {
+      "id": "w_795",
+      "text": "O LEITEIRO"
+    },
+    {
+      "id": "w_796",
+      "text": "TONY RAMOS"
+    },
+    {
+      "id": "w_797",
+      "text": "UMA INSPEÇÃO"
+    },
+    {
+      "id": "w_798",
+      "text": "O SOFRIMENTO DAS"
+    },
+    {
+      "id": "w_799",
+      "text": "MULHERES"
+    },
+    {
+      "id": "w_800",
+      "text": "DESTRUINDO A EVIDÊNCIA"
+    },
+    {
+      "id": "w_801",
+      "text": "DISTRIBUIR CAMISINHAS EM PORTA DE IGREJA"
+    },
+    {
+      "id": "w_802",
+      "text": "FERNANDO HENRIQUE CARDOSO"
+    },
+    {
+      "id": "w_803",
+      "text": "O GULAG"
+    },
+    {
+      "id": "w_804",
+      "text": "MENSTRUAÇÃO"
+    },
+    {
+      "id": "w_805",
+      "text": "WD-40"
+    },
+    {
+      "id": "w_806",
+      "text": "CRIANÇAS EM COLEIRAS"
+    },
+    {
+      "id": "w_807",
+      "text": "CÂNCER ANAL"
+    },
+    {
+      "id": "w_808",
+      "text": "DILMA ROUSSEFF"
+    },
+    {
+      "id": "w_809",
+      "text": "UM TRILHÃO DE DÓLARES"
+    },
+    {
+      "id": "w_810",
+      "text": "UMA SURPRESA DESAGRADÁVEL"
+    },
+    {
+      "id": "w_811",
+      "text": "UMA RAZÃO PARA NÃO COMETER SUICÍDIO"
+    },
+    {
+      "id": "w_812",
+      "text": "AMIGOS COM BENEFÍCIOS"
+    },
+    {
+      "id": "w_813",
+      "text": "VIOLAÇÃO DOS MAIS BÁSICOS DE NOSSOS DIREITOS HUMANOS"
+    },
+    {
+      "id": "w_814",
+      "text": "SILÊNCIO"
+    },
+    {
+      "id": "w_815",
+      "text": "PEDE PRA SAIR!"
+    },
+    {
+      "id": "w_816",
+      "text": "UM POUCO DE PAZ E TRANQUILIDADE NESSA CARALHA"
+    },
+    {
+      "id": "w_817",
+      "text": "CRIAR BOLAS"
+    },
+    {
+      "id": "w_818",
+      "text": "ESTUPRO"
+    },
+    {
+      "id": "w_819",
+      "text": "A TORCIDA DO FLAMENGO"
+    },
+    {
+      "id": "w_820",
+      "text": "NECROPEDOFILIA"
+    },
+    {
+      "id": "w_821",
+      "text": "A BATERIA DA SALGUEIRO"
+    },
+    {
+      "id": "w_822",
+      "text": "PORRA NENHUMA"
+    },
+    {
+      "id": "w_823",
+      "text": "CENTAUROS"
+    },
+    {
+      "id": "w_824",
+      "text": "MASTURBAÇÃO"
+    },
+    {
+      "id": "w_825",
+      "text": "OS CIENTISTAS DESOCUPADOS DA AUSTRÁLIA"
+    },
+    {
+      "id": "w_826",
+      "text": "TRÊS PINTOS AO MESMO TEMPO"
+    },
+    {
+      "id": "w_827",
+      "text": "REZAR PRA DEIXAR DE SER GAY"
+    },
+    {
+      "id": "w_828",
+      "text": "NEGROS"
+    },
+    {
+      "id": "w_829",
+      "text": "SE MASTURBAR EM UMA POÇA DE LÁGRIMAS DE CRIANÇAS"
+    },
+    {
+      "id": "w_830",
+      "text": "KIT GAY"
+    },
+    {
+      "id": "w_831",
+      "text": "CAVALHEIRISMO"
+    },
+    {
+      "id": "w_832",
+      "text": "PALAVRAS, PALAVRAS, PALAVRAS"
+    },
+    {
+      "id": "w_833",
+      "text": "MEUS DEMÔNIOS"
+    },
+    {
+      "id": "w_834",
+      "text": "QUENTINHA"
+    },
+    {
+      "id": "w_835",
+      "text": "GRAVIDEZ ADOLESCENTE"
+    },
+    {
+      "id": "w_836",
+      "text": "VADIAS"
+    },
+    {
+      "id": "w_837",
+      "text": "PLUG ANAL"
+    },
+    {
+      "id": "w_838",
+      "text": "TANANÃ"
+    },
+    {
+      "id": "w_839",
+      "text": "RETARDADOS"
+    },
+    {
+      "id": "w_840",
+      "text": "MEMES"
+    },
+    {
+      "id": "w_841",
+      "text": "ÓRFÃOS"
+    },
+    {
+      "id": "w_842",
+      "text": "COBERTURA DA MÍDIA 24 HORAS"
+    },
+    {
+      "id": "w_843",
+      "text": "MINHAS HEMORRÓIDAS"
+    },
+    {
+      "id": "w_844",
+      "text": "MECHA"
+    },
+    {
+      "id": "w_845",
+      "text": "CALCINHAS USADAS"
+    },
+    {
+      "id": "w_846",
+      "text": "OTAKUS"
+    },
+    {
+      "id": "w_847",
+      "text": "HITLER"
+    },
+    {
+      "id": "w_848",
+      "text": "CHUPAR O PINTO DO"
+    },
+    {
+      "id": "w_849",
+      "text": "PRESIDENTE"
+    },
+    {
+      "id": "w_850",
+      "text": "EVACUAÇÃO DOLOROSA"
+    },
+    {
+      "id": "w_851",
+      "text": "ABORTOS COM CABIDES"
+    },
+    {
+      "id": "w_852",
+      "text": "OUTRO MALDITO FILME SOBRE VAMPIROS"
+    },
+    {
+      "id": "w_853",
+      "text": "LIMPAR A BUNDA"
+    },
+    {
+      "id": "w_854",
+      "text": "CRIANÇAS CHINESAS"
+    },
+    {
+      "id": "w_855",
+      "text": "MOLA MALUCA"
+    },
+    {
+      "id": "w_856",
+      "text": "SAMUEL L"
+    },
+    {
+      "id": "w_857",
+      "text": "JACKSON"
+    },
+    {
+      "id": "w_858",
+      "text": "SEGREGAÇÃO RACIAL"
+    },
+    {
+      "id": "w_859",
+      "text": "PEREBA"
+    },
+    {
+      "id": "w_860",
+      "text": "GOZAR NA BARBA DO PAPAI NOEL"
+    },
+    {
+      "id": "w_861",
+      "text": "BUFFET POR R$ 9,90 O QUILO"
+    },
+    {
+      "id": "w_862",
+      "text": "O VERDADEIRO SIGNIFICADO DO NATAL"
+    },
+    {
+      "id": "w_863",
+      "text": "NÃO CONTRIBUIR COM A SOCIEDADE DE NENHUMA MANEIRA SIGNIFICATIVA"
+    },
+    {
+      "id": "w_864",
+      "text": "FEMINAZIS"
+    },
+    {
+      "id": "w_865",
+      "text": "ESTROGÊNIO"
+    },
+    {
+      "id": "w_866",
+      "text": "MICHAEL JACKSON"
+    },
+    {
+      "id": "w_867",
+      "text": "INDIGESTÃO DE TORRESMO"
+    },
+    {
+      "id": "w_868",
+      "text": "MEU PRIMEIRO ASSASSINATO"
+    },
+    {
+      "id": "w_869",
+      "text": "UM CHAPÉU MANEIRO"
+    },
+    {
+      "id": "w_870",
+      "text": "AQUELE NEGÓCIO QUE ELETROCUTA O ABDÔMEN"
+    },
+    {
+      "id": "w_871",
+      "text": "O QUILOMBO DOS PALMARES"
+    },
+    {
+      "id": "w_872",
+      "text": "DAR UMA PEGADINHA"
+    },
+    {
+      "id": "w_873",
+      "text": "CÁLCULO RENAL"
+    },
+    {
+      "id": "w_874",
+      "text": "EBOLA"
+    },
+    {
+      "id": "w_875",
+      "text": "BACON"
+    },
+    {
+      "id": "w_876",
+      "text": "DAR UMA DEDADA"
+    },
+    {
+      "id": "w_877",
+      "text": "MELHORAMENTOS CIBERNÉTICOS"
+    },
+    {
+      "id": "w_878",
+      "text": "CONCURSOS DE BELEZA INFANTIS"
+    },
+    {
+      "id": "w_879",
+      "text": "CALAR A PORRA DA BOCA"
+    },
+    {
+      "id": "w_880",
+      "text": "CARAS QUE NÃO TELEFONAM"
+    },
+    {
+      "id": "w_881",
+      "text": "UM ABORTO INVOLUNTÁRIO"
+    },
+    {
+      "id": "w_882",
+      "text": "A PATRIARQUIA"
+    },
+    {
+      "id": "w_883",
+      "text": "LENÇÓIS INFECTADOS COM VARÍOLA"
+    },
+    {
+      "id": "w_884",
+      "text": "VIAGRA ®"
+    },
+    {
+      "id": "w_885",
+      "text": "A CENA DA MORTE DE MUFASA"
+    },
+    {
+      "id": "w_886",
+      "text": "CONOTAÇÕES CLASSISTAS"
+    },
+    {
+      "id": "w_887",
+      "text": "LITERALMENTE COMER MERDA"
+    },
+    {
+      "id": "w_888",
+      "text": "UMA FESTA DE LINGUIÇA"
+    },
+    {
+      "id": "w_889",
+      "text": "EMITIR FLATOS VAGINAIS"
+    },
+    {
+      "id": "w_890",
+      "text": "ESCONDER UMA EREÇÃO"
+    },
+    {
+      "id": "w_891",
+      "text": "UMA CIRCUNCISÃO MAL EXECUTADA"
+    },
+    {
+      "id": "w_892",
+      "text": "LINGERIE COMESTÍVEL"
+    },
+    {
+      "id": "w_893",
+      "text": "A CHACINA DESSA SEMANA"
+    },
+    {
+      "id": "w_894",
+      "text": "ESPIRRAR, PEIDAR E GOZAR AO MESMO TEMPO"
+    },
+    {
+      "id": "w_895",
+      "text": "UMA EREÇÃO QUE DURA MAIS DE 4 HORAS"
+    },
+    {
+      "id": "w_896",
+      "text": "PINTOS NO LUGAR DOS DEDOS"
+    },
+    {
+      "id": "w_897",
+      "text": "SOPA MUITO QUENTE"
+    },
+    {
+      "id": "w_898",
+      "text": "SER UM ADULTO OCUPADO COM MUITAS COISAS IMPORTANTES PARA FAZER"
+    },
+    {
+      "id": "w_899",
+      "text": "HERPES GENITAL"
+    },
+    {
+      "id": "w_900",
+      "text": "A INTERNET INTEIRA MANJA-ROLA ESMEGMA"
+    },
+    {
+      "id": "w_901",
+      "text": "UM MONTE DE PUTA MORTA"
+    },
+    {
+      "id": "w_902",
+      "text": "ZECA PAGODINHO AJUDANDO VÍTIMAS DE ENCHENTE"
+    },
+    {
+      "id": "w_903",
+      "text": "PILOTO DO AVIÃO DA CHAPECOENSE"
+    },
+    {
+      "id": "w_904",
+      "text": "SUSANA VIEIRA A CARREIRA DO"
+    },
+    {
+      "id": "w_905",
+      "text": "LATINO"
+    },
+    {
+      "id": "w_906",
+      "text": "UM HAMSTER CHEIRANDO COCAÍNA"
+    },
+    {
+      "id": "w_907",
+      "text": "MEU CALABOUÇO DO SEXO"
+    },
+    {
+      "id": "w_908",
+      "text": "A CLAUDIA, SENTANDO LA"
+    },
+    {
+      "id": "w_909",
+      "text": "SEU PAI TRANSANDO COM SUA MÃE"
+    },
+    {
+      "id": "w_910",
+      "text": "UM MILHÃO DE REAIS"
+    },
+    {
+      "id": "w_911",
+      "text": "ÚNICA PESSOA QUE COMPROU A TEKPIX"
+    },
+    {
+      "id": "w_912",
+      "text": "BEBER DEMAIS E MORRER ENGASGADO COM O PRÓPRIO VÔMITO"
+    },
+    {
+      "id": "w_913",
+      "text": "INCITAR A PLEBE AO CAOS"
+    },
+    {
+      "id": "w_914",
+      "text": "UMA REUNIÃO DE 5 HORAS DA HINODE"
+    },
+    {
+      "id": "w_915",
+      "text": "CABO DACIOLO"
+    },
+    {
+      "id": "w_916",
+      "text": "RECLAMAR QUE NEM UMA BICHINHA"
+    },
+    {
+      "id": "w_917",
+      "text": "UM ROLÊ NO CROSSFOX DA STEFHANY"
+    },
+    {
+      "id": "w_918",
+      "text": "O GOL DO OSCAR NO 7 X 1"
+    },
+    {
+      "id": "w_919",
+      "text": "GRITAR MAIS ALTO QUE UMA CABRA NO CIO"
+    },
+    {
+      "id": "w_920",
+      "text": "UM MENAGE DA REGINA CASÉ, GLORIA MARIA E ANA MARIA BRAGA"
+    },
+    {
+      "id": "w_921",
+      "text": "UM PEIXE ANDANDO DE BICICLETA"
+    },
+    {
+      "id": "w_922",
+      "text": "ELETROEJACULAR UM PEQUENO CHIMPANZÉ"
+    },
+    {
+      "id": "w_923",
+      "text": "TOPSTER CARLOS BOLSONARO ANDANDO NO BEBÊ-CONFORTO DO CARRO PRESIDENCIAL NA POSSE PRESIDENCIAL"
+    },
+    {
+      "id": "w_924",
+      "text": "CAMISINHA COM DEFEITO"
+    },
+    {
+      "id": "w_925",
+      "text": "SANDUÍCHE DE BUCETA"
+    },
+    {
+      "id": "w_926",
+      "text": "MATAR O PRESIDENTE"
+    },
+    {
+      "id": "w_927",
+      "text": "DAR EM CIMA DA MÃE DA NOIVA"
+    },
+    {
+      "id": "w_928",
+      "text": "PROCESSAR O RAFINHA BASTOS"
+    },
+    {
+      "id": "w_929",
+      "text": "\"AMOR, ESTRANHO AMOR\", COM XUXA"
+    },
+    {
+      "id": "w_930",
+      "text": "PEGAR A CUNHADA POLIAMOR O CABELO DO SILVIO"
+    },
+    {
+      "id": "w_931",
+      "text": "SANTOS"
+    },
+    {
+      "id": "w_932",
+      "text": "TINDER PIROCÓPTERO PARA"
+    },
+    {
+      "id": "w_933",
+      "text": "MANETA"
+    },
+    {
+      "id": "w_934",
+      "text": "DIABETES"
+    },
+    {
+      "id": "w_935",
+      "text": "TUA MÃE TODO CAGADO ULYSSES GUIMARÃES"
+    },
+    {
+      "id": "w_936",
+      "text": "EXORCISMO PERCEBER QUE O CHAVES ERA UM MENINO VELHO"
+    },
+    {
+      "id": "w_937",
+      "text": "\"BATE FORTE O TAMBOR\", DO CARRAPICHO"
+    },
+    {
+      "id": "w_938",
+      "text": "PAPA FRANCISCO PENTELHOS PEDRO DE LARA"
+    },
+    {
+      "id": "w_939",
+      "text": "JUDEUS NAZISTAS MAIS LONGO QUE FAROESTE CABOCLO"
+    },
+    {
+      "id": "w_940",
+      "text": "CHORAR NA RINHA DE GALO"
+    },
+    {
+      "id": "w_941",
+      "text": "CUSPIR ANTES MARIQUINHA, A FILHA DA PUTA QUE NÃO ABRE A PORTA NEM FUDENDO"
+    },
+    {
+      "id": "w_942",
+      "text": "AIRFRYER"
+    },
+    {
+      "id": "w_943",
+      "text": "FREIRAS MEIA BOMBA LULA PRESO BABACA"
+    },
+    {
+      "id": "w_944",
+      "text": "BANCO DE ESPERMA CLANDESTINO"
+    },
+    {
+      "id": "w_945",
+      "text": "PEIDO PESADO CABARÉ PEGANDO"
+    },
+    {
+      "id": "w_946",
+      "text": "FOGO"
+    },
+    {
+      "id": "w_947",
+      "text": "SUA MÃE, AQUELA VADIA"
+    },
+    {
+      "id": "w_948",
+      "text": "FALSIANE MASSACRE DE CARANDIRU"
+    },
+    {
+      "id": "w_949",
+      "text": "LEPROSOS DUELO DE ESPADAS ENTRE O NEGÃO DA PIROCA E O KID BENGALA"
+    },
+    {
+      "id": "w_950",
+      "text": "BARRAGEM DE BRUMADINHO"
+    },
+    {
+      "id": "w_951",
+      "text": "ADOLESCENTES COM OS HORMÔNIOS À FLOR DA PELE"
+    },
+    {
+      "id": "w_952",
+      "text": "DIDIDIDIÊ DIDIDIDIÊ COCK AND BALL TORTURE"
+    },
+    {
+      "id": "w_953",
+      "text": "MORTE POR EMPALAMENTO"
+    },
+    {
+      "id": "w_954",
+      "text": "CLEITINHO, O TRAFICANTE SEU AMIGUINHO"
+    },
+    {
+      "id": "w_955",
+      "text": "UM VIRA-LATA CARAMELO"
+    },
+    {
+      "id": "w_956",
+      "text": "TORTURAR HOMENS CHUTANDO SEU SACO"
+    },
+    {
+      "id": "w_957",
+      "text": "AI QUE DELICIA CARA!"
+    },
+    {
+      "id": "w_958",
+      "text": "FEIJÃO NO POTE DE SORVETE"
+    },
+    {
+      "id": "w_959",
+      "text": "TREPAR DE MEIA FREADA NA CUECA UM LANCE TÃO BOM QUANTO PINTAR COM LUKSCOLOR"
+    },
+    {
+      "id": "w_960",
+      "text": "TELETUBBIES VICIADOS EM LSD"
+    },
+    {
+      "id": "w_961",
+      "text": "ESSA FERA AÍ, BICHO EVIDÊNCIAS CONCRETAS DA EXISTÊNCIA DO ACRE"
+    },
+    {
+      "id": "w_962",
+      "text": "TODOS OS ANÕES DO MUNDO LUTANDO CONTRA O INCRÍVEL HULK E SENDO TODOS ESMAGADOS COM UMA PISADA SÓ"
+    },
+    {
+      "id": "w_963",
+      "text": "FRIBOI A MÃO INVISÍVEL DO LIVRE MERCADO"
+    },
+    {
+      "id": "w_964",
+      "text": "TRAIR A NAMORADA COM A SOGRA"
+    },
+    {
+      "id": "w_965",
+      "text": "COXINHA O FORO DE SÃO"
+    },
+    {
+      "id": "w_966",
+      "text": "PAULO"
+    },
+    {
+      "id": "w_967",
+      "text": "TIRAR LEITE DO PAU, COMO UM SERINGUEIRO PROFISSIONAL"
+    },
+    {
+      "id": "w_968",
+      "text": "DESCOBRIR QUE ANITTA EM INGLÊS FALA-SE ANIRA"
+    },
+    {
+      "id": "w_969",
+      "text": "DEFINHAR NO FINAL DE SEMANA"
+    },
+    {
+      "id": "w_970",
+      "text": "TURISTAS AMERICANOS ANDANDO DE TÊNIS NA PRAIA"
+    },
+    {
+      "id": "w_971",
+      "text": "NALDO BENNY BEBENDO VODKA E ÁGUA DE CÔCO"
+    },
+    {
+      "id": "w_972",
+      "text": "A TAMPA DO TEU CÚ"
+    },
+    {
+      "id": "w_973",
+      "text": "TESÃO DE VACA NA BEBIDA"
+    },
+    {
+      "id": "w_974",
+      "text": "O SEXTAPE DA DILMA E LULA"
+    },
+    {
+      "id": "w_975",
+      "text": "ASNO"
+    },
+    {
+      "id": "w_976",
+      "text": "TARADOS EM REABILITAÇÃO"
+    },
+    {
+      "id": "w_977",
+      "text": "OLHO DE VIDRO E NARIZ DE PICA-PAU"
+    },
+    {
+      "id": "w_978",
+      "text": "ANTA"
+    },
+    {
+      "id": "w_979",
+      "text": "JEAN CLAUDE VAN DAMME TENDO UMA EREÇÃO NO PROGRAMA DO GUGU"
+    },
+    {
+      "id": "w_980",
+      "text": "OS NARDONIS TRAVESTIS COM"
+    },
+    {
+      "id": "w_981",
+      "text": "GILETE"
+    },
+    {
+      "id": "w_982",
+      "text": "TER UMA EREÇÃO NO PROGRAMA DO GUGU"
+    },
+    {
+      "id": "w_983",
+      "text": "2 CM DE ROLA É NECESSÁRIO CONSTRUIR UMA ANÁLISE ESTATÍSTICA BASEADA EM UM ESPAÇO AMOSTRAL"
+    },
+    {
+      "id": "w_984",
+      "text": "TER UM WEB NAMORADO"
+    },
+    {
+      "id": "w_985",
+      "text": "PADRE MARCELO ROSSI"
+    },
+    {
+      "id": "w_986",
+      "text": "CORRER PELADO NA RUA"
+    },
+    {
+      "id": "w_987",
+      "text": "PARA NOOOOOSSA ALEGRIA"
+    },
+    {
+      "id": "w_988",
+      "text": "WI-FI"
+    },
+    {
+      "id": "w_989",
+      "text": "TRANSAR SEM CAMISINHA"
+    },
+    {
+      "id": "w_990",
+      "text": "PENSAR QUE O DRAUZIO VARELLA CHAMA Dr. AUZIO VARELLA"
+    },
+    {
+      "id": "w_991",
+      "text": "A NOVA TEKPIX"
+    },
+    {
+      "id": "w_992",
+      "text": "CRIANÇAS COM O NARIZ ESCORRENDO"
+    },
+    {
+      "id": "w_993",
+      "text": "PINTA DA ANGÉLICA TPM"
+    },
+    {
+      "id": "w_994",
+      "text": "FUMAR CRACK USANDO UMA LATA VAZIA DE BAVÁRIA COMO CACHIMBO"
+    },
+    {
+      "id": "w_995",
+      "text": "TOMANDO UM SHOT DE SÊMEN"
+    },
+    {
+      "id": "w_996",
+      "text": "O CADÁVER DA MARISA SILVA"
+    },
+    {
+      "id": "w_997",
+      "text": "BOLSONARO THE BOOKS IS ON THE TABLE"
+    },
+    {
+      "id": "w_998",
+      "text": "UMA EMPADA TIPICAMENTE GARANHUENSE"
+    },
+    {
+      "id": "w_999",
+      "text": "GOLDEN SHOWER TER AIDS UMA VIAGEM DE FÉRIAS COM GABRIEL DINIZ"
+    },
+    {
+      "id": "w_1000",
+      "text": "OTAKUS RÉ NO KIBE UM BISCROK SABOR ELIZA SAMUDIO"
+    },
+    {
+      "id": "w_1001",
+      "text": "PORNÔ DE BOB ESPONJA"
+    },
+    {
+      "id": "w_1002",
+      "text": "POSSUÍDO PELO RITMO RAGATANGA"
+    },
+    {
+      "id": "w_1003",
+      "text": "FESTA DO PIJAMA NA RESIDÊNCIA PESSEGHINI"
+    },
+    {
+      "id": "w_1004",
+      "text": "GONORRÉIA MATAR VOCÊ E DAR PROS CACHORROS"
+    },
+    {
+      "id": "w_1005",
+      "text": "A MÚSICA ILARIÊ TOCADA AO CONTRÁRIO"
+    },
+    {
+      "id": "w_1006",
+      "text": "SÍFILIS SOLTAR UM COCÔ EM PLENA BANHEIRA DO GUGU"
+    },
+    {
+      "id": "w_1007",
+      "text": "A SEGUNDA PERNA DO ROBERTO CARLOS"
+    },
+    {
+      "id": "w_1008",
+      "text": "PICA PAU BIRUTA SHIMBALAIÊ ÃÃÃÃÃÃÃN OHNNNNN ÃÃÃÃN AÃÕÕÕHN (GEMIDÃO DO ZAP)"
+    },
+    {
+      "id": "w_1009",
+      "text": "COMER O CU DE CURIOSO"
+    },
+    {
+      "id": "w_1010",
+      "text": "SE CAGAR TODO DEPOIS DE UM ACARAJÉ"
+    },
+    {
+      "id": "w_1011",
+      "text": "ANAL GIRATÓRIO"
+    },
+    {
+      "id": "w_1012",
+      "text": "VELHAS VIRGENS LAVA JATO TRANS FINÍSSIMAS"
+    },
+    {
+      "id": "w_1013",
+      "text": "FUMANDO MACONHA"
+    },
+    {
+      "id": "w_1014",
+      "text": "NEPOTISMO MITO BATENDO UMA PRA REVISTA DA AVON"
+    },
+    {
+      "id": "w_1015",
+      "text": "O JAPONÊS DA FEDERAL"
+    },
+    {
+      "id": "w_1016",
+      "text": "DIREITOS HUMANOS DEVOTO DE"
+    },
+    {
+      "id": "w_1017",
+      "text": "TONINHO DO DIABO"
+    },
+    {
+      "id": "w_1018",
+      "text": "O OLHO DO CU PASTA DE DENTES"
+    },
+    {
+      "id": "w_1019",
+      "text": "FORA DO DENTIFRÍCIO"
+    },
+    {
+      "id": "w_1020",
+      "text": "BOLIVIANOS"
+    },
+    {
+      "id": "w_1021",
+      "text": "OPALA 78 À GASOLINA"
+    },
+    {
+      "id": "w_1022",
+      "text": "#FICATEMER COTISTA"
+    },
+    {
+      "id": "w_1023",
+      "text": "CHEIRAR GASOLINA PROPINA DA JBS SURRA DE TETA DA JOJO TODDYNHO"
+    },
+    {
+      "id": "w_1024",
+      "text": "ANDAR DE MOTO À 120 KM/H SOB O EFEITO DE ENTORPECENTES"
+    },
+    {
+      "id": "w_1025",
+      "text": "FACADA NO BOZONAURO"
+    },
+    {
+      "id": "w_1026",
+      "text": "ROUBANDO DINHEIRO DA MÃE PARA GASTAR NO FORTNITE"
+    },
+    {
+      "id": "w_1027",
+      "text": "UM PORTAL PARA O INFERNO"
+    },
+    {
+      "id": "w_1028",
+      "text": "LEI ROUANET MIMIMI"
+    },
+    {
+      "id": "w_1029",
+      "text": "KID BENGALA FAKE NEWS CURA GAY"
+    },
+    {
+      "id": "w_1030",
+      "text": "PÊNIS CIRCUNCIDADO"
+    },
+    {
+      "id": "w_1031",
+      "text": "GAYZISTA ALVO DA MILÍCIA"
+    },
+    {
+      "id": "w_1032",
+      "text": "CACHORRO CAGANDO NO PALCO DO FAUSTÃO AO VIVO"
+    },
+    {
+      "id": "w_1033",
+      "text": "CICLOVIAS EM SÃO PAULO"
+    },
+    {
+      "id": "w_1034",
+      "text": "BOLOVO"
+    },
+    {
+      "id": "w_1035",
+      "text": "INSPETOR FAUSTÃO E O MALLANDRO"
+    },
+    {
+      "id": "w_1036",
+      "text": "PRESIDENTE LULA CABEÇÃO DA MALHAÇÃO ANTES DO CRACK"
+    },
+    {
+      "id": "w_1037",
+      "text": "SÉRGIO MALLANDRO GALÃ EM \"LUA DE CRISTAL\""
+    },
+    {
+      "id": "w_1038",
+      "text": "BOLSOMINION CRIANÇA VIADA"
+    },
+    {
+      "id": "w_1039",
+      "text": "ESCREVER \"PAI\" AO INVÉS DE \"PAU\" NO MEIO DO SEXTING"
+    },
+    {
+      "id": "w_1040",
+      "text": "HELICOPTERO DE COCAÍNA"
+    },
+    {
+      "id": "w_1041",
+      "text": "FEMINISMO"
+    },
+    {
+      "id": "w_1042",
+      "text": "O BOPE URSAL GRUPO DE VENEZUELANOS REFUGIADOS"
+    },
+    {
+      "id": "w_1043",
+      "text": "PM DE DIADEMA NO BAILE DA GAIOLA HÍMEN DA SANDY"
+    },
+    {
+      "id": "w_1044",
+      "text": "VIRGENS DE 40 ANOS"
+    },
+    {
+      "id": "w_1045",
+      "text": "SIRICUTICO DE BRANCO"
+    },
+    {
+      "id": "w_1046",
+      "text": "IGREJA UNIVERSAL"
+    },
+    {
+      "id": "w_1047",
+      "text": "PESSOAS DO SIGNO DE ESCORPIÃO"
+    },
+    {
+      "id": "w_1048",
+      "text": "MAMADEIRA DE PIROCA"
+    },
+    {
+      "id": "w_1049",
+      "text": "Se ta na internet é verdade"
+    },
+    {
+      "id": "w_1050",
+      "text": "Suzane Von Richthofen"
+    },
+    {
+      "id": "w_1051",
+      "text": "Aliens"
+    },
+    {
+      "id": "w_1052",
+      "text": "São Paulo"
+    },
+    {
+      "id": "w_1053",
+      "text": "Uma morte lenta e dolorosa"
+    },
+    {
+      "id": "w_1054",
+      "text": "Culpa do PT"
+    },
+    {
+      "id": "w_1055",
+      "text": "Bater com gato morto e só parar quando ele miar"
+    },
+    {
+      "id": "w_1056",
+      "text": "The Voice Brasil"
+    },
+    {
+      "id": "w_1057",
+      "text": "Rede Globo"
+    },
+    {
+      "id": "w_1058",
+      "text": "Tentar ir para Portugal para fingir ser rico"
+    },
+    {
+      "id": "w_1059",
+      "text": "Comer terra"
+    },
+    {
+      "id": "w_1060",
+      "text": "Alemanha"
+    },
+    {
+      "id": "w_1061",
+      "text": "Transar com uma cabrita"
+    },
+    {
+      "id": "w_1062",
+      "text": "Descobrir que estupro não é um nome de um bolo"
+    },
+    {
+      "id": "w_1063",
+      "text": "Trabalho honesto é no governo"
+    },
+    {
+      "id": "w_1064",
+      "text": "Merda, mas muita Merda"
+    },
+    {
+      "id": "w_1065",
+      "text": "Sexo em família"
+    },
+    {
+      "id": "w_1066",
+      "text": "Narcos"
+    },
+    {
+      "id": "w_1067",
+      "text": "Wagner Moura"
+    },
+    {
+      "id": "w_1068",
+      "text": "Sexo, drogas e Copa"
+    },
+    {
+      "id": "w_1069",
+      "text": "Roubar aos pobres e dar para os ricos"
+    },
+    {
+      "id": "w_1070",
+      "text": "Uma merda mole no canto"
+    },
+    {
+      "id": "w_1071",
+      "text": "Praias"
+    },
+    {
+      "id": "w_1072",
+      "text": "Indios"
+    },
+    {
+      "id": "w_1073",
+      "text": "Funk"
+    },
+    {
+      "id": "w_1074",
+      "text": "Bater na mulher porque ela não tem pau"
+    },
+    {
+      "id": "w_1075",
+      "text": "Monica"
+    },
+    {
+      "id": "w_1076",
+      "text": "Neymar"
+    },
+    {
+      "id": "w_1077",
+      "text": "Participante do BBB"
+    },
+    {
+      "id": "w_1078",
+      "text": "Sair à rua e não levar um tiro"
+    },
+    {
+      "id": "w_1079",
+      "text": "Levar um tiro"
+    },
+    {
+      "id": "w_1080",
+      "text": "Viver no Norte"
+    },
+    {
+      "id": "w_1081",
+      "text": "Primeira Guerra de memes"
+    },
+    {
+      "id": "w_1082",
+      "text": "HUE HUE HUE"
+    },
+    {
+      "id": "w_1083",
+      "text": "Ficar famoso no youtube com minecraft"
+    },
+    {
+      "id": "w_1084",
+      "text": "A enorme quantidade de brasileiros no japão"
+    },
+    {
+      "id": "w_1085",
+      "text": "Sexo Oral"
+    },
+    {
+      "id": "w_1086",
+      "text": "CBF"
+    },
+    {
+      "id": "w_1087",
+      "text": "Nintendo"
+    },
+    {
+      "id": "w_1088",
+      "text": "Meu pau"
+    },
+    {
+      "id": "w_1089",
+      "text": "Pai de família"
+    },
+    {
+      "id": "w_1090",
+      "text": "Lamber a cabeça de um rato"
+    },
+    {
+      "id": "w_1091",
+      "text": "Celso Portioli"
+    },
+    {
+      "id": "w_1092",
+      "text": "Axé Music"
+    },
+    {
+      "id": "w_1093",
+      "text": "Giovana"
+    },
+    {
+      "id": "w_1094",
+      "text": "PM do Rio"
+    },
+    {
+      "id": "w_1095",
+      "text": "Lágrimas de crianças"
+    },
+    {
+      "id": "w_1096",
+      "text": "Argentino"
+    },
+    {
+      "id": "w_1097",
+      "text": "Rei Pelé"
+    },
+    {
+      "id": "w_1098",
+      "text": "Marcelo Augusto"
+    },
+    {
+      "id": "w_1099",
+      "text": "Seu animal imundo"
+    },
+    {
+      "id": "w_1100",
+      "text": "Miriam vende Mary Kay"
+    },
+    {
+      "id": "w_1101",
+      "text": "Para nossa alegria"
+    },
+    {
+      "id": "w_1102",
+      "text": "Seiya de Pégaso"
+    },
+    {
+      "id": "w_1103",
+      "text": "Cinco reais"
+    },
+    {
+      "id": "w_1104",
+      "text": "Rolezeira"
+    },
+    {
+      "id": "w_1105",
+      "text": "Alexandre Frota"
+    },
+    {
+      "id": "w_1106",
+      "text": "Gritar o nome de seu gato na hora da transa"
+    },
+    {
+      "id": "w_1107",
+      "text": "Fofão"
+    },
+    {
+      "id": "w_1108",
+      "text": "Bruna Surfistinha"
+    },
+    {
+      "id": "w_1109",
+      "text": "Muro do Trump"
+    },
+    {
+      "id": "w_1110",
+      "text": "Mais ricos que um Grego"
+    },
+    {
+      "id": "w_1111",
+      "text": "Cheirar pus de macaco"
+    },
+    {
+      "id": "w_1112",
+      "text": "Beliscar azulejo"
+    },
+    {
+      "id": "w_1113",
+      "text": "Perereca suicida"
+    },
+    {
+      "id": "w_1114",
+      "text": "Um virjão flatulento"
+    },
+    {
+      "id": "w_1115",
+      "text": "Xingar a sogra"
+    },
+    {
+      "id": "w_1116",
+      "text": "Funk proibidão"
+    },
+    {
+      "id": "w_1117",
+      "text": "Boneca inflável"
+    },
+    {
+      "id": "w_1118",
+      "text": "Bicha muda"
+    },
+    {
+      "id": "w_1119",
+      "text": "Peidar no elevador"
+    },
+    {
+      "id": "w_1120",
+      "text": "Tatuar um pênis nas costas"
+    },
+    {
+      "id": "w_1121",
+      "text": "Sair mijando pelo cu"
+    },
+    {
+      "id": "w_1122",
+      "text": "Morte cerebral pós-sexo"
+    },
+    {
+      "id": "w_1123",
+      "text": "Arroz"
+    },
+    {
+      "id": "w_1124",
+      "text": "Sapos gays"
+    },
+    {
+      "id": "w_1125",
+      "text": "Uma Fleshlight"
+    },
+    {
+      "id": "w_1126",
+      "text": "Humor negro"
+    },
+    {
+      "id": "w_1127",
+      "text": "Taxistas"
+    },
+    {
+      "id": "w_1128",
+      "text": "Uma porta"
+    },
+    {
+      "id": "w_1129",
+      "text": "Testemunha de Jeová"
+    },
+    {
+      "id": "w_1130",
+      "text": "Sabor refrescante da Coca-Cola"
+    },
+    {
+      "id": "w_1131",
+      "text": "Um amante latino"
+    },
+    {
+      "id": "w_1132",
+      "text": "O gigantesco par de bolas do Papai Noel"
+    },
+    {
+      "id": "w_1133",
+      "text": "Sonhos eróticos com o Papa Francisco"
+    },
+    {
+      "id": "w_1134",
+      "text": "Problemas com o pai durante a infância"
+    },
+    {
+      "id": "w_1135",
+      "text": "Roubar doces a uma criança"
+    },
+    {
+      "id": "w_1136",
+      "text": "Os meus demónios interiores"
+    },
+    {
+      "id": "w_1137",
+      "text": "Judeu com cabelo afro"
+    },
+    {
+      "id": "w_1138",
+      "text": "Amigos que comem meu lanche todo"
+    },
+    {
+      "id": "w_1139",
+      "text": "Um homem maléfico com roupas maléficas"
+    },
+    {
+      "id": "w_1140",
+      "text": "Dançar com uma vassoura"
+    },
+    {
+      "id": "w_1141",
+      "text": "Hipsters"
+    },
+    {
+      "id": "w_1142",
+      "text": "Guerreiros sociais"
+    },
+    {
+      "id": "w_1143",
+      "text": "Ser raptado pelo Peter Pan"
+    },
+    {
+      "id": "w_1144",
+      "text": "Boa gramática"
+    },
+    {
+      "id": "w_1145",
+      "text": "Humilhação sexual"
+    },
+    {
+      "id": "w_1146",
+      "text": "O ouro que Portugal roubou"
+    },
+    {
+      "id": "w_1147",
+      "text": "Um kit de vasectomia caseira"
+    },
+    {
+      "id": "w_1148",
+      "text": "Declarar uma jihad"
+    },
+    {
+      "id": "w_1149",
+      "text": "Assobiar nos Jogos Paraolímpicos"
+    },
+    {
+      "id": "w_1150",
+      "text": "Vibrador de próstata"
+    },
+    {
+      "id": "w_1151",
+      "text": "O vibrador da minha mãe"
+    },
+    {
+      "id": "w_1152",
+      "text": "Tomar banho com tostadeira"
+    },
+    {
+      "id": "w_1153",
+      "text": "Violar um cego para ele não saber quem foi"
+    },
+    {
+      "id": "w_1154",
+      "text": "Comer bebés com microcefalia"
+    },
+    {
+      "id": "w_1155",
+      "text": "Porno de anões"
+    },
+    {
+      "id": "w_1156",
+      "text": "Irritar um fã de anime gordo"
+    },
+    {
+      "id": "w_1157",
+      "text": "Ressaca de corote no busão das 6 da manhã"
+    },
+    {
+      "id": "w_1158",
+      "text": "Fazer sinal pro ônibus e ele passar direto"
+    },
+    {
+      "id": "w_1159",
+      "text": "O gato do vizinho miando como se fosse um demônio"
+    },
+    {
+      "id": "w_1160",
+      "text": "Pedir fiado na mercearia e sair devendo pro resto da vida"
+    },
+    {
+      "id": "w_1161",
+      "text": "Ver o crush postando com outro e fingir que não doeu"
+    },
+    {
+      "id": "w_1162",
+      "text": "Trocar o arroz por farofa e chamar de gourmet"
+    },
+    {
+      "id": "w_1163",
+      "text": "Cair no golpe do Pix do motoboy"
+    },
+    {
+      "id": "w_1164",
+      "text": "Jogar Free Fire no 3G da TIM"
+    },
+    {
+      "id": "w_1165",
+      "text": "Levar 7x1 e ainda defender o técnico"
+    },
+    {
+      "id": "w_1166",
+      "text": "Ser assaltado e pedir de volta o chip"
+    },
+    {
+      "id": "w_1167",
+      "text": "O vizinho ouvindo sertanejo às 4 da manhã"
+    },
+    {
+      "id": "w_1168",
+      "text": "A avó curando gripe com Vick e benção"
+    },
+    {
+      "id": "w_1169",
+      "text": "O grupo da família no WhatsApp em época de eleição"
+    },
+    {
+      "id": "w_1170",
+      "text": "Tomar banho de canequinha porque acabou a água"
+    },
+    {
+      "id": "w_1171",
+      "text": "Receber nudes e a mãe abrir a notificação"
+    },
+    {
+      "id": "w_1172",
+      "text": "Tomar café com pão amanhecido e fingir que é brunch"
+    },
+    {
+      "id": "w_1173",
+      "text": "Esquecer o feijão no fogo e botar a culpa no Bolsonaro"
+    },
+    {
+      "id": "w_1174",
+      "text": "Comer coxinha com suco de saquinho na fila do SUS"
+    },
+    {
+      "id": "w_1175",
+      "text": "Votar errado e reclamar pelos próximos quatro anos"
+    },
+    {
+      "id": "w_1176",
+      "text": "Ser chamado de comunista por usar calça vermelha"
+    },
+    {
+      "id": "w_1177",
+      "text": "Ficar preso ouvindo Alok remixado com forró"
+    },
+    {
+      "id": "w_1178",
+      "text": "Passar a vida inteira tentando cancelar a NET"
+    },
+    {
+      "id": "w_1179",
+      "text": "Comprar cigarro e desaparecer por 15 anos"
+    },
+    {
+      "id": "w_1180",
+      "text": "Dormir no Enem"
+    },
+    {
+      "id": "w_1181",
+      "text": "Dar like na foto do ex sem querer"
+    },
+    {
+      "id": "w_1182",
+      "text": "Comprar coisa na Shopee e esquecer que comprou"
+    },
+    {
+      "id": "w_1183",
+      "text": "Ser atropelado por uma bicicleta elétrica"
+    },
+    {
+      "id": "w_1184",
+      "text": "Achar um dente na feijoada"
+    },
+    {
+      "id": "w_1185",
+      "text": "Colocar o nome do filho de Enzo Gabriel"
+    },
+    {
+      "id": "w_1186",
+      "text": "Ouvir 'o boleto venceu' como ameaça pessoal"
+    },
+    {
+      "id": "w_1187",
+      "text": "Usar óleo de cozinha velho pra fritar batata"
+    },
+    {
+      "id": "w_1188",
+      "text": "Fingir que entende política depois de assistir um podcast"
+    },
+    {
+      "id": "w_1189",
+      "text": "Fazer jejum intermitente por falta de comida"
+    },
+    {
+      "id": "w_1190",
+      "text": "Ser seguido por um pombo na rodoviária"
+    },
+    {
+      "id": "w_1191",
+      "text": "Namorar à distância e confiar"
+    },
+    {
+      "id": "w_1192",
+      "text": "Encher o prato no rodízio e não aguentar comer metade"
+    },
+    {
+      "id": "w_1193",
+      "text": "Dizer que vai fazer o TCC esse fim de semana"
+    },
+    {
+      "id": "w_1194",
+      "text": "Brigar por herança antes do velório"
+    },
+    {
+      "id": "w_1195",
+      "text": "Achar que R$ 200 é muito dinheiro"
+    },
+    {
+      "id": "w_1196",
+      "text": "Colocar cloro na piscina de plástico da laje"
+    },
+    {
+      "id": "w_1197",
+      "text": "Tomar banho com balde no quintal"
+    },
+    {
+      "id": "w_1198",
+      "text": "Colocar o celular na geladeira pra esfriar"
+    },
+    {
+      "id": "w_1199",
+      "text": "Falar que vai no mercado e voltar 3 horas depois"
+    },
+    {
+      "id": "w_1200",
+      "text": "Tomar água da chuva achando que purifica a alma"
+    },
+    {
+      "id": "w_1201",
+      "text": "Emprestar dinheiro pra nunca mais ver nem a pessoa"
+    },
+    {
+      "id": "w_1202",
+      "text": "Fazer churrasco com pão, ovo e suco Tang"
+    },
+    {
+      "id": "w_1203",
+      "text": "Ser bloqueado pelo padre no Instagram"
+    },
+    {
+      "id": "w_1204",
+      "text": "Chorar ao som de Pablo do Arrocha"
+    },
+    {
+      "id": "w_1205",
+      "text": "Ressaca de corote no busão"
+    },
+    {
+      "id": "w_1206",
+      "text": "Feijão queimado no fundo da panela"
+    },
+    {
+      "id": "w_1207",
+      "text": "O Wi-Fi do vizinho com senha"
+    },
+    {
+      "id": "w_1208",
+      "text": "Ficar sem 4G no rolê"
+    },
+    {
+      "id": "w_1209",
+      "text": "O crush visualizou e não respondeu"
+    },
+    {
+      "id": "w_1210",
+      "text": "O motoboy errou o endereço"
+    },
+    {
+      "id": "w_1211",
+      "text": "Pão com margarina e café ralo"
+    },
+    {
+      "id": "w_1212",
+      "text": "Chorar no banho com chuveiro frio"
+    },
+    {
+      "id": "w_1213",
+      "text": "Barata voadora na cozinha"
+    },
+    {
+      "id": "w_1214",
+      "text": "O boleto vencendo amanhã"
+    },
+    {
+      "id": "w_1215",
+      "text": "O Pix que nunca caiu"
+    },
+    {
+      "id": "w_1216",
+      "text": "A mãe gritando do portão"
+    },
+    {
+      "id": "w_1217",
+      "text": "Tomar banho de caneca"
+    },
+    {
+      "id": "w_1218",
+      "text": "Dar tchau e ir pro lado errado"
+    },
+    {
+      "id": "w_1219",
+      "text": "Vizinho com som alto no domingo"
+    },
+    {
+      "id": "w_1220",
+      "text": "A vó passando Vick no peito"
+    },
+    {
+      "id": "w_1221",
+      "text": "Assistir Enem e não entender nada"
+    },
+    {
+      "id": "w_1222",
+      "text": "Aceitar bala de desconhecido"
+    },
+    {
+      "id": "w_1223",
+      "text": "O ônibus quebrado no calor"
+    },
+    {
+      "id": "w_1224",
+      "text": "Ficar sem luz e sem ventilador"
+    },
+    {
+      "id": "w_1225",
+      "text": "O feirante gritando no seu ouvido"
+    },
+    {
+      "id": "w_1226",
+      "text": "Chinelo virado da mãe"
+    },
+    {
+      "id": "w_1227",
+      "text": "Brigar por herança no velório"
+    },
+    {
+      "id": "w_1228",
+      "text": "Comprar fiado na vendinha"
+    },
+    {
+      "id": "w_1229",
+      "text": "Comer arroz puro e fingir ser fitness"
+    },
+    {
+      "id": "w_1230",
+      "text": "Golpe do Pix do motoboy"
+    },
+    {
+      "id": "w_1231",
+      "text": "Reclamar e votar igual todo ano"
+    },
+    {
+      "id": "w_1232",
+      "text": "O leite que ferveu e subiu"
+    },
+    {
+      "id": "w_1233",
+      "text": "Passar vergonha no karaokê"
+    },
+    {
+      "id": "w_1234",
+      "text": "Arroz com ketchup no almoço"
+    },
+    {
+      "id": "w_1235",
+      "text": "Fingir que entende de política"
+    },
+    {
+      "id": "w_1236",
+      "text": "O fone que só funciona de um lado"
+    },
+    {
+      "id": "w_1237",
+      "text": "Rir no velório sem querer"
+    },
+    {
+      "id": "w_1238",
+      "text": "Celular caindo na privada"
+    },
+    {
+      "id": "w_1239",
+      "text": "Tomar chuva sem guarda-chuva"
+    },
+    {
+      "id": "w_1240",
+      "text": "Memes no grupo da família"
+    },
+    {
+      "id": "w_1241",
+      "text": "Peidar e culpar o cachorro"
+    },
+    {
+      "id": "w_1242",
+      "text": "Achar dinheiro no bolso"
+    },
+    {
+      "id": "w_1243",
+      "text": "Curtir foto antiga por acidente"
+    },
+    {
+      "id": "w_1244",
+      "text": "A barata que some do nada"
+    },
+    {
+      "id": "w_1245",
+      "text": "Comer coxinha fria do bar"
+    },
+    {
+      "id": "w_1246",
+      "text": "Mandar áudio errado no grupo"
+    },
+    {
+      "id": "w_1247",
+      "text": "O zap da tia doida"
+    },
+    {
+      "id": "w_1248",
+      "text": "Ver o ex com outra no shopping"
+    },
+    {
+      "id": "w_1249",
+      "text": "O pão dormido do café"
+    },
+    {
+      "id": "w_1250",
+      "text": "Jogar LOL e xingar a mãe do time"
+    },
+    {
+      "id": "w_1251",
+      "text": "O crush sumido no final de semana"
+    },
+    {
+      "id": "w_1252",
+      "text": "Se perder no centro da cidade"
+    },
+    {
+      "id": "w_1253",
+      "text": "Prometer dieta e pedir pizza"
+    },
+    {
+      "id": "w_1254",
+      "text": "Usar o mesmo copo o dia todo"
+    }
+  ]
+};

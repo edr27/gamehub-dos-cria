@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>GameHub — Jogos Multiplayer com Amigos</title>
+  <meta name="description" content="Hub de jogos multiplayer em tempo real para jogar com amigos no navegador. Sem instalação!">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css?v=11">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
+</head>
+<body>
+  <!-- ==================== TELA INICIAL ==================== -->
+  <div id="screen-home" class="screen active">
+    <div class="home-bg">
+      <div class="floating-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+        <div class="shape shape-5"></div>
+      </div>
+    </div>
+    <div class="home-container">
+      <div class="logo-section">
+        <div class="logo-icon">🎮</div>
+        <h1 class="logo-text">Game<span class="logo-highlight">Hub</span></h1>
+        <p class="logo-tagline">Jogos multiplayer com amigos — direto no navegador!</p>
+      </div>
+
+      <div class="home-card">
+        <div class="input-group">
+          <label for="player-name">Seu nome</label>
+          <input type="text" id="player-name" placeholder="Digite seu nome..." maxlength="20" autocomplete="off">
+        </div>
+
+        <div class="home-actions">
+          <button id="btn-create-room" class="btn btn-primary btn-lg">
+            <span class="btn-icon">✨</span>
+            Criar Sala
+          </button>
+          <div class="divider"><span>ou</span></div>
+          <div class="join-row">
+            <input type="text" id="room-code-input" placeholder="CÓDIGO" maxlength="5" class="room-code-field" autocomplete="off">
+            <button id="btn-join-room" class="btn btn-secondary btn-lg">
+              <span class="btn-icon">🚪</span>
+              Entrar
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="home-footer">
+        <p>📱 Funciona no celular • ⚡ Tempo real • 🎯 12 jogos</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TELA DA SALA (LOBBY) ==================== -->
+  <div id="screen-room" class="screen">
+    <div class="room-layout">
+      <!-- Header da sala -->
+      <header class="room-header">
+        <button id="btn-leave-room" class="btn btn-leave">← Sair</button>
+        <div class="room-code-display">
+          <span class="room-code-label">SALA</span>
+          <div id="btn-copy-code" class="room-code-badge" title="Clique para copiar o código">
+            <span id="display-room-code" class="room-code-value">XXXXX</span>
+            <span class="room-code-copy-icon">📋</span>
+          </div>
+        </div>
+        <div class="room-header-right">
+          <div id="header-avatars-row" class="header-avatars-row"></div>
+          <div class="room-player-count">
+            <span id="player-count">0</span>/8 👥
+          </div>
+        </div>
+      </header>
+
+      <!-- Conteúdo principal -->
+      <main class="room-main">
+        <!-- Painel de jogadores e ranking -->
+        <section class="players-panel">
+          <div class="panel-header ranking-panel-header">
+            <h2 class="ranking-panel-title">🏆 Ranking</h2>
+            <button id="btn-reset-scores" class="btn btn-reset-ranking host-only">🔄 Reset</button>
+          </div>
+          <div id="players-list" class="players-list">
+            <!-- Renderizado via JS -->
+          </div>
+        </section>
+
+        <!-- Seleção de jogos -->
+        <section class="games-panel">
+          <div class="panel-header games-panel-header">
+            <h2 class="games-panel-title">🎲 Jogos</h2>
+            <span id="host-hint" class="host-hint">✨ Você é o Host — escolha um jogo! 👑</span>
+          </div>
+          <div id="games-grid" class="games-grid">
+            <!-- Renderizado via JS -->
+          </div>
+        </section>
+      </main>
+
+      <!-- Chat flutuante moderno no canto inferior direito -->
+      <aside class="floating-chat-widget">
+        <div id="chat-container" class="floating-chat-container hidden">
+          <div class="chat-header">
+            <div class="chat-title"><span>💬</span> Chat da Sala</div>
+            <button id="btn-close-chat" class="btn-close-chat" title="Fechar">✕</button>
+          </div>
+          <div id="chat-messages" class="chat-messages"></div>
+          <div class="chat-input-row">
+            <input type="text" id="chat-input" placeholder="Mensagem..." maxlength="200" autocomplete="off">
+            <button id="btn-send-chat" class="btn btn-primary btn-sm">➤</button>
+          </div>
+        </div>
+        <div class="floating-chat-toggle" id="chat-toggle" title="Abrir Chat">
+          <span class="chat-toggle-icon">💬</span>
+          <span class="chat-toggle-text">Chat</span>
+          <span id="chat-badge" class="chat-badge hidden">0</span>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <!-- ==================== TELA DO JOGO ==================== -->
+  <div id="screen-game" class="screen">
+    <div class="game-layout">
+      <header class="game-header">
+        <button id="btn-back-lobby" class="btn btn-ghost btn-sm host-only">← Lobby</button>
+        <div class="game-title-bar">
+          <span id="game-icon" class="game-current-icon"></span>
+          <span id="game-title" class="game-current-title"></span>
+        </div>
+        <div class="game-room-code">
+          <span id="game-room-code-display"></span>
+        </div>
+      </header>
+
+      <main id="game-area" class="game-area">
+        <!-- Conteúdo dinâmico do jogo -->
+        <div class="game-loading">
+          <div class="spinner"></div>
+          <p>Carregando jogo...</p>
+        </div>
+      </main>
+
+      <!-- Resultados overlay -->
+      <div id="results-overlay" class="results-overlay hidden">
+        <div class="results-card">
+          <h2 id="results-title">🏆 Resultados</h2>
+          <div id="results-content"></div>
+          <button id="btn-results-close" class="btn btn-primary btn-lg host-only">Voltar ao Lobby</button>
+          <p id="results-waiting-host" style="display: none; color: var(--text-muted); font-size: 0.85rem; margin-top: var(--gap-md);">Aguardando o host retornar ao lobby...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== NOTIFICAÇÕES ==================== -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/audio.js?v=6"></script>
+  <script src="/js/app.js?v=11"></script>
+  <script src="/js/games/cronometro-cego.js?v=2"></script>
+  <script src="/js/games/consenso.js?v=3"></script>
+  <script src="/js/games/temperatura.js?v=2"></script>
+  <script src="/js/games/estime.js?v=4"></script>
+  <script src="/js/games/pesos-medidas.js?v=3"></script>
+  <script src="/js/games/ritmo.js?v=5"></script>
+  <script src="/js/games/quem-escreveu.js?v=3"></script>
+  <script src="/js/games/historia-cadeia.js?v=4"></script>
+  <script src="/js/games/ia-falsa.js?v=2"></script>
+  <script src="/js/games/quao-grande.js?v=2"></script>
+  <script src="/js/games/death-ball.js?v=10"></script>
+  <script src="/js/games/cartas.js?v=1"></script>
+</body>
+</html>
