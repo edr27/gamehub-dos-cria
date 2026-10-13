@@ -6,7 +6,10 @@
 const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io');
+const { WebSocketServer } = require('ws');
 const path = require('path');
+const RinhaConfig = require('./public/js/games/rinha/rinha-config.js');
+const RinhaEngine = require('./public/js/games/rinha/rinha-engine.js');
 
 const app = express();
 const server = http.createServer(app);
@@ -16,6 +19,9 @@ const io = new Server(server, {
   pingInterval: 25000
 });
 
+// Rinha.io — Módulo servidor extraído (substitui WS nativo e handler inline)
+const rinhaModule = require('./server/rinha');
+
 // Servir arquivos estáticos
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -23,6 +29,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const rooms = new Map();       // roomCode -> RoomState
 const playerSockets = new Map(); // socketId -> { roomCode, playerName }
+
+// Injetar contexto do hub no módulo Rinha extraído
+rinhaModule.setHubContext(rooms, playerSockets);
 
 // ==================== UTILIDADES ====================
 
@@ -71,7 +80,8 @@ const GAME_LIST = [
   { id: 'historia-cadeia', name: 'História em Cadeia', icon: '📖', desc: 'Uma palavra por vez! Construa uma narrativa.', minPlayers: 1, maxPlayers: 8, color: '#3b82f6' },
   { id: 'estime', name: 'Estime', icon: '📦', desc: 'Qual o tamanho desse objeto? Chute em cm!', minPlayers: 1, maxPlayers: 8, color: '#f97316' },
   { id: 'death-ball', name: 'Death Ball', icon: '💀', desc: 'Sobreviva à bola mortal! Rebata no tempo certo.', minPlayers: 1, maxPlayers: 8, color: '#6366f1' },
-  { id: 'cartas-contra-humanidade', name: 'Cartas Contra a Humanidade', icon: '🃏', desc: 'Humor ácido e absurdo! Escolha a melhor resposta.', minPlayers: 1, maxPlayers: 10, color: '#8b5cf6' }
+  { id: 'cartas-contra-humanidade', name: 'Cartas Contra a Humanidade', icon: '🃏', desc: 'Humor ácido e absurdo! Escolha a melhor resposta.', minPlayers: 1, maxPlayers: 10, color: '#8b5cf6' },
+  { id: 'rinha', name: 'Rinha.io', icon: '⚔️', desc: 'Arena de combate com postura, parry e combos! 1v1, FFA e 2v2 entre amigos.', minPlayers: 1, maxPlayers: 4, color: '#f59e0b' }
 ];
 
 // ==================== LÓGICA DE JOGOS (SERVIDOR) ====================
@@ -404,7 +414,9 @@ function finalizeConsensoRound(room, io, roomCode) {
         color: p.color
       };
 
-      // Atualiza pontuação do hub
+      // Atualiza pontuação da partida e do hub
+      if (!gs.gameScores) gs.gameScores = {};
+      gs.gameScores[p.sid] = (gs.gameScores[p.sid] || 0) + finalPoints;
       const realP = room.players.get(p.sid);
       if (realP) realP.score += finalPoints;
     });
@@ -447,7 +459,13 @@ function finalizeConsensoRound(room, io, roomCode) {
   });
 
   const isLastRound = (gs.currentRound >= gs.totalRounds);
-  const currentScores = getRoomPlayers(roomCode).sort((a, b) => b.score - a.score);
+  const currentScores = Array.from(room.players.entries()).map(([sid, p]) => ({
+    id: sid,
+    name: p.name,
+    color: p.color,
+    score: (gs.gameScores && gs.gameScores[sid]) || 0,
+    gameScore: (gs.gameScores && gs.gameScores[sid]) || 0
+  })).sort((a, b) => b.score - a.score);
 
   io.to(roomCode).emit('game:consenso:results', {
     round: gs.currentRound,
@@ -479,7 +497,8 @@ gameHandlers['consenso'] = {
       usedIndices: new Set(),
       answers: {},
       playerCount: room.players.size,
-      roundTimer: null
+      roundTimer: null,
+      gameScores: {}
     };
 
     startConsensoRound(room, io, roomCode, 1);
@@ -518,7 +537,13 @@ gameHandlers['consenso'] = {
       } else {
         // Encerramento do Torneio
         gs.phase = 'gameover';
-        const finalRankings = getRoomPlayers(roomCode).sort((a, b) => b.score - a.score);
+        const finalRankings = Array.from(room.players.entries()).map(([sid, p]) => ({
+          id: sid,
+          name: p.name,
+          color: p.color,
+          score: (gs.gameScores && gs.gameScores[sid]) || 0,
+          gameScore: (gs.gameScores && gs.gameScores[sid]) || 0
+        })).sort((a, b) => b.score - a.score);
         io.to(roomCode).emit('game:consenso:gameover', {
           winner: finalRankings[0]?.name || 'Campeão',
           rankings: finalRankings,
@@ -834,6 +859,8 @@ function finalizeEstimeRound(room, io, roomCode) {
 
   results.forEach((r, idx) => {
     r.rank = idx + 1;
+    if (!gs.gameScores) gs.gameScores = {};
+    gs.gameScores[r.sid] = (gs.gameScores[r.sid] || 0) + r.points;
     const p = room.players.get(r.sid);
     if (p) p.score += r.points;
   });
@@ -901,11 +928,12 @@ function finalizeEstimeTournament(room, io, roomCode) {
   const rankings = Array.from(room.players.entries()).map(([sid, p]) => ({
     sid,
     name: p.name,
-    score: p.score,
+    score: (gs.gameScores && gs.gameScores[sid]) || 0,
+    gameScore: (gs.gameScores && gs.gameScores[sid]) || 0,
     lives: gs.lives[sid] ?? 0,
     alive: (gs.lives[sid] ?? 0) > 0
   })).sort((a, b) => {
-    // Vivos na frente, depois por vidas restantes, depois por pontuação
+    // Vivos na frente, depois por vidas restantes, depois por pontuação da partida
     if (a.alive && !b.alive) return -1;
     if (!a.alive && b.alive) return 1;
     if (b.lives !== a.lives) return b.lives - a.lives;
@@ -933,6 +961,7 @@ gameHandlers['estime'] = {
       playerCount: room.players.size,
       object: null,
       guesses: {},
+      gameScores: {},
       roundTimer: null
     };
 
@@ -1087,6 +1116,8 @@ function finalizeAnguloRound(room, io, roomCode) {
 
     const realPlayer = room.players.get(item.sid);
     if (realPlayer) {
+      if (!gs.gameScores) gs.gameScores = {};
+      gs.gameScores[item.sid] = (gs.gameScores[item.sid] || 0) + points;
       realPlayer.score += points;
       if (!realPlayer.angleDiffs) realPlayer.angleDiffs = [];
       realPlayer.angleDiffs.push(diff);
@@ -1106,7 +1137,13 @@ function finalizeAnguloRound(room, io, roomCode) {
   results.forEach((r, idx) => { r.rank = idx + 1; });
 
   const isGameOver = (gs.currentRound >= gs.totalRounds);
-  const currentScores = getRoomPlayers(roomCode).sort((a, b) => b.score - a.score);
+  const currentScores = Array.from(room.players.entries()).map(([sid, p]) => ({
+    id: sid,
+    name: p.name,
+    color: p.color,
+    score: (gs.gameScores && gs.gameScores[sid]) || 0,
+    gameScore: (gs.gameScores && gs.gameScores[sid]) || 0
+  })).sort((a, b) => b.score - a.score);
 
   io.to(roomCode).emit('game:angulo:results', {
     round: gs.currentRound,
@@ -1130,7 +1167,8 @@ gameHandlers['pesos-medidas'] = {
       targetAngle: 90,
       guesses: {},
       playerCount: room.players.size,
-      roundTimer: null
+      roundTimer: null,
+      gameScores: {}
     };
 
     for (const [, p] of room.players) {
@@ -1173,13 +1211,14 @@ gameHandlers['pesos-medidas'] = {
         startAnguloRound(room, io, roomCode, gs.currentRound + 1);
       } else {
         gs.phase = 'gameover';
-        const finalRankings = getRoomPlayers(roomCode).map(p => {
+        const finalRankings = Array.from(room.players.entries()).map(([sid, p]) => {
           const diffs = p.angleDiffs || [10];
           const avgDiff = Math.round((diffs.reduce((a, b) => a + b, 0) / diffs.length) * 10) / 10;
           return {
-            id: p.id,
+            id: sid,
             name: p.name,
-            score: p.score,
+            score: (gs.gameScores && gs.gameScores[sid]) || 0,
+            gameScore: (gs.gameScores && gs.gameScores[sid]) || 0,
             color: p.color,
             avgDiff
           };
@@ -1622,7 +1661,8 @@ gameHandlers['ritmo'] = {
       beats: [],
       instruments: [],
       submissions: {},
-      playerCount: room.players.size
+      playerCount: room.players.size,
+      gameScores: {}
     };
 
     this.startRound(room, io, roomCode);
@@ -1768,12 +1808,15 @@ gameHandlers['ritmo'] = {
       const accuracyBonus = Math.round(r.accuracy * 0.35);
       const totalRoundPoints = roundPts + accuracyBonus;
 
+      if (!gs.gameScores) gs.gameScores = {};
+      gs.gameScores[r.id] = (gs.gameScores[r.id] || 0) + totalRoundPoints;
+
       const p = room.players.get(r.id);
       if (p) p.score += totalRoundPoints;
 
       r.rank = i + 1;
       r.pointsEarned = totalRoundPoints;
-      r.currentTotalScore = p?.score || 0;
+      r.currentTotalScore = gs.gameScores[r.id];
     });
 
     const isGameOver = (gs.currentRound >= gs.totalRounds);
@@ -1790,8 +1833,14 @@ gameHandlers['ritmo'] = {
     });
 
     if (isGameOver) {
-      // Jogo concluído após as 5 rodadas!
-      const finalRankings = getRoomPlayers(roomCode).sort((a, b) => b.score - a.score);
+      // Jogo concluído após as rodadas!
+      const finalRankings = Array.from(room.players.entries()).map(([sid, p]) => ({
+        id: sid,
+        name: p.name,
+        color: p.color,
+        score: (gs.gameScores && gs.gameScores[sid]) || 0,
+        gameScore: (gs.gameScores && gs.gameScores[sid]) || 0
+      })).sort((a, b) => b.score - a.score);
       setRitmoTimer(roomCode, () => {
         io.to(roomCode).emit('game:ritmo:gameover', {
           rankings: finalRankings,
@@ -2014,6 +2063,8 @@ function finalizeQuemVoteItem(room, io, roomCode) {
       for (const [sid, p] of room.players) {
         if (p.name === v.voterName) {
           p.score += 15;
+          if (!gs.gameScores) gs.gameScores = {};
+          gs.gameScores[sid] = (gs.gameScores[sid] || 0) + 15;
           if (!gs.stats[sid]) gs.stats[sid] = { detective: 0, bluffs: 0 };
           gs.stats[sid].detective++;
           break;
@@ -2024,6 +2075,8 @@ function finalizeQuemVoteItem(room, io, roomCode) {
       // Autor enganou esse jogador (Mestre do Blefe): +10 pontos para o autor
       if (authorPlayer) {
         authorPlayer.score += 10;
+        if (!gs.gameScores) gs.gameScores = {};
+        gs.gameScores[authorSid] = (gs.gameScores[authorSid] || 0) + 10;
         if (!gs.stats[authorSid]) gs.stats[authorSid] = { detective: 0, bluffs: 0 };
         gs.stats[authorSid].bluffs++;
       }
@@ -2034,8 +2087,12 @@ function finalizeQuemVoteItem(room, io, roomCode) {
   const perfectBluff = (votes.length > 0 && correctVotesCount === 0);
   if (perfectBluff && authorPlayer) {
     authorPlayer.score += 15; // Bônus de Blefe Perfeito (+15)
+    if (!gs.gameScores) gs.gameScores = {};
+    gs.gameScores[authorSid] = (gs.gameScores[authorSid] || 0) + 15;
   } else if (correctVotesCount > 0 && authorPlayer) {
     authorPlayer.score += 5; // Estilo Reconhecido (+5)
+    if (!gs.gameScores) gs.gameScores = {};
+    gs.gameScores[authorSid] = (gs.gameScores[authorSid] || 0) + 5;
   }
 
   io.to(roomCode).emit('game:quem:reveal', {
@@ -2073,7 +2130,14 @@ function finalizeQuemRound(room, io, roomCode) {
   const currentRound = gs.currentRound;
   const isLastRound = (currentRound >= gs.totalRounds);
 
-  const scores = getRoomPlayers(roomCode).sort((a, b) => b.score - a.score);
+  if (!gs.gameScores) gs.gameScores = {};
+  const scores = Array.from(room.players.entries()).map(([sid, p]) => ({
+    id: sid,
+    name: p.name,
+    color: p.color,
+    score: gs.gameScores[sid] || 0,
+    gameScore: gs.gameScores[sid] || 0
+  })).sort((a, b) => b.score - a.score);
 
   if (isLastRound) {
     gs.phase = 'gameover';
@@ -2107,7 +2171,8 @@ gameHandlers['quem-escreveu'] = {
       shuffledAnswers: [],
       currentReveal: 0,
       playerCount: room.players.size,
-      roundTimer: null
+      roundTimer: null,
+      gameScores: {}
     };
 
     for (const [sid] of room.players) {
@@ -2474,6 +2539,8 @@ function handleHistoriaAddWord(room, io, roomCode, socketId, rawWord, isAuto = f
   gs.storyWords.push(wordObj);
 
   // Pontuação do GameHub
+  if (!gs.gameScores) gs.gameScores = {};
+  gs.gameScores[currentWriter.sid] = (gs.gameScores[currentWriter.sid] || 0) + 10;
   const p = room.players.get(currentWriter.sid);
   if (p) p.score += 10;
 
@@ -2531,7 +2598,10 @@ function handleHistoriaAddWord(room, io, roomCode, socketId, rawWord, isAuto = f
 
     // Bônus para todos os participantes por concluir a história
     room.players.forEach(player => {
-      if (player.connected) player.score += 25;
+      if (player.connected) {
+        player.score += 25;
+        gs.gameScores[player.id] = (gs.gameScores[player.id] || 0) + 25;
+      }
     });
 
     broadcastRoomState(roomCode);
@@ -2552,7 +2622,13 @@ function handleHistoriaAddWord(room, io, roomCode, socketId, rawWord, isAuto = f
       fullText: gs.fullText,
       stats,
       authors: Array.from(new Set(gs.storyWords.map(w => w.author))),
-      leaderboard: getRoomPlayers(roomCode).sort((a, b) => b.score - a.score)
+      leaderboard: Array.from(room.players.entries()).map(([sid, pl]) => ({
+        id: sid,
+        name: pl.name,
+        color: pl.color,
+        score: (gs.gameScores && gs.gameScores[sid]) || 0,
+        gameScore: (gs.gameScores && gs.gameScores[sid]) || 0
+      })).sort((a, b) => b.score - a.score)
     });
   }
 }
@@ -2939,6 +3015,9 @@ gameHandlers['quao-grande'] = {
 // --- DEATH BALL (ARENA GLADIATOR SURVIVAL) ---
 gameHandlers['death-ball'] = {
   start(room, io, roomCode) {
+    if (room.gameInterval) clearInterval(room.gameInterval);
+    if (room.countdownTimer) clearInterval(room.countdownTimer);
+
     const realPlayers = Array.from(room.players.entries());
     const isSolo = realPlayers.length === 1;
 
@@ -2963,6 +3042,7 @@ gameHandlers['death-ball'] = {
     const PLAYER_COLORS = ['#7c6aff', '#ff6ab0', '#00e5ff', '#ffa726', '#00e676', '#ff5252', '#ffd600', '#76ff03'];
     const total = allParticipants.length;
     const playerStates = {};
+    const gameScores = {};
 
     allParticipants.forEach((p, idx) => {
       const angle = (2 * Math.PI * idx) / total - Math.PI / 2;
@@ -2982,9 +3062,13 @@ gameHandlers['death-ball'] = {
         color: p.color || PLAYER_COLORS[idx % PLAYER_COLORS.length],
         aimDir: { x: aimX, y: aimY },
         parryCooldownUntil: 0,
+        parryActiveUntil: 0,
         consecutiveHits: 0,
         hasDash: true
       };
+
+      // Pontuação exclusiva desta partida de Death Ball (inicia em 0)
+      gameScores[p.id] = 0;
     });
 
     const aliveIds = Object.keys(playerStates);
@@ -2992,20 +3076,17 @@ gameHandlers['death-ball'] = {
     const initSpeed = 1.7;
     const isDuelStart = allParticipants.length === 2;
 
-    const targetP = playerStates[initTargetId];
-    const dx = targetP.x - 50;
-    const dy = targetP.y - 50;
-    const dist = Math.hypot(dx, dy) || 1;
-
     room.gameState = {
-      phase: 'playing',
+      gameId: 'death-ball',
+      phase: 'countdown',
+      countdownValue: 3,
       players: playerStates,
       targetId: initTargetId,
       ball: {
         x: 50,
         y: 50,
-        vx: (dx / dist) * initSpeed,
-        vy: (dy / dist) * initSpeed,
+        vx: 0,
+        vy: 0,
         curve: 0
       },
       speed: initSpeed,
@@ -3017,10 +3098,12 @@ gameHandlers['death-ball'] = {
       comboCount: 0,
       lastHitTime: 0,
       lastHitter: null,
+      lastHitterId: null,
       alivePlayers: allParticipants.length,
       playerCount: allParticipants.length,
       tickCount: 0,
-      roundPauseUntil: 0
+      roundPauseUntil: 0,
+      gameScores
     };
 
     io.to(roomCode).emit('game:deathball:start', {
@@ -3029,248 +3112,362 @@ gameHandlers['death-ball'] = {
       targetId: initTargetId,
       isSolo,
       isDuel: isDuelStart,
-      speed: initSpeed
+      speed: initSpeed,
+      countdown: 3
     });
 
-    // Loop de física (~33fps / 30ms)
-    room.gameInterval = setInterval(() => {
-      if (!room.gameState || room.gameState.phase !== 'playing') {
-        clearInterval(room.gameInterval);
+    // Envia primeiro tick de contagem imediatamente
+    io.to(roomCode).emit('game:deathball:countdown', { count: 3 });
+
+    let currentCountdown = 3;
+    room.countdownTimer = setInterval(() => {
+      if (!room.gameState || room.gameState.gameId !== 'death-ball') {
+        clearInterval(room.countdownTimer);
         return;
       }
 
-      const gs = room.gameState;
-      const ball = gs.ball;
-      gs.tickCount++;
+      currentCountdown--;
+      if (currentCountdown > 0) {
+        io.to(roomCode).emit('game:deathball:countdown', { count: currentCountdown });
+      } else {
+        clearInterval(room.countdownTimer);
+        room.countdownTimer = null;
 
-      // Pausa rápida entre eliminações para respirar
-      if (gs.roundPauseUntil && Date.now() < gs.roundPauseUntil) {
-        return;
-      }
+        const gs = room.gameState;
+        if (!gs) return;
+        gs.phase = 'playing';
 
-      // Validar alvo atual
-      let target = gs.players[gs.targetId];
-      if (!target || !target.alive) {
-        const aliveOnes = Object.values(gs.players).filter(p => p.alive);
-        if (aliveOnes.length === 0) return;
-        target = aliveOnes[Math.floor(Math.random() * aliveOnes.length)];
-        gs.targetId = target.id;
-      }
+        const targetP = gs.players[gs.targetId];
+        const dx = targetP ? (targetP.x - 50) : 0;
+        const dy = targetP ? (targetP.y - 50) : 1;
+        const dist = Math.hypot(dx, dy) || 1;
 
-      // Direção e curva homing em direção ao alvo
-      const tdx = target.x - ball.x;
-      const tdy = target.y - ball.y;
-      const tdist = Math.hypot(tdx, tdy);
+        gs.ball.vx = (dx / dist) * gs.speed;
+        gs.ball.vy = (dy / dist) * gs.speed;
 
-      if (tdist > 0.01) {
-        const desiredVx = (tdx / tdist) * gs.speed;
-        const desiredVy = (tdy / tdist) * gs.speed;
-        // Curvatura fluida que permite ricochete nos cantos e desvios
-        const steer = gs.isDuel ? 0.11 : 0.09;
-        ball.vx = ball.vx * (1 - steer) + desiredVx * steer;
-        ball.vy = ball.vy * (1 - steer) + desiredVy * steer;
-
-        // Efeito da Curva da Bola (Curve Ball lateral spin)
-        if (ball.curve && Math.abs(ball.curve) > 0.03) {
-          const perpX = -ball.vy * (ball.curve * 0.12);
-          const perpY = ball.vx * (ball.curve * 0.12);
-          ball.vx += perpX;
-          ball.vy += perpY;
-          ball.curve *= 0.95; // Decai gradativamente
-        }
-
-        // Manter velocidade constante exata
-        const curSpd = Math.hypot(ball.vx, ball.vy);
-        if (curSpd > 0.01) {
-          ball.vx = (ball.vx / curSpd) * gs.speed;
-          ball.vy = (ball.vy / curSpd) * gs.speed;
-        }
-      }
-
-      // Avançar bola
-      ball.x += ball.vx * 0.72;
-      ball.y += ball.vy * 0.72;
-
-      // Colisão e ricochete nos limites/cantos da arena (5% a 95%)
-      let bounced = false;
-      let bounceSide = null;
-      if (ball.x <= 5) {
-        ball.x = 5;
-        ball.vx = Math.abs(ball.vx);
-        bounced = true;
-        bounceSide = 'left';
-      } else if (ball.x >= 95) {
-        ball.x = 95;
-        ball.vx = -Math.abs(ball.vx);
-        bounced = true;
-        bounceSide = 'right';
-      }
-
-      if (ball.y <= 5) {
-        ball.y = 5;
-        ball.vy = Math.abs(ball.vy);
-        bounced = true;
-        bounceSide = 'top';
-      } else if (ball.y >= 95) {
-        ball.y = 95;
-        ball.vy = -Math.abs(ball.vy);
-        bounced = true;
-        bounceSide = 'bottom';
-      }
-
-      if (bounced) {
-        io.to(roomCode).emit('game:deathball:bounce', {
-          x: Math.round(ball.x * 10) / 10,
-          y: Math.round(ball.y * 10) / 10,
-          side: bounceSide
+        io.to(roomCode).emit('game:deathball:countdown', { count: 0 }); // 0 = VAI!
+        io.to(roomCode).emit('game:deathball:ball-launch', {
+          ball: gs.ball,
+          targetId: gs.targetId,
+          speed: gs.speed
         });
-      }
 
-      // IA dos Bots (movimentação inteligente e rebatida com timing dinâmico)
-      Object.values(gs.players).forEach(p => {
-        if (!p.isBot || !p.alive) return;
-
-        // Movimentação sutil dos bots na arena
-        if (gs.tickCount % 22 === 0) {
-          const moveAngle = Math.random() * Math.PI * 2;
-          const nx = p.x + Math.cos(moveAngle) * 2.5;
-          const ny = p.y + Math.sin(moveAngle) * 2.5;
-          const distCenter = Math.hypot(nx - 50, ny - 50);
-          if (distCenter < 38) {
-            p.x = nx;
-            p.y = ny;
+        // Inicia loop de física (~33fps / 30ms) após o término da contagem 3, 2, 1
+        room.gameInterval = setInterval(() => {
+          if (!room.gameState || room.gameState.phase !== 'playing') {
+            clearInterval(room.gameInterval);
+            return;
           }
-        }
 
-        // Se o bot for o alvo e a bola estiver na zona de rebatida
-        if (p.id === gs.targetId && tdist < 18 && tdist > 4.2 && Date.now() > p.parryCooldownUntil) {
-          const successChance = Math.max(0.38, 0.95 - (gs.speed - 1.7) * 0.08);
-          if (Math.random() < successChance) {
-            p.parryCooldownUntil = Date.now() + 600;
-            const opponents = Object.values(gs.players).filter(op => op.id !== p.id && op.alive);
-            if (opponents.length > 0) {
-              const humanOpponent = opponents.find(op => !op.isBot);
-              const nextTarget = (humanOpponent && Math.random() < 0.65) ? humanOpponent : opponents[Math.floor(Math.random() * opponents.length)];
+          const currentGs = room.gameState;
+          const ball = currentGs.ball;
+          currentGs.tickCount++;
 
-              const isPerfect = (tdist <= 12);
-              const speedInc = isPerfect ? 0.22 : 0.12;
-              gs.speed = Math.min(gs.speed * 1.10 + speedInc, 11.0);
-              gs.maxSpeed = Math.max(gs.maxSpeed || 0, gs.speed);
-              gs.hitCount = (gs.hitCount || 0) + 1;
-              gs.comboCount = (gs.comboCount || 0) + 1;
-              gs.lastHitTime = Date.now();
-              gs.lastHitter = p.name;
-              gs.targetId = nextTarget.id;
+          // Pausa rápida entre eliminações para respirar
+          if (currentGs.roundPauseUntil && Date.now() < currentGs.roundPauseUntil) {
+            return;
+          }
 
-              // Bot gera curva aleatória sutil
-              ball.curve = (Math.random() - 0.5) * 1.0;
+          // Validar alvo atual
+          let target = currentGs.players[currentGs.targetId];
+          if (!target || !target.alive) {
+            const aliveOnes = Object.values(currentGs.players).filter(p => p.alive);
+            if (aliveOnes.length === 0) return;
+            target = aliveOnes[Math.floor(Math.random() * aliveOnes.length)];
+            currentGs.targetId = target.id;
+          }
 
+          // Direção e curva homing em direção ao alvo
+          const tdx = target.x - ball.x;
+          const tdy = target.y - ball.y;
+          const tdist = Math.hypot(tdx, tdy);
+
+          if (tdist > 0.01) {
+            const desiredVx = (tdx / tdist) * currentGs.speed;
+            const desiredVy = (tdy / tdist) * currentGs.speed;
+            const steer = currentGs.isDuel ? 0.11 : 0.09;
+            ball.vx = ball.vx * (1 - steer) + desiredVx * steer;
+            ball.vy = ball.vy * (1 - steer) + desiredVy * steer;
+
+            // Efeito da Curva da Bola (Curve Ball lateral spin)
+            if (ball.curve && Math.abs(ball.curve) > 0.03) {
+              const perpX = -ball.vy * (ball.curve * 0.12);
+              const perpY = ball.vx * (ball.curve * 0.12);
+              ball.vx += perpX;
+              ball.vy += perpY;
+              ball.curve *= 0.95;
+            }
+
+            // Manter velocidade constante exata
+            const curSpd = Math.hypot(ball.vx, ball.vy);
+            if (curSpd > 0.01) {
+              ball.vx = (ball.vx / curSpd) * currentGs.speed;
+              ball.vy = (ball.vy / curSpd) * currentGs.speed;
+            }
+          }
+
+          // Avançar bola
+          ball.x += ball.vx * 0.72;
+          ball.y += ball.vy * 0.72;
+
+          // Colisão e ricochete nos limites/cantos da arena (5% a 95%)
+          let bounced = false;
+          let bounceSide = null;
+          if (ball.x <= 5) {
+            ball.x = 5;
+            ball.vx = Math.abs(ball.vx);
+            bounced = true;
+            bounceSide = 'left';
+          } else if (ball.x >= 95) {
+            ball.x = 95;
+            ball.vx = -Math.abs(ball.vx);
+            bounced = true;
+            bounceSide = 'right';
+          }
+
+          if (ball.y <= 5) {
+            ball.y = 5;
+            ball.vy = Math.abs(ball.vy);
+            bounced = true;
+            bounceSide = 'top';
+          } else if (ball.y >= 95) {
+            ball.y = 95;
+            ball.vy = -Math.abs(ball.vy);
+            bounced = true;
+            bounceSide = 'bottom';
+          }
+
+          if (bounced) {
+            io.to(roomCode).emit('game:deathball:bounce', {
+              x: Math.round(ball.x * 10) / 10,
+              y: Math.round(ball.y * 10) / 10,
+              side: bounceSide
+            });
+          }
+
+          // IA dos Bots (movimentação inteligente e rebatida com timing dinâmico)
+          Object.values(currentGs.players).forEach(p => {
+            if (!p.isBot || !p.alive) return;
+
+            // Movimentação sutil dos bots na arena
+            if (currentGs.tickCount % 22 === 0) {
+              const moveAngle = Math.random() * Math.PI * 2;
+              const nx = p.x + Math.cos(moveAngle) * 2.5;
+              const ny = p.y + Math.sin(moveAngle) * 2.5;
+              const distCenter = Math.hypot(nx - 50, ny - 50);
+              if (distCenter < 38) {
+                p.x = nx;
+                p.y = ny;
+              }
+            }
+
+            // Se o bot for o alvo e a bola estiver na zona de rebatida
+            if (p.id === currentGs.targetId && tdist < 18 && tdist > 4.2 && Date.now() > p.parryCooldownUntil) {
+              const successChance = Math.max(0.38, 0.95 - (currentGs.speed - 1.7) * 0.08);
+              if (Math.random() < successChance) {
+                p.parryCooldownUntil = Date.now() + 600;
+                currentGs.lastHitterId = p.id;
+                const opponents = Object.values(currentGs.players).filter(op => op.id !== p.id && op.alive);
+                if (opponents.length > 0) {
+                  const humanOpponent = opponents.find(op => !op.isBot);
+                  const nextTarget = (humanOpponent && Math.random() < 0.65) ? humanOpponent : opponents[Math.floor(Math.random() * opponents.length)];
+
+                  const isPerfect = (tdist <= 12);
+                  const speedInc = isPerfect ? 0.22 : 0.12;
+                  currentGs.speed = Math.min(currentGs.speed * 1.10 + speedInc, 11.5);
+                  currentGs.maxSpeed = Math.max(currentGs.maxSpeed || 0, currentGs.speed);
+                  currentGs.hitCount = (currentGs.hitCount || 0) + 1;
+                  currentGs.comboCount = (currentGs.comboCount || 0) + 1;
+                  currentGs.lastHitTime = Date.now();
+                  currentGs.lastHitter = p.name;
+                  currentGs.targetId = nextTarget.id;
+
+                  // Pontuação do bot na partida
+                  currentGs.gameScores[p.id] = (currentGs.gameScores[p.id] || 0) + (isPerfect ? 10 : 5);
+
+                  ball.curve = (Math.random() - 0.5) * 1.0;
+
+                  const ntdx = nextTarget.x - ball.x;
+                  const ntdy = nextTarget.y - ball.y;
+                  const ntdist = Math.hypot(ntdx, ntdy) || 1;
+                  ball.vx = (ntdx / ntdist) * currentGs.speed;
+                  ball.vy = (ntdy / ntdist) * currentGs.speed;
+
+                  io.to(roomCode).emit('game:deathball:hit', {
+                    by: p.name,
+                    byId: p.id,
+                    targetId: nextTarget.id,
+                    speed: Math.round(currentGs.speed * 10) / 10,
+                    hits: currentGs.hitCount,
+                    combo: currentGs.comboCount,
+                    isPerfect,
+                    isDuel: currentGs.isDuel,
+                    gameScore: currentGs.gameScores[p.id],
+                    ball: { x: ball.x, y: ball.y, vx: ball.vx, vy: ball.vy }
+                  });
+                }
+              } else {
+                p.parryCooldownUntil = Date.now() + 500;
+              }
+            }
+          });
+
+          // BUFFER DE PARRY / LATÊNCIA:
+          // Se a bola estiver prestes a atingir a vítima e o jogador acionou o parry na janela de tolerância recente:
+          if (tdist <= 8.5 && target && !target.isBot && target.parryActiveUntil && Date.now() < target.parryActiveUntil) {
+            // Sucesso garantido por buffer de parry! Impede a morte injusta por lag!
+            target.parryActiveUntil = 0;
+            target.parryCooldownUntil = Date.now() + 380;
+            currentGs.lastHitterId = target.id;
+
+            const isPerfect = (tdist <= 6.5);
+            const baseMult = currentGs.isDuel ? 1.13 : 1.10;
+            const addSpeed = isPerfect ? 0.24 : 0.12;
+            currentGs.speed = Math.min(currentGs.speed * baseMult + addSpeed, 12.0);
+            currentGs.maxSpeed = Math.max(currentGs.maxSpeed || 0, currentGs.speed);
+            currentGs.hitCount = (currentGs.hitCount || 0) + 1;
+            currentGs.comboCount = (currentGs.comboCount || 0) + 1;
+            currentGs.lastHitTime = Date.now();
+            currentGs.lastHitter = target.name;
+
+            const comboBonus = currentGs.comboCount > 1 ? Math.min(currentGs.comboCount * 3, 15) : 0;
+            const perfectBonus = isPerfect ? 5 : 0;
+            const pointsEarned = 5 + comboBonus + perfectBonus;
+            currentGs.gameScores[target.id] = (currentGs.gameScores[target.id] || 0) + pointsEarned;
+            target.consecutiveHits = (target.consecutiveHits || 0) + 1;
+
+            const otherAlive = Object.values(currentGs.players).filter(op => op.id !== target.id && op.alive);
+            let nextTargetId = null;
+            if (otherAlive.length > 0) {
+              nextTargetId = otherAlive[Math.floor(Math.random() * otherAlive.length)].id;
+            }
+
+            if (nextTargetId) {
+              currentGs.targetId = nextTargetId;
+              const nextTarget = currentGs.players[nextTargetId];
               const ntdx = nextTarget.x - ball.x;
               const ntdy = nextTarget.y - ball.y;
               const ntdist = Math.hypot(ntdx, ntdy) || 1;
-              ball.vx = (ntdx / ntdist) * gs.speed;
-              ball.vy = (ntdy / ntdist) * gs.speed;
+              ball.vx = (ntdx / ntdist) * currentGs.speed;
+              ball.vy = (ntdy / ntdist) * currentGs.speed;
+            }
 
-              io.to(roomCode).emit('game:deathball:hit', {
-                by: p.name,
-                byId: p.id,
-                targetId: nextTarget.id,
-                speed: Math.round(gs.speed * 10) / 10,
-                hits: gs.hitCount,
-                combo: gs.comboCount,
-                isPerfect,
-                isDuel: gs.isDuel,
-                ball: { x: ball.x, y: ball.y, vx: ball.vx, vy: ball.vy }
+            io.to(roomCode).emit('game:deathball:hit', {
+              by: target.name,
+              byId: target.id,
+              targetId: nextTargetId,
+              speed: Math.round(currentGs.speed * 10) / 10,
+              hits: currentGs.hitCount,
+              combo: currentGs.comboCount,
+              isPerfect,
+              isDuel: currentGs.isDuel,
+              gameScore: currentGs.gameScores[target.id],
+              ball: { x: ball.x, y: ball.y, vx: ball.vx, vy: ball.vy, curve: ball.curve }
+            });
+            return;
+          }
+
+          // Checagem de impacto fatal na vítima (distância <= 5.2)
+          if (tdist <= 5.2) {
+            target.alive = false;
+            currentGs.alivePlayers--;
+
+            io.to(roomCode).emit('game:deathball:eliminated', {
+              id: target.id,
+              name: target.name,
+              x: target.x,
+              y: target.y
+            });
+
+            const aliveRemaining = Object.values(currentGs.players).filter(p => p.alive);
+            // Fim de jogo: restou apenas 1 (ou 0)
+            if (aliveRemaining.length <= 1) {
+              clearInterval(room.gameInterval);
+              currentGs.phase = 'results';
+              const winner = aliveRemaining[0] || target;
+              currentGs.gameScores[winner.id] = (currentGs.gameScores[winner.id] || 0) + 50;
+
+              // Transfere as pontuações DESTA PARTIDA para a pontuação geral acumulada da sala (exibida apenas no Lobby)
+              allParticipants.forEach(p => {
+                if (!p.isBot) {
+                  const realP = room.players.get(p.id);
+                  if (realP) {
+                    realP.score += (currentGs.gameScores[p.id] || 0);
+                  }
+                }
+              });
+
+              // Monta a classificação exclusiva DESTA PARTIDA para exibição imediata no pós-jogo
+              const rankings = allParticipants.map(p => ({
+                id: p.id,
+                name: p.name,
+                isBot: !!p.isBot,
+                gameScore: currentGs.gameScores[p.id] || 0,
+                isWinner: (p.id === winner.id)
+              })).sort((a, b) => b.gameScore - a.gameScore);
+
+              io.to(roomCode).emit('game:deathball:gameover', {
+                winner: winner.name,
+                winnerId: winner.id,
+                isSolo: currentGs.isSolo,
+                hits: currentGs.hitCount,
+                maxSpeed: Math.round((currentGs.maxSpeed || currentGs.speed) * 10) / 10,
+                rankings
+              });
+              broadcastRoomState(roomCode);
+              return;
+            }
+
+            // Restaram exatamente 2 jogadores: DUELO MORTAL!
+            if (aliveRemaining.length === 2 && !currentGs.isDuel) {
+              currentGs.isDuel = true;
+              io.to(roomCode).emit('game:deathball:duel-start', {
+                finalists: aliveRemaining.map(p => p.name)
               });
             }
-          } else {
-            p.parryCooldownUntil = Date.now() + 500;
+
+            // Reseta o DASH para todos os sobreviventes nesta nova rodada!
+            aliveRemaining.forEach(p => { p.hasDash = true; });
+
+            // Mais de um vivo: próximo round de bola mortal com pausa suave de 1.8s
+            currentGs.roundPauseUntil = Date.now() + 1800;
+            const newTarget = aliveRemaining[Math.floor(Math.random() * aliveRemaining.length)];
+            currentGs.targetId = newTarget.id;
+            ball.x = 50;
+            ball.y = 50;
+            ball.curve = 0;
+            currentGs.speed = currentGs.baseSpeed;
+            currentGs.comboCount = 0;
+
+            const ndx = newTarget.x - ball.x;
+            const ndy = newTarget.y - ball.y;
+            const ndist = Math.hypot(ndx, ndy) || 1;
+            ball.vx = (ndx / ndist) * currentGs.speed;
+            ball.vy = (ndy / ndist) * currentGs.speed;
+
+            io.to(roomCode).emit('game:deathball:new-target', {
+              targetId: currentGs.targetId,
+              ball,
+              speed: Math.round(currentGs.speed * 10) / 10,
+              resetSpeed: true,
+              isDuel: currentGs.isDuel
+            });
           }
-        }
-      });
 
-      // Checagem de impacto fatal na vítima (distância <= 5.2)
-      if (tdist <= 5.2) {
-        target.alive = false;
-        gs.alivePlayers--;
-
-        io.to(roomCode).emit('game:deathball:eliminated', {
-          id: target.id,
-          name: target.name,
-          x: target.x,
-          y: target.y
-        });
-
-        const aliveRemaining = Object.values(gs.players).filter(p => p.alive);
-        // Fim de jogo: restou apenas 1 (ou 0)
-        if (aliveRemaining.length <= 1) {
-          clearInterval(room.gameInterval);
-          gs.phase = 'results';
-          const winner = aliveRemaining[0] || target;
-          if (!winner.isBot) {
-            const p = room.players.get(winner.id);
-            if (p) p.score += 50;
-          }
-          io.to(roomCode).emit('game:deathball:gameover', {
-            winner: winner.name,
-            winnerId: winner.id,
-            isSolo: gs.isSolo,
-            hits: gs.hitCount,
-            maxSpeed: Math.round((gs.maxSpeed || gs.speed) * 10) / 10
+          // Envia atualização de posição e alvo
+          io.to(roomCode).emit('game:deathball:update', {
+            ball,
+            targetId: currentGs.targetId,
+            speed: Math.round(currentGs.speed * 10) / 10
           });
-          broadcastRoomState(roomCode);
-          return;
-        }
-
-        // Restaram exatamente 2 jogadores: DUELO MORTAL!
-        if (aliveRemaining.length === 2 && !gs.isDuel) {
-          gs.isDuel = true;
-          io.to(roomCode).emit('game:deathball:duel-start', {
-            finalists: aliveRemaining.map(p => p.name)
-          });
-        }
-
-        // Reseta o DASH para todos os sobreviventes nesta nova rodada!
-        aliveRemaining.forEach(p => { p.hasDash = true; });
-
-        // Mais de um vivo: próximo round de bola mortal
-        gs.roundPauseUntil = Date.now() + 1500;
-        const newTarget = aliveRemaining[Math.floor(Math.random() * aliveRemaining.length)];
-        gs.targetId = newTarget.id;
-        ball.x = 50;
-        ball.y = 50;
-        ball.curve = 0;
-        // RESET TOTAL DA VELOCIDADE PARA A VELOCIDADE INICIAL
-        gs.speed = gs.baseSpeed;
-        gs.comboCount = 0;
-
-        const ndx = newTarget.x - ball.x;
-        const ndy = newTarget.y - ball.y;
-        const ndist = Math.hypot(ndx, ndy) || 1;
-        ball.vx = (ndx / ndist) * gs.speed;
-        ball.vy = (ndy / ndist) * gs.speed;
-
-        io.to(roomCode).emit('game:deathball:new-target', {
-          targetId: gs.targetId,
-          ball,
-          speed: Math.round(gs.speed * 10) / 10,
-          resetSpeed: true,
-          isDuel: gs.isDuel
-        });
+        }, 30);
       }
-
-      // Envia atualização de posição e alvo
-      io.to(roomCode).emit('game:deathball:update', {
-        ball,
-        targetId: gs.targetId,
-        speed: Math.round(gs.speed * 10) / 10
-      });
-    }, 30);
+    }, 1000);
   },
 
   handleAction(room, io, roomCode, socket, data) {
     const gs = room.gameState;
-    if (!gs || gs.phase !== 'playing') return;
+    if (!gs || (gs.phase !== 'playing' && gs.phase !== 'countdown')) return;
 
     if (data.action === 'move') {
       const player = gs.players[socket.id];
@@ -3320,24 +3517,39 @@ gameHandlers['death-ball'] = {
       });
     }
 
+    // AÇÃO: REBATER / PARRY (Com debounce anti double-hit e tolerância à latência)
     if (data.action === 'hit') {
+      if (gs.phase !== 'playing') return;
       const player = gs.players[socket.id];
       if (!player || !player.alive) return;
+
+      // 1. Anti double-hit debounce: impede acertos múltiplos no mesmo milissegundo
+      if (Date.now() < player.parryCooldownUntil) {
+        return;
+      }
+      // Se acabou de rebater esta mesma bola há menos de 450ms, impede novo hit
+      if (gs.lastHitterId === socket.id && (Date.now() - gs.lastHitTime < 450)) {
+        return;
+      }
 
       const ball = gs.ball;
       const dx = ball.x - player.x;
       const dy = ball.y - player.y;
       const dist = Math.hypot(dx, dy);
 
-      // Se ainda estiver em cooldown de parry por ter tentado cedo demais
-      if (Date.now() < player.parryCooldownUntil) {
-        return;
-      }
+      // Zona de rebatida dinâmica adaptada à velocidade da bola e ping (24 a 34 unidades)
+      const deflectZone = 24 + Math.min(gs.speed * 0.9, 10);
+      const isTarget = (gs.targetId === socket.id);
 
-      // Zona de rebatida no timing correto (distância até 22)
-      if (dist < 22) {
-        // Verifica se foi Parry Perfeito (distância <= 12)
-        const isPerfect = (dist <= 12);
+      // Zona de rebatida no timing correto
+      if (dist <= deflectZone || (isTarget && dist <= deflectZone + 5)) {
+        // Cooldown rigoroso de 380ms para que o mesmo hit nunca pegue mais de uma vez
+        player.parryCooldownUntil = Date.now() + 380;
+        player.parryActiveUntil = 0;
+        gs.lastHitterId = socket.id;
+
+        // Verifica se foi Parry Perfeito
+        const isPerfect = (dist <= (13 + Math.min(gs.speed * 0.4, 4)));
 
         // Aceleração progressiva com bônus para Parry Perfeito e Duelo Mortal
         const baseMult = gs.isDuel ? 1.13 : 1.10;
@@ -3360,10 +3572,11 @@ gameHandlers['death-ball'] = {
         gs.lastHitTime = now;
         gs.lastHitter = player.name;
 
-        const p = room.players.get(socket.id);
+        // Pontuação exclusiva desta partida de Death Ball
         const comboBonus = gs.comboCount > 1 ? Math.min(gs.comboCount * 3, 15) : 0;
         const perfectBonus = isPerfect ? 5 : 0;
-        if (p) p.score += 5 + comboBonus + perfectBonus;
+        const pointsEarned = 5 + comboBonus + perfectBonus;
+        gs.gameScores[socket.id] = (gs.gameScores[socket.id] || 0) + pointsEarned;
 
         player.consecutiveHits = (player.consecutiveHits || 0) + 1;
 
@@ -3415,13 +3628,19 @@ gameHandlers['death-ball'] = {
           combo: gs.comboCount,
           isPerfect,
           isDuel: gs.isDuel,
+          gameScore: gs.gameScores[socket.id],
           ball: { x: ball.x, y: ball.y, vx: ball.vx, vy: ball.vy, curve: ball.curve }
         });
+      } else if (dist <= 38) {
+        // BUFFER DE PARRY: Jogador apertou ligeiramente antes da bola entrar no raio.
+        // Registra buffer de 280ms para que o hit conecte automaticamente assim que a bola alcançar a vítima!
+        player.parryActiveUntil = Date.now() + 280;
+        player.parryCooldownUntil = Date.now() + 350;
       } else {
-        // Whiff / parry precoce
-        player.parryCooldownUntil = Date.now() + 450;
+        // Whiff / parry muito longe (> 38 unidades)
+        player.parryCooldownUntil = Date.now() + 280;
         socket.emit('game:deathball:whiff', {
-          cooldownMs: 450
+          cooldownMs: 280
         });
       }
     }
@@ -3537,7 +3756,8 @@ function startCartasRound(room, io, roomCode) {
         hand: gs.playerHands[player.id] || [],
         scores: gs.scores,
         targetScore: gs.targetScore,
-        players: getRoomPlayers(roomCode)
+        players: getRoomPlayers(roomCode),
+        shufflesAvailable: (gs.shufflesAvailable ? gs.shufflesAvailable[player.id] : 1) ?? 1
       });
     }
   }
@@ -3622,14 +3842,16 @@ gameHandlers['cartas-contra-humanidade'] = {
       discardWhite: [],
       playerHands: {},
       scores: {},
+      shufflesAvailable: {}, // 1 único shuffle por jogador por toda jornada!
       submissions: {},
       shuffledSubmissions: [],
       roundWinner: null
     };
 
-    // Inicializa scores e mãos
+    // Inicializa scores, mãos e shuffles únicos da jornada
     for (const p of playersList) {
       room.gameState.scores[p.id] = 0;
+      room.gameState.shufflesAvailable[p.id] = 1;
       room.gameState.playerHands[p.id] = [];
       for (let i = 0; i < 10; i++) {
         room.gameState.playerHands[p.id].push(drawCartasWhiteCard(room.gameState));
@@ -3710,6 +3932,59 @@ gameHandlers['cartas-contra-humanidade'] = {
       }
     }
 
+    // AÇÃO: ÚNICO SHUFFLE POR JORNADA (Reset de todas as cartas com até 3 salvas)
+    else if (data.action === 'shuffle-hand') {
+      if (gs.phase !== 'submitting') return;
+      if (socket.id === gs.czarId) return; // Czar não possui cartas para enviar
+      if (gs.submissions[socket.id]) return; // Já enviou sua resposta da rodada
+
+      if (!gs.shufflesAvailable || gs.shufflesAvailable[socket.id] !== 1) {
+        socket.emit('game:cartas:error', { message: 'Você já utilizou seu único shuffle desta partida!' });
+        return;
+      }
+
+      const hand = gs.playerHands[socket.id] || [];
+      const keepCardIds = Array.isArray(data.keepCardIds) ? data.keepCardIds.slice(0, 3) : [];
+
+      const savedCards = [];
+      const cardsToDiscard = [];
+
+      for (const card of hand) {
+        if (keepCardIds.includes(card.id) && savedCards.length < 3) {
+          savedCards.push(card);
+        } else {
+          cardsToDiscard.push(card);
+        }
+      }
+
+      // Descarta as demais cartas
+      for (const card of cardsToDiscard) {
+        gs.discardWhite.push(card);
+      }
+
+      // Nova mão começa com as até 3 cartas salvas
+      const newHand = [...savedCards];
+      while (newHand.length < 10) {
+        newHand.push(drawCartasWhiteCard(gs));
+      }
+
+      gs.playerHands[socket.id] = newHand;
+      gs.shufflesAvailable[socket.id] = 0; // Gastou o único shuffle da jornada!
+
+      socket.emit('game:cartas:hand-shuffled', {
+        hand: newHand,
+        savedCount: savedCards.length,
+        shufflesAvailable: 0
+      });
+
+      const player = room.players.get(socket.id);
+      io.to(roomCode).emit('chat:message', {
+        type: 'system',
+        text: `🔀 ${player?.name || 'Jogador'} usou seu único Shuffle da partida e renovou a mão (salvou ${savedCards.length} cartas)!`,
+        timestamp: Date.now()
+      });
+    }
+
     else if (data.action === 'reveal-card') {
       if (gs.phase !== 'judging') return;
       if (socket.id !== gs.czarId && room.hostId !== socket.id) return;
@@ -3771,10 +4046,25 @@ gameHandlers['cartas-contra-humanidade'] = {
           score: gs.scores[p.id] || 0
         })).sort((a, b) => b.score - a.score);
 
+        // Pontuação para o Ranking Geral do Lobby (apenas no fim da partida):
+        if (rankings[0]) {
+          const p1 = room.players.get(rankings[0].id);
+          if (p1) p1.score += 50;
+        }
+        if (rankings[1]) {
+          const p2 = room.players.get(rankings[1].id);
+          if (p2) p2.score += 25;
+        }
+        if (rankings[2]) {
+          const p3 = room.players.get(rankings[2].id);
+          if (p3) p3.score += 10;
+        }
+
         io.to(roomCode).emit('game:cartas:game-over', {
           rankings,
           targetScore: gs.targetScore
         });
+        broadcastRoomState(roomCode);
       } else {
         gs.czarIndex++;
         startCartasRound(room, io, roomCode);
@@ -3785,7 +4075,16 @@ gameHandlers['cartas-contra-humanidade'] = {
 
 gameHandlers['cartas'] = gameHandlers['cartas-contra-humanidade'];
 
+// --- RINHA.IO (Módulo extraído para server/rinha/) ---
+gameHandlers['rinha'] = rinhaModule.gameHandler;
+
 // ==================== SOCKET.IO HANDLERS ====================
+
+// Rinha.io: registrar handlers de eventos rinha:* em cada conexão
+// Isso deve ser chamado UMA VEZ fora do io.on('connection'), mas como o módulo
+// usa io.on('connection') internamente, chamamos aqui para garantir que esteja ativo.
+// Nota: registerSocketEvents adiciona seu próprio io.on('connection') listener.
+rinhaModule.registerSocketEvents(io);
 
 io.on('connection', (socket) => {
   console.log(`[+] Conectado: ${socket.id}`);
@@ -3902,7 +4201,11 @@ io.on('connection', (socket) => {
 
     const handler = gameHandlers[gameId];
     if (handler) {
-      setTimeout(() => handler.start(room, io, info.roomCode), 1500);
+      if (gameId === 'rinha') {
+        handler.start(room, io, info.roomCode);
+      } else {
+        setTimeout(() => handler.start(room, io, info.roomCode), 1500);
+      }
     }
 
     io.to(info.roomCode).emit('chat:message', {
@@ -3925,6 +4228,8 @@ io.on('connection', (socket) => {
     }
   });
 
+  // Rinha.io: eventos registrados via rinhaModule.registerSocketEvents(io)
+
   // --- VOLTAR AO LOBBY ---
   socket.on('game:back-to-lobby', () => {
     const info = playerSockets.get(socket.id);
@@ -3934,10 +4239,17 @@ io.on('connection', (socket) => {
     if (room.hostId !== socket.id) return;
 
     if (room.gameInterval) clearInterval(room.gameInterval);
+    // Rinha.io: parar tick loop autoritativo se ativo
+    if (room.rinhaState && room.rinhaState.tickLoopId) {
+      rinhaModule.stopTickLoop(room.rinhaState.tickLoopId);
+      room.rinhaState.tickLoopId = null;
+    }
+    if (room.rinhaCountdownTimer) clearInterval(room.rinhaCountdownTimer);
     if (room.gameState?.turnTimer) clearTimeout(room.gameState.turnTimer);
     if (room.gameState?.votingTimer) clearTimeout(room.gameState.votingTimer);
     room.currentGame = null;
     room.gameState = null;
+    room.rinhaState = null;
     io.to(info.roomCode).emit('game:ended');
     broadcastRoomState(info.roomCode);
   });

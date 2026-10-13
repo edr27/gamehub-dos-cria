@@ -11,12 +11,12 @@
   const DEFLECT_ZONE = 22;
   const PERFECT_ZONE = 12;
 
-  // Zero-Allocation Pool Sizes
-  const PARTICLE_POOL_SIZE = 80;
-  const PULSE_POOL_SIZE = 12;
-  const GHOST_POOL_SIZE = 10;
-  const TEXT_POOL_SIZE = 6;
-  const TRAIL_BUFFER_SIZE = 14;
+  // Zero-Allocation Pool Sizes (aumentados para Death Ball 2.0)
+  const PARTICLE_POOL_SIZE = 120;
+  const PULSE_POOL_SIZE = 16;
+  const GHOST_POOL_SIZE = 14;
+  const TEXT_POOL_SIZE = 8;
+  const TRAIL_BUFFER_SIZE = 24;
 
   // Static line dash arrays
   const STATIC_DASH_EMPTY = [];
@@ -87,6 +87,12 @@
   let hasDash = true;
   let lastMoveEmitTime = 0;
   let keyHandlerBound = null;
+
+  // Contagem regressiva 3, 2, 1 e pontuação exclusiva da partida
+  let activeCountdown = 3;
+  let countdownActive = false;
+  let countdownEndingText = null;
+  let myMatchScore = 0;
 
   const slashAnim = { active: false, progress: 0, x: 50, y: 50, color: '#00e5ff' };
 
@@ -719,7 +725,17 @@
   // BATCHED CONTINUOUS NEON STROKE: Replaces 36 fill calls with 2 fast GPU stroke paths
   function drawTrail(speedCfg) {
     if (trailCount < 2) return;
-    const glowColor = isDuelMode ? 'rgba(255, 23, 68, 0.4)' : speedCfg.glow;
+    const ballSpeed = Math.hypot(ball.vx, ball.vy);
+    // Largura e opacidade dinâmicas baseadas na velocidade da bola
+    const speedFactor = Math.min(ballSpeed / 10, 1.0);
+    const outerWidth = 10 + speedFactor * 12; // 10-22px baseado na velocidade
+    const innerWidth = 3 + speedFactor * 4;   // 3-7px
+    const glowAlpha = 0.25 + speedFactor * 0.35; // 0.25-0.60 opacidade
+
+    // Glow externo com opacidade dinâmica
+    const glowColor = isDuelMode
+      ? `rgba(255, 23, 68, ${glowAlpha.toFixed(2)})`
+      : speedCfg.glow.replace(/[\d.]+\)$/, `${glowAlpha.toFixed(2)})`);
 
     ctx.beginPath();
     for (let i = 0; i < trailCount; i++) {
@@ -731,20 +747,32 @@
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
 
-    // Outer neon glow stroke
+    // Outer neon glow stroke (largura dinâmica)
     ctx.strokeStyle = glowColor;
-    ctx.lineWidth = 14;
+    ctx.lineWidth = outerWidth;
     ctx.stroke();
 
-    // Inner bright plasma core
+    // Inner bright plasma core (largura dinâmica)
     ctx.strokeStyle = speedCfg.core;
-    ctx.lineWidth = 4;
+    ctx.lineWidth = innerWidth;
     ctx.stroke();
   }
 
   // ==================== BALL RENDERING (OPTIMIZED) ====================
   function drawBall(bx, by, time, speedCfg) {
     const r = 12 + Math.sin(time * 0.015) * 1.8;
+
+    // MOTION BLUR: esticar a bola na direção do movimento baseado na velocidade
+    const ballSpeed = Math.hypot(ball.vx, ball.vy);
+    const stretchFactor = Math.min(ballSpeed * 0.06, 0.6); // max 60% stretch
+    if (stretchFactor > 0.05) {
+      const moveAngle = Math.atan2(ball.vy, ball.vx);
+      ctx.save();
+      ctx.translate(bx, by);
+      ctx.rotate(moveAngle);
+      ctx.scale(1 + stretchFactor, 1 - stretchFactor * 0.4);
+      ctx.translate(-bx, -by);
+    }
 
     // Laser de mira no alvo (se houver alvo ativo)
     if (currentTargetId && localPlayers[currentTargetId] && localPlayers[currentTargetId].alive) {
@@ -797,12 +825,66 @@
     ctx.strokeStyle = 'rgba(255, 255, 255, 0.7)';
     ctx.lineWidth = 1.8;
     ctx.stroke();
+
+    // Restaurar contexto se motion blur foi aplicado
+    if (stretchFactor > 0.05) {
+      ctx.restore();
+    }
   }
 
-  // ==================== GLADIATORS RENDERING (OPTIMIZED) ====================
+  // ==================== SPEED LINES BACKGROUND EFFECT ====================
+  // Linhas radiais que aparecem quando a bola está em alta velocidade
+  function drawSpeedLines(time) {
+    const ballSpeed = Math.hypot(ball.vx, ball.vy);
+    if (ballSpeed < 3) return; // Só ativa acima de velocidade 3
+
+    const intensity = Math.min((ballSpeed - 3) / 10, 1.0); // 0..1 baseado na velocidade
+    const bx = (ball.x / 100) * W;
+    const by = (ball.y / 100) * H;
+    const lineCount = Math.floor(8 + intensity * 12); // 8-20 linhas
+    const baseAngle = Math.atan2(ball.vy, ball.vx);
+
+    ctx.save();
+    ctx.globalAlpha = intensity * 0.15;
+    ctx.strokeStyle = isDuelMode ? '#ff1744' : '#00e5ff';
+    ctx.lineWidth = 1 + intensity * 2;
+    ctx.lineCap = 'round';
+
+    ctx.beginPath();
+    for (let i = 0; i < lineCount; i++) {
+      const angle = baseAngle + (i - lineCount / 2) * 0.15 + Math.sin(time * 0.003 + i) * 0.05;
+      const startDist = 60 + Math.random() * 40;
+      const endDist = startDist + 80 + intensity * 120;
+      const sx = bx + Math.cos(angle) * startDist;
+      const sy = by + Math.sin(angle) * startDist;
+      const ex = bx + Math.cos(angle) * endDist;
+      const ey = by + Math.sin(angle) * endDist;
+      ctx.moveTo(sx, sy);
+      ctx.lineTo(ex, ey);
+    }
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  // ==================== GLADIATORS RENDERING (OPTIMIZED V2) ====================
   function drawGladiators(time) {
     const r = 20;
 
+    // PASS 1: Batched aura rendering (todos os vivos de uma vez)
+    ctx.beginPath();
+    for (let i = 0; i < cachedPlayerList.length; i++) {
+      const p = cachedPlayerList[i];
+      if (!p.alive) continue;
+      const px = (p.x / 100) * W;
+      const py = (p.y / 100) * H;
+      const auraR = r + (p._isMe ? 5 : 3);
+      ctx.moveTo(px + auraR, py);
+      ctx.arc(px, py, auraR, 0, Math.PI * 2);
+    }
+    ctx.fillStyle = 'rgba(124, 106, 255, 0.15)';
+    ctx.fill();
+
+    // PASS 2: Individual player rendering
     for (let i = 0; i < cachedPlayerList.length; i++) {
       const p = cachedPlayerList[i];
       const px = (p.x / 100) * W;
@@ -829,6 +911,12 @@
         ctx.fillText(p.name, px, py + r + 13);
         continue;
       }
+
+      // Proximidade da bola para efeitos visuais dinâmicos
+      const ballDx = ball.x - p.x;
+      const ballDy = ball.y - p.y;
+      const ballDist = Math.hypot(ballDx, ballDy);
+      const proximityFactor = Math.max(0, 1 - ballDist / 30); // 1 quando perto, 0 quando longe
 
       // 1. Reticle de alvo
       if (isTarget) {
@@ -858,10 +946,6 @@
 
       // 2. Sweet spot timing indicator
       if (isMe && isTarget) {
-        const ballDx = ball.x - p.x;
-        const ballDy = ball.y - p.y;
-        const ballDist = Math.hypot(ballDx, ballDy);
-
         if (ballDist < DEFLECT_ZONE + 8) {
           const isPerfect = ballDist <= PERFECT_ZONE;
           const inWindow = ballDist <= DEFLECT_ZONE;
@@ -883,7 +967,7 @@
         }
       }
 
-      // 3. Indicador de mira (cálculo trigonométrico direto, zero save/restore)
+      // 3. Indicador de mira (batched stroke para todos os jogadores depois)
       const aim = p.aimDir || myAimDir;
       const amag = Math.hypot(aim.x, aim.y) || 1;
       const ux = aim.x / amag;
@@ -915,25 +999,26 @@
       ctx.fillStyle = isMe ? '#00e5ff' : 'rgba(255,255,255,0.7)';
       ctx.fill();
 
-      // 4. Aura circular
-      ctx.beginPath();
-      ctx.arc(px, py, r + (isMe ? 5 : 3), 0, Math.PI * 2);
-      ctx.fillStyle = p._auraColor || 'rgba(124, 106, 255, 0.2)';
-      ctx.fill();
-
-      // 5. Corpo metálico escuro
+      // 5. Corpo metálico escuro com borda colorida
       ctx.beginPath();
       ctx.arc(px, py, r, 0, Math.PI * 2);
       ctx.fillStyle = '#141432';
       ctx.fill();
 
+      // Borda com brilho dinâmico baseado na proximidade da bola
       ctx.lineWidth = isMe ? 3 : 2;
+      if (proximityFactor > 0.3) {
+        ctx.shadowColor = p.color;
+        ctx.shadowBlur = proximityFactor * 12;
+      }
       ctx.strokeStyle = p.color;
       ctx.stroke();
+      ctx.shadowBlur = 0;
 
-      // 6. Centro com cor do gladiador
+      // 6. Centro com cor do gladiador (pulsa quando bola está perto)
+      const centerScale = 0.45 + proximityFactor * 0.1;
       ctx.beginPath();
-      ctx.arc(px, py, r * 0.45, 0, Math.PI * 2);
+      ctx.arc(px, py, r * centerScale, 0, Math.PI * 2);
       ctx.fillStyle = p.color;
       ctx.fill();
 
@@ -1099,34 +1184,42 @@
     // Constant unbroken physics step: NEVER slowed by hitstop to maintain 100% server synchrony
     const dtStep = Math.min(deltaTime * 33.333, 1.6);
 
-    // 1. RECONCILIAÇÃO CONTÍNUA DA BOLA VIA VELOCITY BLENDING (Estabilidade a qualquer velocidade)
-    const vBlend = Math.min(1.0, 16 * deltaTime);
-    ball.vx += (serverTargetVx - ball.vx) * vBlend;
-    ball.vy += (serverTargetVy - ball.vy) * vBlend;
+    // 1. SUB-STEPPING DE FÍSICA PARA ESTABILIDADE EM ALTAS VELOCIDADES
+    // Divide o frame em múltiplos passos menores quando a bola está rápida
+    const ballSpeed = Math.hypot(ball.vx, ball.vy);
+    const subSteps = ballSpeed > 8 ? 4 : (ballSpeed > 4 ? 2 : 1);
+    const subDt = dtStep / subSteps;
 
-    const posCorrection = Math.min(1.0, 10 * deltaTime);
-    ball.x += ball.vx * 0.72 * dtStep + (serverTargetX - ball.x) * posCorrection;
-    ball.y += ball.vy * 0.72 * dtStep + (serverTargetY - ball.y) * posCorrection;
+    for (let s = 0; s < subSteps; s++) {
+      // Reconciliação contínua via velocity blending (aplicada proporcionalmente por sub-step)
+      const vBlend = Math.min(1.0, 16 * deltaTime / subSteps);
+      ball.vx += (serverTargetVx - ball.vx) * vBlend;
+      ball.vy += (serverTargetVy - ball.vy) * vBlend;
 
-    // Ricochete local nos limites da arena (5% a 95%)
-    if (ball.x <= 5) {
-      ball.x = 5;
-      if (ball.vx < 0) ball.vx = -ball.vx;
-      serverTargetVx = Math.abs(serverTargetVx);
-    } else if (ball.x >= 95) {
-      ball.x = 95;
-      if (ball.vx > 0) ball.vx = -ball.vx;
-      serverTargetVx = -Math.abs(serverTargetVx);
-    }
+      const posCorrection = Math.min(1.0, 10 * deltaTime / subSteps);
+      ball.x += ball.vx * 0.72 * subDt + (serverTargetX - ball.x) * posCorrection;
+      ball.y += ball.vy * 0.72 * subDt + (serverTargetY - ball.y) * posCorrection;
 
-    if (ball.y <= 5) {
-      ball.y = 5;
-      if (ball.vy < 0) ball.vy = -ball.vy;
-      serverTargetVy = Math.abs(serverTargetVy);
-    } else if (ball.y >= 95) {
-      ball.y = 95;
-      if (ball.vy > 0) ball.vy = -ball.vy;
-      serverTargetVy = -Math.abs(serverTargetVy);
+      // Ricochete local nos limites da arena (5% a 95%) — verificado a cada sub-step
+      if (ball.x <= 5) {
+        ball.x = 5;
+        if (ball.vx < 0) ball.vx = -ball.vx;
+        serverTargetVx = Math.abs(serverTargetVx);
+      } else if (ball.x >= 95) {
+        ball.x = 95;
+        if (ball.vx > 0) ball.vx = -ball.vx;
+        serverTargetVx = -Math.abs(serverTargetVx);
+      }
+
+      if (ball.y <= 5) {
+        ball.y = 5;
+        if (ball.vy < 0) ball.vy = -ball.vy;
+        serverTargetVy = Math.abs(serverTargetVy);
+      } else if (ball.y >= 95) {
+        ball.y = 95;
+        if (ball.vy > 0) ball.vy = -ball.vy;
+        serverTargetVy = -Math.abs(serverTargetVy);
+      }
     }
 
     // 2. Movimentação local perfeitamente sincronizada com o frame do display
@@ -1148,7 +1241,10 @@
     }
     ctx.drawImage(offscreenBgCanvas, 0, 0, W, H);
 
-    // B. Fantasmas do Dash
+    // B. Speed Lines (efeito de velocidade no fundo)
+    drawSpeedLines(timestamp);
+
+    // C. Fantasmas do Dash
     updateAndDrawGhosts(dtStep);
 
     // C. Rastro Contínuo da Bola (Buffer circular com stroke de GPU direto)
@@ -1174,12 +1270,51 @@
     drawHUD(timestamp);
     drawFlash();
 
-    // H. Modo de Diagnóstico / Perf HUD
+    // H. Contagem Regressiva Neon 3, 2, 1
+    drawCountdown();
+
+    // I. Modo de Diagnóstico / Perf HUD
     perfMonitor.draw(ctx);
 
     ctx.restore();
 
     animFrame = requestAnimationFrame(drawGame);
+  }
+
+  function drawCountdown() {
+    if (!countdownActive && !countdownEndingText) return;
+
+    ctx.save();
+    const cx = W / 2;
+    const cy = H / 2;
+
+    const text = countdownEndingText || String(activeCountdown);
+    const color = countdownEndingText ? '#00e5ff' : (activeCountdown === 3 ? '#00e5ff' : (activeCountdown === 2 ? '#ffd700' : '#ff9100'));
+
+    // Radial aura
+    const auraGrad = ctx.createRadialGradient(cx, cy, 10, cx, cy, 90);
+    auraGrad.addColorStop(0, 'rgba(4, 4, 18, 0.85)');
+    auraGrad.addColorStop(1, 'rgba(4, 4, 18, 0)');
+    ctx.fillStyle = auraGrad;
+    ctx.beginPath();
+    ctx.arc(cx, cy, 90, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.font = countdownEndingText ? '900 46px "Space Grotesk", sans-serif' : '900 78px "Space Grotesk", sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
+    ctx.shadowColor = color;
+    ctx.shadowBlur = 30;
+    ctx.fillStyle = color;
+    ctx.fillText(text, cx, cy);
+
+    ctx.font = '800 12px "Space Grotesk", sans-serif';
+    ctx.shadowBlur = 8;
+    ctx.fillStyle = '#ffffff';
+    ctx.fillText(countdownEndingText ? '⚔️ SOBREVIVA NA ARENA!' : 'PREPARE-SE...', cx, cy + 46);
+
+    ctx.restore();
   }
 
   // ==================== DASH & HIT ACTIONS ====================
@@ -1230,6 +1365,9 @@
     const me = localPlayers[myId];
     if (!me || !me.alive) return;
 
+    // Cooldown imediato no cliente para impedir envio múltiplo de pacotes e duplo hit
+    parryCooldownUntil = Date.now() + 350;
+
     triggerSlash(me.x, me.y, me.color);
 
     let curve = 0;
@@ -1241,8 +1379,6 @@
       aimDir: myAimDir,
       curve
     });
-
-    safeAudio('whiff');
 
     const hitBtn = domCache.hitBtn;
     if (hitBtn) {
@@ -1280,6 +1416,9 @@
     }
 
     keyHandlerBound = (e) => {
+      // Impede disparo repetido contínuo gerado pelo sistema operacional ao segurar tecla
+      if (e.repeat) return;
+
       const k = e.key.toLowerCase();
       if (e.type === 'keydown') {
         // Toggle Modo Diagnóstico de Performance com Shift + D
@@ -1360,14 +1499,22 @@
     lastMoveEmitTime = 0;
     offscreenBgNeedsRedraw = true;
 
+    // Inicializa pontuação e contagem regressiva 3, 2, 1
+    myMatchScore = 0;
+    activeCountdown = (typeof data.countdown === 'number') ? data.countdown : 3;
+    countdownActive = true;
+    countdownEndingText = null;
+    try { AudioEngine.countdown(activeCountdown); } catch (e) {}
+
     resetAllPools();
     lastFrameTime = performance.now();
 
-    dpr = Math.min(window.devicePixelRatio || 1, 1.25);
+    dpr = Math.min(window.devicePixelRatio || 1, 1.5); // Aumentado para telas HiDPI
 
-    const maxArenaW = Math.min(880, window.innerWidth - 32);
-    const maxArenaH = Math.min(680, window.innerHeight - 170);
-    const size = Math.max(340, Math.floor(Math.min(maxArenaW, maxArenaH)));
+    // Arena maior: usa mais espaço da tela disponível
+    const maxArenaW = Math.min(1100, window.innerWidth - 24);
+    const maxArenaH = Math.min(820, window.innerHeight - 140);
+    const size = Math.max(420, Math.floor(Math.min(maxArenaW, maxArenaH)));
 
     DOM.gameArea.innerHTML = `
       <div class="deathball-container" style="display:flex; flex-direction:column; align-items:center; gap:8px; width:100%; max-width:920px; margin:0 auto;">
@@ -1384,6 +1531,7 @@
             </button>
           </div>
           <div style="display:flex; gap:8px; align-items:center;">
+            <span id="db-myscore-badge" style="font-size:0.8rem; background:var(--bg-glass); padding:3px 12px; border-radius:var(--radius-full); color:#ffd700; font-weight:800; border:1px solid rgba(255,215,0,0.25);" title="Pontos conquistados nesta partida">⭐ 0 pts</span>
             <span id="db-combo-badge" style="font-size:0.75rem; background:rgba(255,145,0,0.18); color:#ff9100; padding:3px 10px; border-radius:var(--radius-full); font-weight:800; border:1px solid rgba(255,145,0,0.3); opacity:0; transition:opacity 0.2s;">0x COMBO</span>
             <span id="db-hits-badge" style="font-size:0.8rem; background:var(--bg-glass); padding:3px 12px; border-radius:var(--radius-full); color:var(--accent-tertiary); font-weight:700; border:1px solid rgba(0,229,255,0.2);">⚡ 0</span>
           </div>
@@ -1451,6 +1599,7 @@
       hitsBadge: document.getElementById('db-hits-badge'),
       comboBadge: document.getElementById('db-combo-badge'),
       modeBadge: document.getElementById('db-mode-badge'),
+      myScoreBadge: document.getElementById('db-myscore-badge'),
       statusText: document.getElementById('db-status'),
       dashBtn: document.getElementById('db-dash'),
       hitBtn: document.getElementById('db-hit')
@@ -1667,6 +1816,12 @@
       safeAudio('lockOn');
     }
 
+    if (data.byId === myId && typeof data.gameScore === 'number') {
+      myMatchScore = data.gameScore;
+      const myScoreBadge = domCache.myScoreBadge;
+      if (myScoreBadge) myScoreBadge.textContent = `⭐ ${myMatchScore} pts`;
+    }
+
     const hitsBadge = domCache.hitsBadge;
     if (hitsBadge) hitsBadge.textContent = `⚡ ${data.hits}`;
 
@@ -1684,6 +1839,48 @@
     if (status) {
       const targetName = localPlayers[data.targetId]?.name || 'Gladiador';
       status.textContent = `💥 ${data.by} rebateu para ${targetName}! (Vel: ${data.speed}x)`;
+    }
+  });
+
+  socket.on('game:deathball:countdown', (data) => {
+    activeCountdown = data.count;
+    if (activeCountdown > 0) {
+      countdownActive = true;
+      countdownEndingText = null;
+      try { AudioEngine.countdown(activeCountdown); } catch (e) { safeAudio('tick'); }
+      triggerShake(1.5);
+    } else {
+      // 0 = VAI!
+      countdownEndingText = '⚔️ VAI!';
+      countdownActive = true;
+      try { AudioEngine.gameStart(); } catch (e) { safeAudio('gameStart'); }
+      triggerShake(5);
+      flash.alpha = 0.25;
+      flash.color = '#00e5ff';
+      setTimeout(() => {
+        countdownActive = false;
+        countdownEndingText = null;
+      }, 700);
+    }
+  });
+
+  socket.on('game:deathball:ball-launch', (data) => {
+    countdownActive = false;
+    countdownEndingText = null;
+    serverTargetX = data.ball.x;
+    serverTargetY = data.ball.y;
+    serverTargetVx = data.ball.vx;
+    serverTargetVy = data.ball.vy;
+    ball.x = data.ball.x;
+    ball.y = data.ball.y;
+    ball.vx = data.ball.vx;
+    ball.vy = data.ball.vy;
+    currentTargetId = data.targetId;
+    if (typeof data.speed === 'number') gameSpeed = data.speed;
+    const status = domCache.statusText;
+    if (status) {
+      const targetName = localPlayers[data.targetId]?.name || 'Gladiador';
+      status.textContent = `⚡ A bola foi lançada em direção a ${targetName}! Defenda-se!`;
     }
   });
 
@@ -1785,32 +1982,69 @@
       cleanupDeathBall();
 
       DOM.resultsOverlay.classList.remove('hidden');
-      DOM.resultsTitle.textContent = '💀 DEATH BALL — O Grande Campeão!';
+      DOM.resultsTitle.textContent = '💀 DEATH BALL — Fim de Partida!';
 
       const hits = data.hits || 0;
       const maxSpd = data.maxSpeed || gameSpeed;
       const isWinnerMe = data.winnerId === myId;
 
+      const rankings = Array.isArray(data.rankings) ? data.rankings : [];
+      const rankingRows = rankings.map((r, idx) => {
+        const medal = idx === 0 ? '🥇' : (idx === 1 ? '🥈' : (idx === 2 ? '🥉' : `${idx + 1}º`));
+        const isMe = r.id === myId;
+        return `
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 12px; background:${isMe ? 'rgba(124,106,255,0.22)' : 'rgba(255,255,255,0.05)'}; border-radius:var(--radius-sm); border:1px solid ${isMe ? 'rgba(124,106,255,0.45)' : 'rgba(255,255,255,0.06)'}; margin-bottom:6px;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="font-weight:900; min-width:26px;">${medal}</span>
+              <span style="font-weight:${isMe ? '800' : '600'}; color:${isMe ? 'var(--accent-primary)' : 'var(--text-primary)'};">
+                ${GameHub.escapeHtml(r.name)}${isMe ? ' (Você)' : ''}
+              </span>
+            </div>
+            <div style="font-weight:900; color:#ffd700; font-family:var(--font-display);">
+              +${r.gameScore} pts
+            </div>
+          </div>
+        `;
+      }).join('');
+
       DOM.resultsContent.innerHTML = `
         <div style="text-align:center; padding:var(--gap-md) 0;">
-          <div style="font-size:4.2rem; margin-bottom:var(--gap-md); animation:emojiPop 0.5s cubic-bezier(0.34,1.56,0.64,1);">🏆</div>
+          <div style="font-size:3.8rem; margin-bottom:var(--gap-sm); animation:emojiPop 0.5s cubic-bezier(0.34,1.56,0.64,1);">🏆</div>
 
-          <p style="font-family:var(--font-display); font-size:1.8rem; font-weight:900; background:linear-gradient(135deg,#ffd700,#ff1744); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:var(--gap-sm);">
+          <p style="font-family:var(--font-display); font-size:1.7rem; font-weight:900; background:linear-gradient(135deg,#ffd700,#ff1744); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:var(--gap-xs);">
             ${GameHub.escapeHtml(data.winner)}
           </p>
-          <p style="color:var(--text-secondary); font-size:0.95rem; margin-bottom:var(--gap-md);">
-            ${isWinnerMe ? '🎉 Você foi o campeão invicto do Coliseu Mortal!' : 'Sobreviveu à arena mortal e eliminou todos os adversários!'}
+          <p style="color:var(--text-secondary); font-size:0.9rem; margin-bottom:var(--gap-md);">
+            ${isWinnerMe ? '🎉 Você foi o grande campeão sobrevivente da arena!' : 'Sobreviveu à arena mortal e eliminou todos os adversários!'}
           </p>
 
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:var(--gap-md); margin:var(--gap-lg) 0;">
-            <div style="background:var(--bg-glass); border-radius:var(--radius-md); padding:var(--gap-md); border:1px solid rgba(0,229,255,0.25);">
-              <div style="font-size:1.9rem; font-weight:900; color:var(--accent-tertiary); font-family:var(--font-display);">⚡ ${hits}</div>
-              <div style="font-size:0.75rem; color:var(--text-muted); margin-top:4px;">Total de Rebatidas</div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:var(--gap-md); margin-bottom:var(--gap-md);">
+            <div style="background:var(--bg-glass); border-radius:var(--radius-md); padding:10px; border:1px solid rgba(0,229,255,0.25);">
+              <div style="font-size:1.6rem; font-weight:900; color:var(--accent-tertiary); font-family:var(--font-display);">⚡ ${hits}</div>
+              <div style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">Total de Rebatidas</div>
             </div>
-            <div style="background:var(--bg-glass); border-radius:var(--radius-md); padding:var(--gap-md); border:1px solid rgba(255,23,68,0.25);">
-              <div style="font-size:1.9rem; font-weight:900; color:#ff1744; font-family:var(--font-display);">${maxSpd.toFixed(1)}x</div>
-              <div style="font-size:0.75rem; color:var(--text-muted); margin-top:4px;">Velocidade Máxima</div>
+            <div style="background:var(--bg-glass); border-radius:var(--radius-md); padding:10px; border:1px solid rgba(255,23,68,0.25);">
+              <div style="font-size:1.6rem; font-weight:900; color:#ff1744; font-family:var(--font-display);">${maxSpd.toFixed(1)}x</div>
+              <div style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">Velocidade Máxima</div>
             </div>
+          </div>
+
+          <!-- PLACAR DESTA PARTIDA -->
+          <div style="margin-top:var(--gap-sm); text-align:left; background:rgba(0,0,0,0.25); border-radius:var(--radius-md); padding:12px; border:1px solid rgba(255,255,255,0.08);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+              <span style="font-weight:800; font-size:0.8rem; color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.05em;">
+                ⚔️ Placar Desta Partida (Death Ball)
+              </span>
+              <span style="font-size:0.72rem; color:var(--accent-primary); font-weight:700;">
+                ⭐ Pontos desta Partida
+              </span>
+            </div>
+            <div style="max-height:160px; overflow-y:auto; padding-right:2px;">
+              ${rankingRows}
+            </div>
+            <p style="font-size:0.72rem; color:var(--text-muted); text-align:center; margin-top:8px; margin-bottom:0;">
+              💡 Os pontos conquistados nesta partida foram somados ao seu Ranking Geral visível no Lobby.
+            </p>
           </div>
         </div>
       `;

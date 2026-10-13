@@ -10,6 +10,8 @@
   let selectedCards = []; // [{ id, text }]
   let hasSubmitted = false;
   let autoAdvanceTimer = null;
+  let shufflesAvailable = 1;
+  let savedCardsToKeep = [];
 
   function clearAutoTimer() {
     if (autoAdvanceTimer) {
@@ -52,6 +54,9 @@
     currentJudgingData = null;
     selectedCards = [];
     hasSubmitted = false;
+    if (typeof data.shufflesAvailable === 'number') {
+      shufflesAvailable = data.shufflesAvailable;
+    }
 
     try { AudioEngine.gameStart(); } catch (e) {}
 
@@ -119,11 +124,16 @@
               <div class="cartas-instruction">
                 ${hasSubmitted ? '✅ Carta enviada! Aguardando os demais jogadores...' : `Escolha <strong>${pickRequired}</strong> ${pickRequired > 1 ? 'cartas' : 'carta'} da sua mão:`}
               </div>
-              ${!hasSubmitted ? `
-                <button class="btn btn-primary cartas-btn-submit" id="cartas-submit-btn" disabled>
-                  Confirmar Resposta (${selectedCards.length}/${pickRequired})
-                </button>
-              ` : ''}
+              <div class="cartas-action-buttons">
+                ${!hasSubmitted ? `
+                  <button class="cartas-btn-shuffle" id="cartas-btn-shuffle" ${shufflesAvailable <= 0 ? 'disabled' : ''} title="${shufflesAvailable > 0 ? 'Troque todas as cartas e salve até 3 favoritas (1x por jornada)' : 'Você já usou seu único shuffle desta partida'}">
+                    🔀 ${shufflesAvailable > 0 ? 'Trocar Mão (1x)' : 'Shuffle Usado (0/1)'}
+                  </button>
+                  <button class="btn btn-primary cartas-btn-submit" id="cartas-submit-btn" disabled>
+                    Confirmar Resposta (${selectedCards.length}/${pickRequired})
+                  </button>
+                ` : ''}
+              </div>
             </div>
 
             <!-- Mão de 10 Cartas Brancas -->
@@ -147,6 +157,9 @@
           </div>
         `}
       </div>
+
+      <!-- Container do Modal de Shuffle (injetado sob demanda) -->
+      <div id="cartas-modal-container"></div>
     `;
 
     if (!isCzar && !hasSubmitted) {
@@ -157,6 +170,7 @@
   function setupHandInteractions() {
     const cardElements = document.querySelectorAll('.cartas-white-card');
     const submitBtn = document.getElementById('cartas-submit-btn');
+    const shuffleBtn = document.getElementById('cartas-btn-shuffle');
     const pickRequired = getRequiredPick();
 
     cardElements.forEach(cardEl => {
@@ -191,6 +205,14 @@
       });
     });
 
+    if (shuffleBtn && shufflesAvailable > 0) {
+      shuffleBtn.addEventListener('click', () => {
+        if (hasSubmitted || shufflesAvailable <= 0) return;
+        try { AudioEngine.click(); } catch (e) {}
+        openShuffleModal();
+      });
+    }
+
     if (submitBtn) {
       submitBtn.addEventListener('click', () => {
         if (selectedCards.length !== pickRequired || hasSubmitted) return;
@@ -207,6 +229,142 @@
       });
     }
   }
+
+  // ==================== MODAL DE SHUFFLE COM ATÉ 3 CARTAS SALVAS ====================
+  function openShuffleModal() {
+    const modalContainer = document.getElementById('cartas-modal-container');
+    if (!modalContainer || !currentRoundData) return;
+
+    savedCardsToKeep = [];
+    const hand = currentRoundData.hand || [];
+
+    modalContainer.innerHTML = `
+      <div class="cartas-shuffle-modal" id="cartas-shuffle-modal">
+        <div class="cartas-shuffle-dialog">
+          <div class="cartas-shuffle-header">
+            <div class="cartas-shuffle-title-row">
+              <span style="font-size: 1.6rem;">🔀</span>
+              <h3>Trocar Cartas (Shuffle Único da Partida)</h3>
+            </div>
+            <p class="cartas-shuffle-desc">
+              Você pode renovar toda a sua mão <strong>apenas uma vez por jornada</strong>. Clique nas cartas abaixo para <strong>salvar até 3 cartas</strong> que você deseja manter. Todas as cartas não salvas serão descartadas e trocadas por novas!
+            </p>
+          </div>
+
+          <div class="cartas-shuffle-counter-bar">
+            <span>Cartas Salvas para Manter: <strong id="cartas-modal-counter">0 / 3</strong></span>
+            <span class="cartas-shuffle-badge">1 Uso Por Partida</span>
+          </div>
+
+          <div class="cartas-shuffle-cards-list" id="cartas-modal-cards-list">
+            ${hand.map(c => `
+              <div class="cartas-shuffle-item" data-id="${c.id}">
+                <div class="cartas-shuffle-item-text">${GameHub.escapeHtml(c.text)}</div>
+                <div class="cartas-shuffle-item-status">Toque para Salvar</div>
+              </div>
+            `).join('')}
+          </div>
+
+          <div class="cartas-shuffle-footer">
+            <button class="btn btn-secondary" id="cartas-modal-cancel-btn">Cancelar</button>
+            <button class="btn btn-primary" id="cartas-modal-confirm-btn">
+              ✨ Confirmar Troca (Manter 0 cartas)
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    const modalEl = document.getElementById('cartas-shuffle-modal');
+    const counterEl = document.getElementById('cartas-modal-counter');
+    const confirmBtn = document.getElementById('cartas-modal-confirm-btn');
+    const cancelBtn = document.getElementById('cartas-modal-cancel-btn');
+    const items = modalContainer.querySelectorAll('.cartas-shuffle-item');
+
+    items.forEach(item => {
+      item.addEventListener('click', () => {
+        const id = item.dataset.id;
+        const idx = savedCardsToKeep.indexOf(id);
+
+        if (idx !== -1) {
+          // Remover
+          savedCardsToKeep.splice(idx, 1);
+          item.classList.remove('is-saved');
+          const tag = item.querySelector('.cartas-save-tag');
+          if (tag) tag.remove();
+          const status = item.querySelector('.cartas-shuffle-item-status');
+          if (status) status.textContent = 'Toque para Salvar';
+          try { AudioEngine.tap(); } catch (e) {}
+        } else {
+          // Salvar (até 3)
+          if (savedCardsToKeep.length >= 3) {
+            try { AudioEngine.error(); } catch (e) {}
+            GameHub.showToast('⚠️ Você já atingiu o limite de 3 cartas salvas!');
+            return;
+          }
+          savedCardsToKeep.push(id);
+          item.classList.add('is-saved');
+          const tag = document.createElement('div');
+          tag.className = 'cartas-save-tag';
+          tag.textContent = '📌 SALVA';
+          item.prepend(tag);
+          const status = item.querySelector('.cartas-shuffle-item-status');
+          if (status) status.textContent = '✅ Salva para a nova mão';
+          try { AudioEngine.click(); } catch (e) {}
+        }
+
+        if (counterEl) {
+          counterEl.textContent = `${savedCardsToKeep.length} / 3`;
+        }
+        if (confirmBtn) {
+          confirmBtn.textContent = `✨ Confirmar Troca (Manter ${savedCardsToKeep.length} cartas)`;
+        }
+      });
+    });
+
+    if (cancelBtn) {
+      cancelBtn.addEventListener('click', () => {
+        try { AudioEngine.click(); } catch (e) {}
+        modalContainer.innerHTML = '';
+      });
+    }
+
+    if (confirmBtn) {
+      confirmBtn.addEventListener('click', () => {
+        confirmBtn.disabled = true;
+        confirmBtn.textContent = 'Trocando cartas...';
+        try { AudioEngine.success(); } catch (e) {}
+
+        socket.emit('game:action', {
+          action: 'shuffle-hand',
+          keepCardIds: savedCardsToKeep
+        });
+      });
+    }
+  }
+
+  function closeShuffleModal() {
+    const modalContainer = document.getElementById('cartas-modal-container');
+    if (modalContainer) modalContainer.innerHTML = '';
+  }
+
+  // Confirmação do Shuffle recebida do Servidor
+  socket.on('game:cartas:hand-shuffled', (data) => {
+    shufflesAvailable = 0;
+    if (currentRoundData) {
+      currentRoundData.hand = data.hand;
+    }
+    selectedCards = [];
+    closeShuffleModal();
+    try { AudioEngine.success(); } catch (e) {}
+    GameHub.showToast(`✨ Mão renovada com sucesso! Você salvou ${data.savedCount || 0} cartas.`);
+    renderRoundView();
+  });
+
+  socket.on('game:cartas:error', (data) => {
+    try { AudioEngine.error(); } catch (e) {}
+    GameHub.showToast(`⚠️ ${data.message || 'Erro ao realizar ação'}`);
+  });
 
   function updateCardSelectionUI() {
     const pickRequired = getRequiredPick();
@@ -478,7 +636,7 @@
 
         <!-- Placar da Sala -->
         <div class="cartas-scoreboard-box">
-          <h4 class="cartas-scoreboard-title">📊 Placar Atual da Sala</h4>
+          <h4 class="cartas-scoreboard-title">📊 Placar Desta Partida (Rodadas Vencidas)</h4>
           <div class="cartas-scoreboard-list">
             ${data.players.map(p => {
               const score = data.scores[p.id] || 0;
@@ -486,7 +644,7 @@
               return `
                 <div class="cartas-score-chip ${isWinRound ? 'highlight' : ''}">
                   <span class="chip-name">${GameHub.escapeHtml(p.name)}</span>
-                  <span class="chip-score">${score} pts</span>
+                  <span class="chip-score">${score} rodadas</span>
                 </div>
               `;
             }).join('')}
@@ -547,10 +705,10 @@
         <div class="cartas-winner-spotlight">
           <div style="font-size: 3.5rem; margin-bottom: 8px;">👑</div>
           <h1 style="font-family: var(--font-display); font-size: 1.8rem; color: #fff; margin-bottom: 6px;">
-            CAMPEÃO DA HUMANIDADE!
+            CAMPEÃO DA PARTIDA!
           </h1>
           <p style="color: var(--text-secondary); margin-bottom: 24px;">
-            Atingiu o objetivo de ${data.targetScore} pontos com as respostas mais perversas.
+            Atingiu o objetivo de ${data.targetScore} vitórias com as respostas mais perversas.
           </p>
 
           <!-- Pódio -->
@@ -585,7 +743,7 @@
 
           <!-- Tabela Completa -->
           <div class="cartas-scoreboard-box" style="margin-bottom: 24px;">
-            <h4 class="cartas-scoreboard-title">🏆 Classificação Geral</h4>
+            <h4 class="cartas-scoreboard-title">🏆 Placar Final Desta Partida</h4>
             <div class="estime-results-list">
               ${rankings.map((r, i) => `
                 <div class="estime-res-row">
@@ -593,10 +751,13 @@
                     <span class="estime-res-rank">${i + 1}º</span>
                     <span style="font-weight: 700; color: #fff;">${GameHub.escapeHtml(r.name)}</span>
                   </div>
-                  <div class="estime-res-points">${r.score} pts</div>
+                  <div class="estime-res-points">${r.score} rodadas ganhas</div>
                 </div>
               `).join('')}
             </div>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 12px; text-align: center;">
+              ⭐ Os bônus desta partida foram somados ao <strong>Ranking Geral do Lobby</strong>.
+            </p>
           </div>
 
           <!-- Voltar ao Lobby -->

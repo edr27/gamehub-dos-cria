@@ -692,6 +692,29 @@ const GAME_ICONS = {
       <circle cx="59" cy="38" r="1" fill="#0f172a"/>
       <path d="M54 41 Q57 45 60 41" stroke="#0f172a" stroke-width="1.5" fill="none"/>
     </g>
+  </svg>`,
+
+  'rinha': `<svg viewBox="0 0 90 90" class="game-svg-icon">
+    <defs>
+      <linearGradient id="bladeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#00e5ff"/>
+        <stop offset="50%" stop-color="#ffd700"/>
+        <stop offset="100%" stop-color="#ff1744"/>
+      </linearGradient>
+      <filter id="rinhaGlow">
+        <feGaussianBlur stdDeviation="3.5" result="blur"/>
+        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+    </defs>
+    <!-- Espadas Cruzadas de Duelo -->
+    <path d="M22 22 L68 68" stroke="url(#bladeGrad)" stroke-width="4.5" stroke-linecap="round" filter="url(#rinhaGlow)"/>
+    <path d="M68 22 L22 68" stroke="url(#bladeGrad)" stroke-width="4.5" stroke-linecap="round" filter="url(#rinhaGlow)"/>
+    <line x1="28" y1="36" x2="36" y2="28" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round"/>
+    <line x1="62" y1="36" x2="54" y2="28" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round"/>
+    <line x1="28" y1="54" x2="36" y2="62" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round"/>
+    <line x1="62" y1="54" x2="54" y2="62" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round"/>
+    <circle cx="45" cy="45" r="5" fill="#ffd700" filter="url(#rinhaGlow)"/>
+    <path d="M45 35 L47 43 L55 45 L47 47 L45 55 L43 47 L35 45 L43 43 Z" fill="#ffffff"/>
   </svg>`
 };
 
@@ -728,7 +751,7 @@ function renderPlayers() {
                 <span class="ranking-player-name">${escapeHtml(p.name)}</span>
                 ${hostCrown}
               </div>
-              <div class="ranking-player-score">(${p.score} pts)</div>
+              <div class="ranking-player-score">(${p.score} pts gerais)</div>
             </div>
           </div>
         `;

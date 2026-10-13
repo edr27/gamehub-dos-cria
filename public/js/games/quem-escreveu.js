@@ -470,7 +470,7 @@
         <!-- Tabela Final -->
         <div class="quem-prompt-card" style="text-align: left; padding: 16px;">
           <h3 style="font-family: var(--font-display); font-size: 1rem; color: var(--text-primary); margin-bottom: 10px;">
-            🏅 Classificação Geral Final
+            🏅 Placar Desta Partida (Quem Escreveu Isso?)
           </h3>
           <div class="estime-results-list">
             ${rankings.map((r, i) => `
@@ -484,11 +484,14 @@
                   </div>
                 </div>
                 <div class="estime-res-points">
-                  ${r.score} <span style="font-size: 0.75rem; color: var(--text-secondary);">pts</span>
+                  +${r.score} <span style="font-size: 0.75rem; color: var(--text-secondary);">pts</span>
                 </div>
               </div>
             `).join('')}
           </div>
+          <p style="font-size:0.75rem; color:var(--text-muted); margin-top:8px; text-align:center;">
+            💡 Os pontos desta partida foram somados ao seu Ranking Geral no Lobby.
+          </p>
         </div>
 
         <!-- Botão Voltar ao Lobby -->
