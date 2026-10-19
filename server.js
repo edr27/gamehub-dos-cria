@@ -75,7 +75,7 @@ const GAME_LIST = [
   { id: 'estime', name: 'Estime', icon: '📦', desc: 'Qual o tamanho desse objeto? Chute em cm!', minPlayers: 1, maxPlayers: 8, color: '#f97316' },
   { id: 'death-ball', name: 'Death Ball', icon: '💀', desc: 'Sobreviva à bola mortal! Rebata no tempo certo.', minPlayers: 1, maxPlayers: 8, color: '#6366f1' },
   { id: 'cartas-contra-humanidade', name: 'Cartas Contra a Humanidade', icon: '🃏', desc: 'Humor ácido e absurdo! Escolha a melhor resposta.', minPlayers: 1, maxPlayers: 10, color: '#8b5cf6' },
-  { id: 'digite-direito', name: 'Digite Direito', icon: '⌨️', desc: 'Sobreviva digitando frases sem errar! Instabilidade sobe a cada erro.', minPlayers: 2, maxPlayers: 4, color: '#06b6d4' }
+  { id: 'digite-direito', name: 'Digite Direito', icon: '⌨️', desc: 'Sobreviva digitando frases sem errar! Roleta-russa a cada 3 erros.', minPlayers: 2, maxPlayers: 8, color: '#06b6d4' }
 ];
 
 // ==================== LÓGICA DE JOGOS (SERVIDOR) ====================
