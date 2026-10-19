@@ -8,8 +8,6 @@ const http = require('http');
 const { Server } = require('socket.io');
 const { WebSocketServer } = require('ws');
 const path = require('path');
-const RinhaConfig = require('./public/js/games/rinha/rinha-config.js');
-const RinhaEngine = require('./public/js/games/rinha/rinha-engine.js');
 
 const app = express();
 const server = http.createServer(app);
@@ -19,8 +17,6 @@ const io = new Server(server, {
   pingInterval: 25000
 });
 
-// Rinha.io — Módulo servidor extraído (substitui WS nativo e handler inline)
-const rinhaModule = require('./server/rinha');
 
 // Servir arquivos estáticos
 app.use(express.static(path.join(__dirname, 'public')));
@@ -30,8 +26,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 const rooms = new Map();       // roomCode -> RoomState
 const playerSockets = new Map(); // socketId -> { roomCode, playerName }
 
-// Injetar contexto do hub no módulo Rinha extraído
-rinhaModule.setHubContext(rooms, playerSockets);
 
 // ==================== UTILIDADES ====================
 
@@ -81,7 +75,6 @@ const GAME_LIST = [
   { id: 'estime', name: 'Estime', icon: '📦', desc: 'Qual o tamanho desse objeto? Chute em cm!', minPlayers: 1, maxPlayers: 8, color: '#f97316' },
   { id: 'death-ball', name: 'Death Ball', icon: '💀', desc: 'Sobreviva à bola mortal! Rebata no tempo certo.', minPlayers: 1, maxPlayers: 8, color: '#6366f1' },
   { id: 'cartas-contra-humanidade', name: 'Cartas Contra a Humanidade', icon: '🃏', desc: 'Humor ácido e absurdo! Escolha a melhor resposta.', minPlayers: 1, maxPlayers: 10, color: '#8b5cf6' },
-  { id: 'rinha', name: 'Rinha.io', icon: '⚔️', desc: 'Arena de combate com postura, parry e combos! 1v1, FFA e 2v2 entre amigos.', minPlayers: 1, maxPlayers: 4, color: '#f59e0b' },
   { id: 'digite-direito', name: 'Digite Direito', icon: '⌨️', desc: 'Sobreviva digitando frases sem errar! Instabilidade sobe a cada erro.', minPlayers: 2, maxPlayers: 4, color: '#06b6d4' }
 ];
 
@@ -4076,20 +4069,11 @@ gameHandlers['cartas-contra-humanidade'] = {
 
 gameHandlers['cartas'] = gameHandlers['cartas-contra-humanidade'];
 
-// --- RINHA.IO (Módulo extraído para server/rinha/) ---
-gameHandlers['rinha'] = rinhaModule.gameHandler;
-
 // --- DIGITE DIREITO ---
 const digiteDireitoModule = require('./server/digite-direito');
 gameHandlers['digite-direito'] = digiteDireitoModule.gameHandler;
 
 // ==================== SOCKET.IO HANDLERS ====================
-
-// Rinha.io: registrar handlers de eventos rinha:* em cada conexão
-// Isso deve ser chamado UMA VEZ fora do io.on('connection'), mas como o módulo
-// usa io.on('connection') internamente, chamamos aqui para garantir que esteja ativo.
-// Nota: registerSocketEvents adiciona seu próprio io.on('connection') listener.
-rinhaModule.registerSocketEvents(io);
 
 io.on('connection', (socket) => {
   console.log(`[+] Conectado: ${socket.id}`);
@@ -4206,11 +4190,7 @@ io.on('connection', (socket) => {
 
     const handler = gameHandlers[gameId];
     if (handler) {
-      if (gameId === 'rinha') {
-        handler.start(room, io, info.roomCode);
-      } else {
-        setTimeout(() => handler.start(room, io, info.roomCode), 1500);
-      }
+      setTimeout(() => handler.start(room, io, info.roomCode), 1500);
     }
 
     io.to(info.roomCode).emit('chat:message', {
@@ -4233,8 +4213,6 @@ io.on('connection', (socket) => {
     }
   });
 
-  // Rinha.io: eventos registrados via rinhaModule.registerSocketEvents(io)
-
   // --- VOLTAR AO LOBBY ---
   socket.on('game:back-to-lobby', () => {
     const info = playerSockets.get(socket.id);
@@ -4244,17 +4222,10 @@ io.on('connection', (socket) => {
     if (room.hostId !== socket.id) return;
 
     if (room.gameInterval) clearInterval(room.gameInterval);
-    // Rinha.io: parar tick loop autoritativo se ativo
-    if (room.rinhaState && room.rinhaState.tickLoopId) {
-      rinhaModule.stopTickLoop(room.rinhaState.tickLoopId);
-      room.rinhaState.tickLoopId = null;
-    }
-    if (room.rinhaCountdownTimer) clearInterval(room.rinhaCountdownTimer);
     if (room.gameState?.turnTimer) clearTimeout(room.gameState.turnTimer);
     if (room.gameState?.votingTimer) clearTimeout(room.gameState.votingTimer);
     room.currentGame = null;
     room.gameState = null;
-    room.rinhaState = null;
     io.to(info.roomCode).emit('game:ended');
     broadcastRoomState(info.roomCode);
   });
