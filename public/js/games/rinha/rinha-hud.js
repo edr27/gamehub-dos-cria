@@ -1,12 +1,9 @@
 /**
- * Rinha.io — HUD (Heads-Up Display)
- * ===================================
- * Overlay DOM sobre o canvas com informações de combate em tempo real.
- * Suporta dinamicamente N jogadores (não hardcoded a 2).
- *
- * Features: barras HP/postura/stamina/momentum por jogador, round pips,
- * combo counter animado, burst alert, ping badge, session scoreboard,
- * emote wheel rápida, e controles hint.
+ * Rinha.io v2 — HUD (Heads-Up Display)
+ * ======================================
+ * Overlay DOM com barras HP/postura/stamina/momentum por jogador,
+ * combo counter, burst alert, ping, emotes e controles hint.
+ * Suporta N jogadores dinamicamente.
  */
 (function (root, factory) {
   if (typeof module !== 'undefined' && module.exports) {
@@ -17,282 +14,146 @@
 }(typeof self !== 'undefined' ? self : this, function (Config) {
   'use strict';
 
-  // Emotes disponíveis
   var EMOTES = ['⚔️', '🛡️', '💀', '🔥', '😂', '👏', '😤', '🎯'];
 
-  /**
-   * @constructor
-   * @param {HTMLElement} container - Elemento pai onde o HUD será montado
-   * @param {Function} onEmote - Callback quando jogador clica num emote
-   */
   function HUD(container, onEmote) {
     this.container = container;
     this.onEmote = onEmote || function () {};
     this.root = null;
-    this.playerPanels = {};   // playerId -> DOM elements cache
+    this.panels = {};
     this.comboEl = null;
     this.burstEl = null;
     this.pingEl = null;
     this.roundEl = null;
-    this.scoreboardEl = null;
-    this.controlsEl = null;
-
+    this.scoreEl = null;
     this._build();
   }
-
-  // ==================== CONSTRUÇÃO DO DOM ====================
 
   HUD.prototype._build = function () {
     var div = document.createElement('div');
     div.className = 'rinha-hud';
-    div.innerHTML = this._template();
+    div.innerHTML =
+      '<div class="rh-top"><div class="rh-round">ROUND <span class="rh-rn">1</span></div><div class="rh-sb"></div></div>' +
+      '<div class="rh-players"></div>' +
+      '<div class="rh-center"><div class="rh-combo hidden"><span class="rh-cc">0</span><span class="rh-cl">HITS</span></div><div class="rh-burst hidden">BURST [F]</div></div>' +
+      '<div class="rh-bottom"><div class="rh-ping">-- ms</div><div class="rh-emotes"></div><div class="rh-hint">WASD mover · Mouse mirar · LClick leve · RClick pesado · Shift dash · Space guarda · E agarrão · F burst</div></div>';
     this.container.appendChild(div);
     this.root = div;
-
-    // Cache de referências
     this.comboEl = div.querySelector('.rh-combo');
-    this.burstEl = div.querySelector('.rh-burst-alert');
+    this.burstEl = div.querySelector('.rh-burst');
     this.pingEl = div.querySelector('.rh-ping');
-    this.roundEl = div.querySelector('.rh-round-info');
-    this.scoreboardEl = div.querySelector('.rh-scoreboard');
-    this.controlsEl = div.querySelector('.rh-controls-hint');
-    this.playersContainer = div.querySelector('.rh-players');
-    this.emoteBar = div.querySelector('.rh-emote-bar');
-
-    // Montar botões de emote
+    this.roundEl = div.querySelector('.rh-rn');
+    this.scoreEl = div.querySelector('.rh-sb');
+    this.playersC = div.querySelector('.rh-players');
+    this.emotesC = div.querySelector('.rh-emotes');
     this._buildEmotes();
-  };
-
-  HUD.prototype._template = function () {
-    return '' +
-      '<div class="rh-top-bar">' +
-        '<div class="rh-round-info">ROUND <span class="rh-round-num">1</span></div>' +
-        '<div class="rh-scoreboard"></div>' +
-      '</div>' +
-      '<div class="rh-players"></div>' +
-      '<div class="rh-center-layer">' +
-        '<div class="rh-combo hidden">' +
-          '<span class="rh-combo-count">0</span>' +
-          '<span class="rh-combo-label">HITS</span>' +
-        '</div>' +
-        '<div class="rh-burst-alert hidden">BURST PRONTO! [F]</div>' +
-      '</div>' +
-      '<div class="rh-bottom-bar">' +
-        '<div class="rh-ping">-- ms</div>' +
-        '<div class="rh-emote-bar"></div>' +
-        '<div class="rh-controls-hint">' +
-          'WASD mover · Mouse mirar · LClick ataque · Shift dash · Space guarda · E grab · F burst' +
-        '</div>' +
-      '</div>';
   };
 
   HUD.prototype._buildEmotes = function () {
     var self = this;
-    this.emoteBar.innerHTML = '';
+    this.emotesC.innerHTML = '';
     for (var i = 0; i < EMOTES.length; i++) {
       var btn = document.createElement('button');
-      btn.className = 'rh-emote-btn';
+      btn.className = 'rh-eb';
       btn.textContent = EMOTES[i];
-      btn.setAttribute('data-emote', EMOTES[i]);
-      btn.addEventListener('click', (function (emoji) {
-        return function () { self.onEmote(emoji); };
-      })(EMOTES[i]));
-      this.emoteBar.appendChild(btn);
+      btn.addEventListener('click', (function (e) { return function () { self.onEmote(e); }; })(EMOTES[i]));
+      this.emotesC.appendChild(btn);
     }
   };
 
-  // ==================== PAINÉIS DE JOGADORES ====================
-
-  /**
-   * Garante que existe um painel DOM para cada jogador no mundo.
-   * Remove painéis de jogadores que não existem mais.
-   */
-  HUD.prototype._syncPlayerPanels = function (world, localPlayerId) {
-    var playerIds = Object.keys(world.players).sort();
-    var existingIds = Object.keys(this.playerPanels);
-
-    // Criar painéis novos
-    for (var i = 0; i < playerIds.length; i++) {
-      var pid = playerIds[i];
-      if (!this.playerPanels[pid]) {
-        var panel = this._createPlayerPanel(pid, world.players[pid], pid === localPlayerId);
-        this.playerPanels[pid] = panel;
-        this.playersContainer.appendChild(panel.root);
+  HUD.prototype._syncPanels = function (world, localId) {
+    var ids = Object.keys(world.players).sort();
+    var existing = Object.keys(this.panels);
+    for (var i = 0; i < ids.length; i++) {
+      if (!this.panels[ids[i]]) {
+        var p = this._createPanel(ids[i], world.players[ids[i]], ids[i] === localId);
+        this.panels[ids[i]] = p;
+        this.playersC.appendChild(p.root);
       }
     }
-
-    // Remover painéis órfãos
-    for (var j = 0; j < existingIds.length; j++) {
-      if (!world.players[existingIds[j]]) {
-        this.playersContainer.removeChild(this.playerPanels[existingIds[j]].root);
-        delete this.playerPanels[existingIds[j]];
+    for (var j = 0; j < existing.length; j++) {
+      if (!world.players[existing[j]]) {
+        this.playersC.removeChild(this.panels[existing[j]].root);
+        delete this.panels[existing[j]];
       }
     }
   };
 
-  HUD.prototype._createPlayerPanel = function (pid, player, isLocal) {
-    var fDef = Config.FIGHTERS[player.fighterId];
-    var colorIdx = 0;
-    // Determinar cor pelo índice na lista ordenada de IDs
-    var sortedIds = Object.keys(this.playerPanels).concat([pid]).sort();
-    colorIdx = sortedIds.indexOf(pid) % Config.COLORS.fighterColors.length;
-    var color = Config.COLORS.fighterColors[colorIdx];
-
+  HUD.prototype._createPanel = function (pid, player, isLocal) {
+    var ci = Object.keys(this.panels).concat([pid]).sort().indexOf(pid) % Config.COLORS.fighterColors.length;
+    var col = Config.COLORS.fighterColors[ci];
     var div = document.createElement('div');
-    div.className = 'rh-player-panel' + (isLocal ? ' rh-local' : '');
-    div.setAttribute('data-pid', pid);
-
-    div.innerHTML = '' +
-      '<div class="rh-p-name" style="color:' + color + '">' + escapeHtml(player.name || '?') + '</div>' +
-      '<div class="rh-p-bars">' +
-        '<div class="rh-bar-row rh-hp-row">' +
-          '<div class="rh-bar-bg"><div class="rh-bar-fill rh-hp-fill" style="background:' + Config.COLORS.hpBar + ';width:100%"></div></div>' +
-          '<span class="rh-bar-val rh-hp-val">' + player.hp + '/' + player.hpMax + '</span>' +
-        '</div>' +
-        '<div class="rh-bar-row rh-posture-row">' +
-          '<div class="rh-bar-bg"><div class="rh-bar-fill rh-posture-fill" style="background:' + Config.COLORS.postureBar + ';width:0%"></div></div>' +
-        '</div>' +
-        '<div class="rh-bar-row rh-stamina-row">' +
-          '<div class="rh-bar-bg"><div class="rh-bar-fill rh-stamina-fill" style="background:' + Config.COLORS.staminaBar + ';width:100%"></div></div>' +
-        '</div>' +
-        '<div class="rh-bar-row rh-momentum-row">' +
-          '<div class="rh-bar-bg"><div class="rh-bar-fill rh-momentum-fill" style="background:' + Config.COLORS.momentumBar + ';width:0%"></div></div>' +
-        '</div>' +
-      '</div>' +
-      '<div class="rh-p-rounds"></div>';
-
+    div.className = 'rh-pp' + (isLocal ? ' rh-local' : '');
+    div.innerHTML =
+      '<div class="rh-pn" style="color:' + col + '">' + esc(player.name) + '</div>' +
+      '<div class="rh-pb">' +
+        '<div class="rh-br"><div class="rh-bg"><div class="rh-bf rh-hp" style="background:' + Config.COLORS.hpBar + ';width:100%"></div></div><span class="rh-bv rh-hpv">' + player.hp + '/' + player.hpMax + '</span></div>' +
+        '<div class="rh-br"><div class="rh-bg rh-sm"><div class="rh-bf rh-ps" style="background:' + Config.COLORS.postureBar + ';width:0%"></div></div></div>' +
+        '<div class="rh-br"><div class="rh-bg rh-sm"><div class="rh-bf rh-st" style="background:' + Config.COLORS.staminaBar + ';width:100%"></div></div></div>' +
+        '<div class="rh-br"><div class="rh-bg rh-sm"><div class="rh-bf rh-mo" style="background:' + Config.COLORS.momentumBar + ';width:0%"></div></div></div>' +
+      '</div>';
     return {
       root: div,
-      hpFill: div.querySelector('.rh-hp-fill'),
-      hpVal: div.querySelector('.rh-hp-val'),
-      postureFill: div.querySelector('.rh-posture-fill'),
-      staminaFill: div.querySelector('.rh-stamina-fill'),
-      momentumFill: div.querySelector('.rh-momentum-fill'),
-      roundsEl: div.querySelector('.rh-p-rounds'),
-      nameEl: div.querySelector('.rh-p-name')
+      hp: div.querySelector('.rh-hp'), hpv: div.querySelector('.rh-hpv'),
+      ps: div.querySelector('.rh-ps'), st: div.querySelector('.rh-st'), mo: div.querySelector('.rh-mo')
     };
   };
 
-  // ==================== UPDATE ====================
-
-  /**
-   * Atualiza todo o HUD com dados do frame atual.
-   * @param {object} world - Estado do mundo da engine
-   * @param {string} localPlayerId - ID do jogador local
-   * @param {number} pingMs - Latência medida em ms
-   * @param {object} sessionScores - Map playerId -> vitórias na sessão
-   * @param {object} matchState - { round, scores, phase }
-   */
-  HUD.prototype.update = function (world, localPlayerId, pingMs, sessionScores, matchState) {
+  HUD.prototype.update = function (world, localId, pingMs, sessionScores, matchState) {
     if (!this.root) return;
-
-    // Sincronizar painéis de jogadores
-    this._syncPlayerPanels(world, localPlayerId);
-
-    // Atualizar barras de cada jogador
-    var playerIds = Object.keys(world.players).sort();
-    for (var i = 0; i < playerIds.length; i++) {
-      var pid = playerIds[i];
-      var p = world.players[pid];
-      var panel = this.playerPanels[pid];
-      if (!panel) continue;
-
+    this._syncPanels(world, localId);
+    var ids = Object.keys(world.players).sort();
+    for (var i = 0; i < ids.length; i++) {
+      var p = world.players[ids[i]];
+      var pan = this.panels[ids[i]];
+      if (!pan) continue;
       var fDef = Config.FIGHTERS[p.fighterId];
-
-      // HP
       var hpPct = Math.max(0, Math.min(100, (p.hp / p.hpMax) * 100));
-      panel.hpFill.style.width = hpPct + '%';
-      panel.hpFill.style.background = hpPct > 30 ? Config.COLORS.hpBar : Config.COLORS.hpBarLow;
-      panel.hpVal.textContent = Math.ceil(p.hp) + '/' + p.hpMax;
-
-      // Postura
-      var postPct = Math.max(0, Math.min(100, (p.posture / Config.POSTURE.max) * 100));
-      panel.postureFill.style.width = postPct + '%';
-
-      // Stamina
-      var stamPct = Math.max(0, Math.min(100, (p.stamina / fDef.staminaMax) * 100));
-      panel.staminaFill.style.width = stamPct + '%';
-
-      // Momentum
-      var momPct = Math.max(0, Math.min(100, (p.momentum / Config.MOMENTUM.max) * 100));
-      panel.momentumFill.style.width = momPct + '%';
-
-      // Opacidade se morto
-      panel.root.style.opacity = p.alive ? '1' : '0.4';
+      pan.hp.style.width = hpPct + '%';
+      pan.hp.style.background = hpPct > 30 ? Config.COLORS.hpBar : Config.COLORS.hpBarLow;
+      pan.hpv.textContent = Math.ceil(p.hp) + '/' + p.hpMax;
+      pan.ps.style.width = Math.max(0, Math.min(100, (p.posture / Config.POSTURE.max) * 100)) + '%';
+      pan.st.style.width = Math.max(0, Math.min(100, (p.stamina / fDef.staminaMax) * 100)) + '%';
+      pan.mo.style.width = Math.max(0, Math.min(100, (p.momentum / Config.MOMENTUM.max) * 100)) + '%';
+      pan.root.style.opacity = p.alive ? '1' : '0.4';
     }
-
-    // Combo counter do jogador local
-    var localP = world.players[localPlayerId];
-    if (localP && localP.comboCount > 1) {
+    var lp = world.players[localId];
+    if (lp && lp.comboCount > 1) {
       this.comboEl.classList.remove('hidden');
-      this.comboEl.querySelector('.rh-combo-count').textContent = localP.comboCount;
-      // Escala visual baseada no tamanho do combo
-      var scale = 1 + Math.min(localP.comboCount * 0.05, 0.5);
-      this.comboEl.style.transform = 'scale(' + scale.toFixed(2) + ')';
+      this.comboEl.querySelector('.rh-cc').textContent = lp.comboCount;
+      this.comboEl.style.transform = 'scale(' + (1 + Math.min(lp.comboCount * 0.05, 0.5)).toFixed(2) + ')';
     } else {
       this.comboEl.classList.add('hidden');
-      this.comboEl.style.transform = 'scale(1)';
     }
-
-    // Burst alert
-    if (localP && localP.momentum >= Config.MOMENTUM.burstCost) {
-      this.burstEl.classList.remove('hidden');
-    } else {
-      this.burstEl.classList.add('hidden');
-    }
-
-    // Ping
+    if (lp && lp.momentum >= Config.MOMENTUM.burstCost) this.burstEl.classList.remove('hidden');
+    else this.burstEl.classList.add('hidden');
     if (pingMs >= 0) {
       this.pingEl.textContent = Math.round(pingMs) + ' ms';
       this.pingEl.style.color = pingMs < 50 ? '#22c55e' : pingMs < 100 ? '#f59e0b' : '#ef4444';
     } else {
       this.pingEl.textContent = '-- ms';
-      this.pingEl.style.color = '#888888';
+      this.pingEl.style.color = '#888';
     }
-
-    // Round info
     if (matchState) {
-      this.roundEl.querySelector('.rh-round-num').textContent = matchState.round || 1;
-
-      // Scoreboard compacto
+      this.roundEl.textContent = matchState.round || 1;
       if (matchState.scores) {
-        var scoreHtml = '';
-        var sIds = Object.keys(matchState.scores).sort();
-        for (var s = 0; s < sIds.length; s++) {
-          var sp = world.players[sIds[s]];
-          var sName = sp ? sp.name : '?';
-          var sWins = matchState.scores[sIds[s]] || 0;
-          scoreHtml += '<span class="rh-sb-entry">' + escapeHtml(sName) + ': ' + sWins + '</span>';
+        var h = '';
+        var sids = Object.keys(matchState.scores).sort();
+        for (var s = 0; s < sids.length; s++) {
+          var sp = world.players[sids[s]];
+          h += '<span class="rh-se">' + esc(sp ? sp.name : '?') + ': ' + (matchState.scores[sids[s]] || 0) + '</span>';
         }
-        this.scoreboardEl.innerHTML = scoreHtml;
+        this.scoreEl.innerHTML = h;
       }
     }
   };
 
-  // ==================== CLEANUP ====================
-
   HUD.prototype.destroy = function () {
-    if (this.root && this.root.parentNode) {
-      this.root.parentNode.removeChild(this.root);
-    }
-    this.root = null;
-    this.playerPanels = {};
-    this.comboEl = null;
-    this.burstEl = null;
-    this.pingEl = null;
-    this.roundEl = null;
-    this.scoreboardEl = null;
-    this.controlsEl = null;
-    this.playersContainer = null;
-    this.emoteBar = null;
+    if (this.root && this.root.parentNode) this.root.parentNode.removeChild(this.root);
+    this.root = null; this.panels = {};
   };
 
-  // ==================== UTILITÁRIOS ====================
-
-  function escapeHtml(str) {
-    if (!str) return '';
-    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-  }
+  function esc(s) { return s ? s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') : ''; }
 
   return HUD;
 }));

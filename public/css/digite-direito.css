@@ -1,0 +1,313 @@
+/* ============================================================
+   Digite Direito — Estilos
+   Paleta: cyan (#06b6d4) + zinc (#18181b)
+   ============================================================ */
+
+.dd-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Header */
+.dd-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dd-timer {
+  font-family: 'Outfit', sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  color: #fafafa;
+}
+
+.dd-timer.dd-urgent {
+  color: #ef4444;
+  animation: pulse 0.5s infinite alternate;
+}
+
+@keyframes pulse {
+  from { opacity: 1; }
+  to { opacity: 0.5; }
+}
+
+.dd-lives {
+  font-size: 1.5rem;
+}
+
+/* Instability Bar */
+.dd-instability-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dd-instability-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #71717a;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.dd-instability-bar {
+  width: 100%;
+  height: 12px;
+  background: #27272a;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.dd-instability-fill {
+  height: 100%;
+  background: #06b6d4;
+  transition: width 0.15s ease, background 0.2s ease;
+  border-radius: 6px;
+}
+
+.dd-instability-val {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #a1a1aa;
+  text-align: right;
+}
+
+/* Phrase Box */
+.dd-phrase-box {
+  background: #0f0f12;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 2rem;
+  font-family: 'DM Sans', monospace;
+  font-size: 1.5rem;
+  line-height: 1.8;
+  word-break: break-word;
+  cursor: text;
+  user-select: none;
+  position: relative;
+}
+
+.dd-char {
+  color: #52525b;
+  transition: color 0.1s ease;
+}
+
+.dd-char.dd-correct {
+  color: #22c55e;
+}
+
+.dd-char.dd-wrong {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.15);
+  border-radius: 2px;
+}
+
+.dd-char.dd-cursor {
+  border-bottom: 3px solid #06b6d4;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  50% { border-color: transparent; }
+}
+
+/* Shake animation for errors */
+.dd-shake {
+  animation: shake 0.3s ease;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+
+/* Hidden input */
+.dd-input-hidden {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  width: 0;
+  height: 0;
+}
+
+/* Players Panel */
+.dd-players {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 1rem;
+}
+
+.dd-player {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: #27272a;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  font-size: 0.85rem;
+}
+
+.dd-player.dd-me {
+  border-color: #06b6d4;
+  background: rgba(6, 182, 212, 0.08);
+}
+
+.dd-player.dd-dead {
+  opacity: 0.4;
+}
+
+.dd-pname {
+  flex: 1;
+  font-weight: 600;
+  color: #fafafa;
+}
+
+.dd-pbar-bg {
+  width: 100px;
+  height: 6px;
+  background: #3f3f46;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.dd-pbar-fill {
+  height: 100%;
+  background: #06b6d4;
+  transition: width 0.2s ease;
+}
+
+.dd-pinfo {
+  font-size: 0.75rem;
+  color: #a1a1aa;
+  white-space: nowrap;
+}
+
+.dd-pdone {
+  font-size: 1rem;
+}
+
+/* Round Result Card */
+.dd-result-card {
+  text-align: center;
+  padding: 2rem;
+  background: #27272a;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  max-width: 500px;
+  margin: 2rem auto;
+}
+
+.dd-result-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #06b6d4;
+  margin-bottom: 1.5rem;
+}
+
+.dd-rankings {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dd-rank-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  background: #0f0f12;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.dd-rank-pos {
+  font-weight: 800;
+  color: #f59e0b;
+  width: 30px;
+}
+
+.dd-rank-name {
+  flex: 1;
+  font-weight: 600;
+  color: #fafafa;
+}
+
+.dd-rank-detail {
+  font-size: 0.8rem;
+  color: #a1a1aa;
+}
+
+.dd-rank-pts {
+  font-weight: 700;
+  color: #22c55e;
+}
+
+/* Game Over Card */
+.dd-gameover-card {
+  text-align: center;
+  padding: 3rem;
+  background: #27272a;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  max-width: 500px;
+  margin: 2rem auto;
+}
+
+.dd-trophy {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.dd-gameover-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #71717a;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+}
+
+.dd-winner-name {
+  font-family: 'Outfit', sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  color: #f59e0b;
+  margin-bottom: 2rem;
+}
+
+.dd-final-rankings {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dd-frank-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: #0f0f12;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  color: #d4d4d8;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .dd-container { padding: 1rem; }
+  .dd-phrase-box { font-size: 1.1rem; padding: 1.2rem; }
+  .dd-timer { font-size: 1.5rem; }
+  .dd-pbar-bg { width: 60px; }
+}

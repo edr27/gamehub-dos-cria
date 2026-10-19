@@ -1,18 +1,18 @@
 /* ============================================================
-   Rinha.io — Estilos do Jogo
-   Paleta: amber (#f59e0b) + crimson (#ef4444) sobre fundo escuro
+   Rinha.io v2 — Estilos (Arena Tática)
+   Paleta: zinc (#18181b) + amber (#f59e0b)
+   Tipografia: Outfit (display) + DM Sans (corpo)
    ============================================================ */
 
-/* ==================== CONTAINER PRINCIPAL ==================== */
+/* ==================== CONTAINER ==================== */
 .rinha-container {
   width: 100%;
   height: 100%;
   position: relative;
   overflow: hidden;
-  font-family: 'Space Grotesk', 'Inter', sans-serif;
-  color: #ffffff;
+  font-family: 'DM Sans', sans-serif;
+  color: #fafafa;
 }
-
 .hidden { display: none !important; }
 
 /* ==================== LOBBY ==================== */
@@ -24,116 +24,102 @@
   height: 100%;
   padding: 2rem;
   gap: 1.5rem;
-  background: radial-gradient(ellipse at center, #1a1a1a 0%, #0f0f0f 100%);
+  background: #18181b;
 }
-
 .rl-header { text-align: center; }
-
 .rl-title {
-  font-size: 2.5rem;
+  font-family: 'Outfit', sans-serif;
+  font-size: 2.4rem;
   font-weight: 800;
   margin: 0;
-  background: linear-gradient(135deg, #f59e0b, #ef4444);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #f59e0b;
 }
-
 .rl-subtitle {
-  font-size: 1rem;
-  color: #888888;
+  font-size: 0.95rem;
+  color: #71717a;
   margin: 0.25rem 0 0;
 }
-
 .rl-content {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
   width: 100%;
-  max-width: 700px;
+  max-width: 680px;
 }
-
-.rl-section-title {
-  font-size: 0.85rem;
+.rl-stitle {
+  font-size: 0.8rem;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: #888888;
+  letter-spacing: 0.08em;
+  color: #71717a;
   margin: 0 0 0.5rem;
+  font-weight: 600;
 }
 
 /* Fighter Cards */
-.rl-fighter-cards {
+.rl-fcards {
   display: flex;
   gap: 1rem;
   justify-content: center;
 }
-
-.rl-fighter-card {
+.rl-fcard {
   flex: 1;
   max-width: 280px;
   padding: 1.25rem;
-  border: 2px solid #333333;
-  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
   cursor: pointer;
-  transition: all 0.2s ease;
-  background: #1a1a1a;
+  transition: background 0.15s ease, border-color 0.15s ease;
+  background: #27272a;
 }
-
-.rl-fighter-card:hover {
-  border-color: #f59e0b;
-  transform: translateY(-2px);
+.rl-fcard:hover {
+  border-color: rgba(255,255,255,0.15);
+  background: #303036;
 }
-
-.rl-fighter-card.selected {
+.rl-fcard.selected {
   border-color: #f59e0b;
   background: rgba(245, 158, 11, 0.1);
-  box-shadow: 0 0 20px rgba(245, 158, 11, 0.2);
 }
-
 .rl-fc-name {
-  font-size: 1.25rem;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.2rem;
   font-weight: 700;
   margin-bottom: 0.25rem;
 }
-
 .rl-fc-desc {
   font-size: 0.8rem;
-  color: #aaaaaa;
+  color: #a1a1aa;
   margin-bottom: 0.75rem;
   line-height: 1.3;
 }
-
 .rl-fc-stats {
   display: flex;
   gap: 0.75rem;
   font-size: 0.75rem;
-  color: #cccccc;
+  color: #d4d4d8;
 }
 
 /* Mode Selector */
-.rl-mode-selector {
+.rl-modes {
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
 }
-
-.rl-mode-btn {
+.rl-mbtn {
   padding: 0.5rem 1rem;
-  border: 1px solid #444444;
-  border-radius: 8px;
-  background: #1a1a1a;
-  color: #cccccc;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 6px;
+  background: #27272a;
+  color: #d4d4d8;
   cursor: pointer;
   font-size: 0.85rem;
-  font-family: inherit;
-  transition: all 0.15s ease;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  transition: background 0.12s ease, border-color 0.12s ease;
 }
-
-.rl-mode-btn:hover { border-color: #666666; }
-
-.rl-mode-btn.active {
+.rl-mbtn:hover { border-color: rgba(255,255,255,0.15); }
+.rl-mbtn.active {
   border-color: #f59e0b;
-  background: rgba(245, 158, 11, 0.15);
+  background: rgba(245, 158, 11, 0.12);
   color: #f59e0b;
 }
 
@@ -145,28 +131,24 @@
   max-height: 180px;
   overflow-y: auto;
 }
-
-.rl-roster-empty {
-  color: #666666;
+.rl-empty {
+  color: #52525b;
   font-style: italic;
   font-size: 0.85rem;
 }
-
-.rl-roster-item {
+.rl-ri {
   display: flex;
   align-items: center;
   gap: 0.75rem;
   padding: 0.4rem 0.75rem;
   border-radius: 6px;
-  background: #1a1a1a;
+  background: #0f0f12;
   font-size: 0.85rem;
 }
-
-.rl-roster-item.ready { background: rgba(34, 197, 94, 0.1); }
-
-.rl-ri-name { flex: 1; font-weight: 600; }
-.rl-ri-fighter { color: #888888; font-size: 0.75rem; }
-.rl-ri-status { font-size: 0.75rem; color: #aaaaaa; }
+.rl-ri.ready { background: rgba(34, 197, 94, 0.08); }
+.rl-rin { flex: 1; font-weight: 600; }
+.rl-rif { color: #71717a; font-size: 0.75rem; }
+.rl-ris { font-size: 0.75rem; color: #a1a1aa; }
 
 /* Actions */
 .rl-actions {
@@ -175,36 +157,31 @@
   justify-content: center;
   margin-top: 0.5rem;
 }
-
 .rl-btn {
   padding: 0.75rem 2rem;
   border: none;
-  border-radius: 10px;
+  border-radius: 6px;
   font-size: 1rem;
   font-weight: 700;
-  font-family: inherit;
+  font-family: 'Outfit', sans-serif;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background 0.15s ease;
 }
-
-.rl-btn-ready {
-  background: linear-gradient(135deg, #f59e0b, #d97706);
-  color: #0f0f0f;
+.rl-ready {
+  background: #f59e0b;
+  color: #0f0f12;
 }
-
-.rl-btn-ready:hover { transform: scale(1.03); }
-
-.rl-btn-ready.ready-active {
-  background: linear-gradient(135deg, #22c55e, #16a34a);
+.rl-ready:hover { background: #d97706; }
+.rl-ready.ready-active {
+  background: #22c55e;
   color: #ffffff;
 }
-
-.rl-btn-train {
-  background: #333333;
-  color: #cccccc;
+.rl-train {
+  background: #27272a;
+  color: #d4d4d8;
+  border: 1px solid rgba(255,255,255,0.08);
 }
-
-.rl-btn-train:hover { background: #444444; }
+.rl-train:hover { background: #303036; }
 
 /* ==================== ARENA ==================== */
 .rinha-arena {
@@ -214,49 +191,35 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #0f0f0f;
+  background: #0f0f12;
 }
-
 #rinha-canvas {
   display: block;
-  image-rendering: pixelated;
 }
-
 #rinha-hud-container {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
   pointer-events: none;
 }
 
 /* Countdown Overlay */
 .rinha-countdown-overlay {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 50%; left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 6rem;
-  font-weight: 900;
+  font-family: 'Outfit', sans-serif;
+  font-size: 5rem;
+  font-weight: 800;
   color: #f59e0b;
-  text-shadow: 0 0 40px rgba(245, 158, 11, 0.6);
-  animation: countdownPulse 0.8s ease-in-out infinite;
   z-index: 100;
-}
-
-@keyframes countdownPulse {
-  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-  50% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.8; }
 }
 
 /* ==================== HUD ==================== */
 .rinha-hud {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
   pointer-events: none;
   display: flex;
   flex-direction: column;
@@ -264,27 +227,24 @@
   padding: 12px 16px;
   box-sizing: border-box;
 }
-
-.rh-top-bar {
+.rh-top {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-
-.rh-round-info {
+.rh-round {
+  font-family: 'Outfit', sans-serif;
   font-size: 0.85rem;
   font-weight: 700;
   color: #f59e0b;
   letter-spacing: 0.05em;
 }
-
-.rh-scoreboard {
+.rh-sb {
   display: flex;
   gap: 1rem;
   font-size: 0.8rem;
 }
-
-.rh-sb-entry { color: #cccccc; }
+.rh-se { color: #d4d4d8; }
 
 /* Player Panels */
 .rh-players {
@@ -294,236 +254,175 @@
   gap: 1rem;
   margin-top: 8px;
 }
-
-.rh-player-panel {
-  min-width: 160px;
-  max-width: 220px;
-}
-
-.rh-player-panel.rh-local .rh-p-name { font-weight: 800; }
-
-.rh-p-name {
+.rh-pp { min-width: 150px; max-width: 210px; }
+.rh-pp.rh-local .rh-pn { font-weight: 700; }
+.rh-pn {
   font-size: 0.8rem;
   font-weight: 600;
   margin-bottom: 4px;
 }
-
-.rh-p-bars { display: flex; flex-direction: column; gap: 2px; }
-
-.rh-bar-row {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.rh-bar-bg {
+.rh-pb { display: flex; flex-direction: column; gap: 2px; }
+.rh-br { display: flex; align-items: center; gap: 6px; }
+.rh-bg {
   flex: 1;
   height: 6px;
-  background: #333333;
+  background: #27272a;
   border-radius: 3px;
   overflow: hidden;
 }
-
-.rh-bar-fill {
+.rh-bg.rh-sm { height: 4px; }
+.rh-bf {
   height: 100%;
   border-radius: 3px;
   transition: width 0.1s linear;
 }
-
-.rh-posture-row .rh-bar-bg,
-.rh-stamina-row .rh-bar-bg,
-.rh-momentum-row .rh-bar-bg {
-  height: 4px;
-}
-
-.rh-bar-val {
+.rh-bv {
   font-size: 0.65rem;
-  color: #aaaaaa;
-  min-width: 48px;
+  color: #a1a1aa;
+  min-width: 44px;
   text-align: right;
 }
 
-.rh-p-rounds {
-  display: flex;
-  gap: 3px;
-  margin-top: 4px;
-}
-
 /* Center Layer */
-.rh-center-layer {
+.rh-center {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 50%; left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
   pointer-events: none;
 }
-
 .rh-combo {
   display: flex;
   flex-direction: column;
   align-items: center;
   transition: transform 0.15s ease-out;
 }
-
-.rh-combo-count {
-  font-size: 3rem;
-  font-weight: 900;
+.rh-cc {
+  font-family: 'Outfit', sans-serif;
+  font-size: 2.8rem;
+  font-weight: 800;
   color: #f59e0b;
   line-height: 1;
-  text-shadow: 0 0 20px rgba(245, 158, 11, 0.5);
 }
-
-.rh-combo-label {
-  font-size: 0.75rem;
+.rh-cl {
+  font-size: 0.7rem;
   font-weight: 700;
   color: #ef4444;
   letter-spacing: 0.15em;
   text-transform: uppercase;
 }
-
-.rh-burst-alert {
+.rh-burst {
   margin-top: 1rem;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 700;
   color: #3b82f6;
-  text-shadow: 0 0 12px rgba(59, 130, 246, 0.5);
-  animation: burstPulse 1s ease-in-out infinite;
-}
-
-@keyframes burstPulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
 }
 
 /* Bottom Bar */
-.rh-bottom-bar {
+.rh-bottom {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
   gap: 1rem;
 }
-
 .rh-ping {
   font-size: 0.75rem;
   font-weight: 600;
   font-family: monospace;
   padding: 4px 8px;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0,0,0,0.5);
   border-radius: 4px;
 }
-
-.rh-emote-bar {
+.rh-emotes {
   display: flex;
   gap: 4px;
   pointer-events: auto;
 }
-
-.rh-emote-btn {
-  width: 32px;
-  height: 32px;
-  border: 1px solid #333333;
+.rh-eb {
+  width: 30px; height: 30px;
+  border: 1px solid rgba(255,255,255,0.08);
   border-radius: 6px;
-  background: rgba(26, 26, 26, 0.8);
-  font-size: 1rem;
+  background: rgba(39,39,42,0.8);
+  font-size: 0.95rem;
   cursor: pointer;
-  transition: all 0.1s ease;
+  transition: background 0.1s ease;
   padding: 0;
   line-height: 1;
 }
-
-.rh-emote-btn:hover {
+.rh-eb:hover {
   border-color: #f59e0b;
-  background: rgba(245, 158, 11, 0.15);
-  transform: scale(1.1);
+  background: rgba(245,158,11,0.12);
 }
-
-.rh-controls-hint {
-  font-size: 0.65rem;
-  color: #555555;
+.rh-hint {
+  font-size: 0.6rem;
+  color: #52525b;
   text-align: right;
-  max-width: 400px;
+  max-width: 380px;
 }
 
-/* ==================== RESULTS SCREEN ==================== */
+/* ==================== RESULTS ==================== */
 .rinha-results {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100%;
-  background: rgba(15, 15, 15, 0.95);
+  background: rgba(15,15,18,0.95);
 }
-
 .rr-card {
   text-align: center;
   padding: 3rem;
-  border: 2px solid #333333;
-  border-radius: 16px;
-  background: #1a1a1a;
-  max-width: 500px;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  background: #27272a;
+  max-width: 480px;
 }
-
 .rr-title {
-  font-size: 2rem;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.8rem;
   font-weight: 800;
   margin: 0 0 1rem;
   color: #f59e0b;
 }
-
 .rr-winner {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
-  color: #ffffff;
 }
-
-.rr-stats {
-  font-size: 0.85rem;
-  color: #888888;
-  margin-bottom: 2rem;
-  word-break: break-all;
-}
-
 .rr-actions {
   display: flex;
   gap: 1rem;
   justify-content: center;
 }
-
 .rr-btn {
   padding: 0.75rem 1.5rem;
   border: none;
-  border-radius: 10px;
-  font-size: 0.95rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
   font-weight: 700;
-  font-family: inherit;
+  font-family: 'Outfit', sans-serif;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background 0.15s ease;
 }
-
-.rr-btn-rematch {
-  background: linear-gradient(135deg, #f59e0b, #d97706);
-  color: #0f0f0f;
+.rr-rematch {
+  background: #f59e0b;
+  color: #0f0f12;
 }
-
-.rr-btn-rematch:hover { transform: scale(1.03); }
-
-.rr-btn-lobby {
-  background: #333333;
-  color: #cccccc;
+.rr-rematch:hover { background: #d97706; }
+.rr-lobby {
+  background: #27272a;
+  color: #d4d4d8;
+  border: 1px solid rgba(255,255,255,0.08);
 }
-
-.rr-btn-lobby:hover { background: #444444; }
+.rr-lobby:hover { background: #303036; }
 
 /* ==================== TRAINING TOOLBAR ==================== */
 .rinha-training-toolbar {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 0; left: 0;
   width: 100%;
   padding: 8px 16px;
-  background: rgba(15, 15, 15, 0.9);
-  border-bottom: 1px solid #333333;
+  background: rgba(15,15,18,0.92);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -531,75 +430,58 @@
   pointer-events: auto;
   box-sizing: border-box;
 }
-
 .rt-title {
   font-size: 0.85rem;
   font-weight: 700;
   color: #f59e0b;
+  font-family: 'Outfit', sans-serif;
 }
-
 .rt-controls {
   display: flex;
   align-items: center;
   gap: 6px;
   flex-wrap: wrap;
 }
-
-.rt-label {
-  font-size: 0.75rem;
-  color: #888888;
-}
-
-.rt-sep {
-  color: #444444;
-  margin: 0 4px;
-}
-
+.rt-label { font-size: 0.75rem; color: #71717a; }
+.rt-sep { color: #3f3f46; margin: 0 4px; }
 .rt-btn {
   padding: 4px 10px;
-  border: 1px solid #444444;
+  border: 1px solid rgba(255,255,255,0.08);
   border-radius: 5px;
-  background: #1a1a1a;
-  color: #cccccc;
+  background: #27272a;
+  color: #d4d4d8;
   font-size: 0.75rem;
-  font-family: inherit;
+  font-family: 'DM Sans', sans-serif;
   cursor: pointer;
-  transition: all 0.1s ease;
+  transition: background 0.1s ease;
 }
-
-.rt-btn:hover { border-color: #666666; }
-
+.rt-btn:hover { border-color: rgba(255,255,255,0.15); }
 .rt-btn.active {
   border-color: #f59e0b;
-  background: rgba(245, 158, 11, 0.15);
+  background: rgba(245,158,11,0.12);
   color: #f59e0b;
 }
-
 .rt-btn.rt-exit {
-  border-color: #ef4444;
+  border-color: rgba(239,68,68,0.4);
   color: #ef4444;
 }
-
-.rt-btn.rt-exit:hover {
-  background: rgba(239, 68, 68, 0.15);
-}
-
+.rt-btn.rt-exit:hover { background: rgba(239,68,68,0.1); }
 .rt-stats {
   font-size: 0.7rem;
-  color: #aaaaaa;
+  color: #a1a1aa;
   font-family: monospace;
 }
 
 /* ==================== RESPONSIVIDADE ==================== */
 @media (max-width: 768px) {
   .rl-title { font-size: 1.8rem; }
-  .rl-fighter-cards { flex-direction: column; align-items: center; }
-  .rl-fighter-card { max-width: 100%; }
+  .rl-fcards { flex-direction: column; align-items: center; }
+  .rl-fcard { max-width: 100%; }
   .rh-players { flex-direction: column; gap: 0.5rem; }
-  .rh-player-panel { min-width: 120px; }
-  .rh-controls-hint { display: none; }
-  .rh-emote-btn { width: 28px; height: 28px; font-size: 0.85rem; }
+  .rh-pp { min-width: 120px; }
+  .rh-hint { display: none; }
+  .rh-eb { width: 26px; height: 26px; font-size: 0.8rem; }
   .rr-card { padding: 2rem 1.5rem; }
-  .rr-title { font-size: 1.5rem; }
-  .rr-winner { font-size: 1.2rem; }
+  .rr-title { font-size: 1.4rem; }
+  .rr-winner { font-size: 1.1rem; }
 }

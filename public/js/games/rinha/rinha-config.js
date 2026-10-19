@@ -1,16 +1,20 @@
 /**
- * Rinha.io — Configuração Compartilhada
- * =====================================
- * Este arquivo é carregado tanto no servidor (Node.js via require()) quanto
- * no cliente (browser via <script>). Contém TODOS os números de balanceamento,
- * definições de lutadores, arena e constantes de física.
+ * Rinha.io v2 — Configuração de Combate (Design Original)
+ * ========================================================
+ * Este arquivo define TODOS os números de balanceamento, física e dados
+ * de lutadores para o Rinha.io reescrito do zero.
  *
- * Regra de ouro: NENHUM cálculo de combate deve usar Math.random().
- * Use o PRNG xorshift128 com seed da sala para qualquer aleatoriedade.
+ * Princípios de design:
+ * - 2 mãos visíveis por personagem (renderizadas como círculos offset)
+ * - Animações de soco com startup/active/recovery claros
+ * - Triângulo: Ataque > Agarrão > Guarda > Ataque; Parry vence Ataque no timing
+ * - Postura quebra = stun + janela de combo livre
+ * - Combo curto (3-8 hits) com scaling decrescente
+ * - Determinístico: sem Math.random(), PRNG seeded, fixed timestep
+ *
+ * UMD: funciona com require() no Node e <script> no browser.
  */
-
 (function (root, factory) {
-  // UMD module pattern: funciona com require() no Node e <script> no browser
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = factory();
   } else {
@@ -19,195 +23,177 @@
 }(typeof self !== 'undefined' ? self : this, function () {
   'use strict';
 
-  const Config = {
-    // ==================== TICK RATE ====================
+  var Config = {
+    // ==================== TICK & FÍSICA ====================
     TICK_RATE: 60,
-    FIXED_DELTA_TIME: 1 / 60, // ~16.667ms por tick
+    FIXED_DT: 1 / 60,
 
-    // ==================== ARENA ====================
     ARENA: {
       width: 960,
       height: 640,
-      // Atrito aplicado quando jogador encosta na parede (0-1)
       wallFriction: 0.3,
-      // Restituição do quique na parede (0-1)
-      wallRestitution: 0.5,
-      // Velocidade mínima para considerar wall splat
-      wallSplatSpeedThreshold: 3.0,
-      // Obstáculos da arena padrão (retângulos {x, y, w, h})
+      wallBounce: 0.4,
+      wallSplatThreshold: 3.5,
       obstacles: [
-        { x: 200, y: 200, w: 40, h: 240 },
-        { x: 720, y: 200, w: 40, h: 240 },
-        { x: 400, y: 280, w: 160, h: 80 }
+        { x: 180, y: 180, w: 40, h: 280 },
+        { x: 740, y: 180, w: 40, h: 280 },
+        { x: 380, y: 260, w: 200, h: 120 }
       ]
     },
 
     // ==================== POSTURA ====================
     POSTURE: {
       max: 100,
-      // Decaimento natural por tick quando não está sendo pressionado
-      decayPerTick: 0.15,
-      // Ticks de atordoamento quando postura quebra (~1.5s)
-      brokenStunTicks: 90,
-      // Janela de parry perfeito em ticks (~133ms)
-      parryWindowTicks: 8,
-      // Eficiência da guarda em reduzir dano HP (0.8 = 80% bloqueado)
-      guardDamageReduction: 0.8,
-      // Dano de postura ao bloquear um ataque
-      postureDamageOnBlock: 12,
-      // Recuperação de postura no parry perfeito
-      postureRecoveryOnParry: 30
+      decayPerTick: 0.12,
+      brokenStunTicks: 90,       // ~1.5s de atordoamento
+      parryWindowTicks: 7,       // ~117ms janela de parry perfeito
+      guardReduction: 0.82,      // 82% do dano HP bloqueado
+      postureOnBlock: 14,        // postura ganha ao bloquear
+      postureRecoveryOnParry: 35 // postura recuperada no parry perfeito
     },
 
     // ==================== MOMENTUM ====================
     MOMENTUM: {
       max: 100,
-      // Custo para ativar burst
-      burstCost: 60,
-      // Raio de efeito do burst em pixels
-      burstRadius: 130,
-      // Força de empurrão do burst
-      burstForce: 8.0,
-      // Momentum ganho ao acertar um golpe
-      gainOnHitDeal: 8,
-      // Momentum ganho ao receber dano
-      gainOnHitTake: 5,
-      // Momentum ganho no parry perfeito
-      gainOnParry: 15,
-      // Decaimento natural por tick
-      decayPerTick: 0.05
+      burstCost: 55,
+      burstRadius: 140,
+      burstForce: 9.0,
+      gainOnHitDeal: 7,
+      gainOnHitTake: 4,
+      gainOnParry: 18,
+      decayPerTick: 0.04
     },
 
     // ==================== COMBO ====================
     COMBO: {
-      // Escala de dano por hit no combo (índice = número do hit)
-      damageScaling: [1.0, 0.85, 0.72, 0.61, 0.52, 0.44, 0.38, 0.33, 0.28],
-      // Dano mínimo garantido (floor)
-      minDamageScale: 0.25,
-      // Ticks sem acertar para resetar combo (~0.67s)
-      resetTimeoutTicks: 40,
-      // Máximo de dash cancels permitidos por combo
+      // Escala de dano por hit no combo (índice = hit number)
+      scaling: [1.0, 0.88, 0.76, 0.65, 0.55, 0.46, 0.38, 0.32],
+      minScale: 0.25,
+      resetTimeoutTicks: 45,     // ~0.75s sem acertar = reset
       maxDashCancels: 2,
-      // Custo de stamina por dash cancel
-      dashCancelStaminaCost: 20
-    },
-
-    // ==================== TRIÂNGULO DE COMBATE ====================
-    COMBAT_TRIANGLE: {
-      // attack > grab > guard > attack
-      // parry (timing window) > attack
-      ATTACK_BEATS: 'grab',
-      GRAB_BEATS: 'guard',
-      PARRY_BEATS: 'attack'
+      dashCancelStaminaCost: 22
     },
 
     // ==================== LUTADORES ====================
+    // Cada lutador tem 2 mãos visíveis (offset do centro + raio da mão)
     FIGHTERS: {
-      faisca: {
-        id: 'faisca',
+      faísca: {
+        id: 'faísca',
         name: 'Faísca',
-        desc: 'Ágil e rápido. Ataques velozes com menor dano.',
-        radius: 22,
-        hp: 90,
-        speed: 5.6,
-        staminaMax: 120,
-        staminaRegen: 0.4,
-        // Dados de frame (em ticks a 60fps)
+        desc: 'Ágil e rápido. Socos velozes com menor dano.',
+        radius: 20,
+        hp: 88,
+        speed: 5.8,
+        staminaMax: 125,
+        staminaRegen: 0.45,
+        // Mãos visíveis: posição relativa ao centro + facing
+        hands: {
+          left:  { offsetX: -12, offsetY: 8,  radius: 7, punchExtend: 28 },
+          right: { offsetX: 12,  offsetY: 8,  radius: 7, punchExtend: 28 }
+        },
         attacks: {
           light: {
-            startup: 6,
-            active: 5,
-            recovery: 8,
-            damage: 8,
-            knockback: 3.0,
-            postureDamage: 10,
-            // Hitbox relativa ao centro + direção da mira
-            hitbox: { offsetX: 28, offsetY: 0, width: 36, height: 30, angle: 0.6 }
+            hand: 'right',          // qual mão soca
+            startup: 5,
+            active: 4,
+            recovery: 7,
+            damage: 7,
+            knockback: 2.8,
+            postureDamage: 9,
+            hitbox: { offsetX: 26, offsetY: 0, width: 34, height: 28, angle: 0.55 }
           },
           heavy: {
-            startup: 12,
-            active: 6,
-            recovery: 16,
-            damage: 18,
-            knockback: 6.0,
-            postureDamage: 22,
-            hitbox: { offsetX: 32, offsetY: 0, width: 48, height: 40, angle: 0.8 }
+            hand: 'left',
+            startup: 11,
+            active: 5,
+            recovery: 15,
+            damage: 17,
+            knockback: 5.5,
+            postureDamage: 20,
+            hitbox: { offsetX: 30, offsetY: 0, width: 46, height: 38, angle: 0.75 }
           }
         },
         grab: {
-          startup: 8,
+          startup: 7,
           active: 4,
-          recovery: 14,
-          damage: 12,
-          range: 40
+          recovery: 13,
+          damage: 11,
+          range: 38
         },
         dash: {
-          duration: 10,
-          speed: 12.0,
-          invulnFrames: 7,
-          cooldown: 30,
-          staminaCost: 25
+          duration: 9,
+          speed: 13.0,
+          invulnFrames: 6,
+          cooldown: 28,
+          staminaCost: 24
         }
       },
+
       golias: {
         id: 'golias',
         name: 'Golias',
-        desc: 'Lento e pesado. Golpes devastadores com maior alcance.',
-        radius: 27,
-        hp: 125,
-        speed: 4.1,
-        staminaMax: 100,
-        staminaRegen: 0.3,
+        desc: 'Lento e pesado. Socos devastadores com maior alcance.',
+        radius: 26,
+        hp: 130,
+        speed: 3.9,
+        staminaMax: 105,
+        staminaRegen: 0.32,
+        hands: {
+          left:  { offsetX: -16, offsetY: 10, radius: 10, punchExtend: 34 },
+          right: { offsetX: 16,  offsetY: 10, radius: 10, punchExtend: 34 }
+        },
         attacks: {
           light: {
-            startup: 9,
-            active: 6,
-            recovery: 12,
-            damage: 12,
-            knockback: 4.0,
-            postureDamage: 14,
-            hitbox: { offsetX: 34, offsetY: 0, width: 44, height: 36, angle: 0.7 }
+            hand: 'right',
+            startup: 8,
+            active: 5,
+            recovery: 11,
+            damage: 11,
+            knockback: 3.8,
+            postureDamage: 13,
+            hitbox: { offsetX: 32, offsetY: 0, width: 42, height: 34, angle: 0.65 }
           },
           heavy: {
-            startup: 18,
-            active: 8,
-            recovery: 22,
-            damage: 28,
-            knockback: 9.0,
-            postureDamage: 35,
-            hitbox: { offsetX: 40, offsetY: 0, width: 60, height: 50, angle: 0.9 }
+            hand: 'left',
+            startup: 17,
+            active: 7,
+            recovery: 21,
+            damage: 27,
+            knockback: 8.5,
+            postureDamage: 33,
+            hitbox: { offsetX: 38, offsetY: 0, width: 58, height: 48, angle: 0.85 }
           }
         },
         grab: {
-          startup: 12,
+          startup: 11,
           active: 5,
-          recovery: 18,
-          damage: 18,
-          range: 48
+          recovery: 17,
+          damage: 17,
+          range: 46
         },
         dash: {
-          duration: 8,
-          speed: 9.0,
-          invulnFrames: 4,
-          cooldown: 40,
-          staminaCost: 30
+          duration: 7,
+          speed: 9.5,
+          invulnFrames: 3,
+          cooldown: 38,
+          staminaCost: 28
         }
       }
     },
 
-    // ==================== MODOS DE JOGO ====================
+    // ==================== MODOS ====================
     MODES: {
       '1v1': { id: '1v1', name: '1v1 Rei da Mesa', maxPlayers: 2, roundsToWin: 2, queue: true },
-      'ffa': { id: 'ffa', name: 'Free-for-All', maxPlayers: 4, roundsToWin: 1, queue: false },
-      '2v2': { id: '2v2', name: '2v2 Equipes', maxPlayers: 4, roundsToWin: 2, queue: false }
+      'ffa': { id: 'ffa', name: 'Free-for-All',   maxPlayers: 4, roundsToWin: 1, queue: false },
+      '2v2': { id: '2v2', name: '2v2 Equipes',    maxPlayers: 4, roundsToWin: 2, queue: false }
     },
 
-    // ==================== CORES DA PALETA ====================
+    // ==================== CORES ====================
     COLORS: {
-      primary: '#f59e0b',    // amber
-      accent: '#ef4444',     // crimson
+      primary: '#f59e0b',
+      accent: '#ef4444',
       bg: '#0f0f0f',
-      gridLine: '#1a1a1a',
+      grid: '#1a1a1a',
       wall: '#333333',
       obstacle: '#444444',
       hpBar: '#22c55e',
@@ -217,23 +203,21 @@
       staminaBar: '#a855f7',
       textLight: '#ffffff',
       textMuted: '#888888',
-      fighterColors: ['#f59e0b', '#ef4444', '#3b82f6', '#22c55e']
+      fighterColors: ['#f59e0b', '#ef4444', '#3b82f6', '#22c55e'],
+      // Cores das mãos (para distinguir socos)
+      handLeft: '#e0e0e0',
+      handRight: '#ffffff',
+      handPunch: '#ffcc00'
     },
 
     // ==================== UTILITÁRIOS ====================
-
-    /**
-     * Cria uma instância de PRNG xorshift128 determinístico.
-     * Usado para efeitos visuais e qualquer aleatoriedade na simulação.
-     * @param {number} seed - Seed inicial (geralmente hash do roomCode + tick)
-     */
     createRng: function (seed) {
-      let s0 = seed | 0;
-      let s1 = (seed * 2654435761) | 0;
+      var s0 = seed | 0;
+      var s1 = (seed * 2654435761) | 0;
       return {
         next: function () {
-          let x = s0;
-          const y = s1;
+          var x = s0;
+          var y = s1;
           s0 = y;
           x ^= x << 23;
           x ^= x >> 17;
@@ -241,27 +225,20 @@
           s1 = x;
           return ((s0 + s1) >>> 0) / 4294967296;
         },
-        // Retorna inteiro entre min (inclusivo) e max (exclusivo)
         nextInt: function (min, max) {
           return min + Math.floor(this.next() * (max - min));
         }
       };
     },
 
-    /**
-     * Normaliza ângulo para [-PI, PI] usando aritmética segura.
-     */
-    normalizeAngle: function (angle) {
-      while (angle > Math.PI) angle -= 2 * Math.PI;
-      while (angle < -Math.PI) angle += 2 * Math.PI;
-      return angle;
+    normalizeAngle: function (a) {
+      while (a > Math.PI) a -= 2 * Math.PI;
+      while (a < -Math.PI) a += 2 * Math.PI;
+      return a;
     },
 
-    /**
-     * Clamp genérico.
-     */
-    clamp: function (val, min, max) {
-      return val < min ? min : val > max ? max : val;
+    clamp: function (v, min, max) {
+      return v < min ? min : v > max ? max : v;
     }
   };
 
