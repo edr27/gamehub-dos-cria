@@ -81,7 +81,8 @@ const GAME_LIST = [
   { id: 'estime', name: 'Estime', icon: '📦', desc: 'Qual o tamanho desse objeto? Chute em cm!', minPlayers: 1, maxPlayers: 8, color: '#f97316' },
   { id: 'death-ball', name: 'Death Ball', icon: '💀', desc: 'Sobreviva à bola mortal! Rebata no tempo certo.', minPlayers: 1, maxPlayers: 8, color: '#6366f1' },
   { id: 'cartas-contra-humanidade', name: 'Cartas Contra a Humanidade', icon: '🃏', desc: 'Humor ácido e absurdo! Escolha a melhor resposta.', minPlayers: 1, maxPlayers: 10, color: '#8b5cf6' },
-  { id: 'rinha', name: 'Rinha.io', icon: '⚔️', desc: 'Arena de combate com postura, parry e combos! 1v1, FFA e 2v2 entre amigos.', minPlayers: 1, maxPlayers: 4, color: '#f59e0b' }
+  { id: 'rinha', name: 'Rinha.io', icon: '⚔️', desc: 'Arena de combate com postura, parry e combos! 1v1, FFA e 2v2 entre amigos.', minPlayers: 1, maxPlayers: 4, color: '#f59e0b' },
+  { id: 'digite-direito', name: 'Digite Direito', icon: '⌨️', desc: 'Sobreviva digitando frases sem errar! Instabilidade sobe a cada erro.', minPlayers: 2, maxPlayers: 4, color: '#06b6d4' }
 ];
 
 // ==================== LÓGICA DE JOGOS (SERVIDOR) ====================
@@ -4077,6 +4078,10 @@ gameHandlers['cartas'] = gameHandlers['cartas-contra-humanidade'];
 
 // --- RINHA.IO (Módulo extraído para server/rinha/) ---
 gameHandlers['rinha'] = rinhaModule.gameHandler;
+
+// --- DIGITE DIREITO ---
+const digiteDireitoModule = require('./server/digite-direito');
+gameHandlers['digite-direito'] = digiteDireitoModule.gameHandler;
 
 // ==================== SOCKET.IO HANDLERS ====================
 

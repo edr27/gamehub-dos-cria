@@ -1,17 +1,10 @@
 /**
- * Rinha.io — Broadcast Utilities (Servidor)
- * ===========================================
- * Funções de broadcast extraídas para evitar dependência circular
- * entre index.js e room-manager.js.
+ * Rinha.io v2 — Broadcast Utilities (Servidor)
+ * =============================================
+ * Funções de broadcast extraídas para evitar dependência circular.
  */
 'use strict';
 
-/**
- * Broadcast do estado da sala Rinha para todos os clientes na sala.
- * @param {object} room - Objeto da sala do hub
- * @param {object} io - Socket.IO server instance
- * @param {string} roomCode - Código da sala
- */
 function broadcastRinhaRoomState(room, io, roomCode) {
   if (!room.rinhaState) return;
   const rs = room.rinhaState;
