@@ -1,8 +1,8 @@
 /**
- * Digite Direito — Cliente
- * =========================
+ * Digite Direito — Cliente v2
+ * ============================
  * Jogo de digitação competitiva com instabilidade e eliminação.
- * Integração via evento game:digite:start (padrão do hub).
+ * Input via window keydown (não depende de foco em input element).
  */
 (function () {
   'use strict';
@@ -28,11 +28,11 @@
     timerInterval: null,
     finished: false,
     players: {},
-    roundActive: false
+    roundActive: false,
+    _keyHandler: null // referência para cleanup
   };
 
   // ==================== EVENTOS DO SERVIDOR ====================
-
   socket.on('game:digite:start', function (data) {
     resetState();
     state.phrase = data.phrase || '';
@@ -41,6 +41,7 @@
     state.roundActive = true;
     renderGame();
     startTimer();
+    bindGlobalInput();
     if (AudioEngine && AudioEngine.gameStart) AudioEngine.gameStart();
   });
 
@@ -56,6 +57,7 @@
 
   socket.on('game:digite:round-end', function (data) {
     stopTimer();
+    unbindGlobalInput();
     state.roundActive = false;
     showRoundResult(data);
     if (AudioEngine && AudioEngine.reveal) AudioEngine.reveal();
@@ -63,17 +65,103 @@
 
   socket.on('game:digite:gameover', function (data) {
     stopTimer();
+    unbindGlobalInput();
     state.roundActive = false;
     showGameOver(data);
     if (AudioEngine && AudioEngine.gameEnd) AudioEngine.gameEnd();
   });
 
-  // ==================== RENDERIZAÇÃO ====================
+  // ==================== INPUT GLOBAL (WINDOW KEYDOWN) ====================
+  function bindGlobalInput() {
+    unbindGlobalInput(); // limpar anterior se existir
+    state._keyHandler = function (e) {
+      if (!state.roundActive || state.finished) return;
 
+      // Ignorar teclas modificadoras e de controle
+      if (e.ctrlKey || e.altKey || e.metaKey) return;
+
+      // Backspace: apagar último caractere correto
+      if (e.key === 'Backspace') {
+        e.preventDefault();
+        if (state.typed.length > 0) {
+          state.typed = state.typed.slice(0, -1);
+          refreshPhrase();
+        }
+        return;
+      }
+
+      // Tab: prevenir foco loss
+      if (e.key === 'Tab') {
+        e.preventDefault();
+        return;
+      }
+
+      // Apenas caracteres imprimíveis (length === 1)
+      if (e.key.length !== 1) return;
+
+      e.preventDefault(); // Prevenir scroll, atalhos do browser, etc.
+
+      var pos = state.typed.length;
+      var expected = state.phrase[pos];
+      if (expected === undefined) return; // Já completou
+
+      if (e.key === expected) {
+        // Correto
+        state.typed += e.key;
+        if (AudioEngine && AudioEngine.click) AudioEngine.click();
+      } else {
+        // Errado: adicionar instabilidade, NÃO avançar
+        state.errors++;
+        state.instability = Math.min(100, state.instability + 10);
+        updateInstability();
+        shakePhrase();
+        if (AudioEngine && AudioEngine.error) AudioEngine.error();
+
+        // Verificar se atingiu 100% de instabilidade
+        if (state.instability >= 100) {
+          socket.emit('game:action', { action: 'instability-trigger', instability: 100 });
+          state.instability = 0; // Reseta após trigger
+          updateInstability();
+        }
+        return; // Não avança, não envia progresso
+      }
+
+      // Verificar se completou a frase
+      if (state.typed.length === state.phrase.length) {
+        state.finished = true;
+        socket.emit('game:action', {
+          action: 'finished',
+          errors: state.errors,
+          timeLeft: state.roundTime
+        });
+        if (AudioEngine && AudioEngine.reveal) AudioEngine.reveal();
+      } else {
+        // Enviar progresso
+        socket.emit('game:action', {
+          action: 'progress',
+          progress: Math.round((state.typed.length / state.phrase.length) * 100),
+          instability: state.instability
+        });
+      }
+
+      refreshPhrase();
+    };
+
+    window.addEventListener('keydown', state._keyHandler, true); // capture phase
+  }
+
+  function unbindGlobalInput() {
+    if (state._keyHandler) {
+      window.removeEventListener('keydown', state._keyHandler, true);
+      state._keyHandler = null;
+    }
+  }
+
+  // ==================== RENDERIZAÇÃO ====================
   function renderGame() {
     var html = '<div class="dd-container">';
 
-    // Header com timer e round info
+    // Header com timer e vidas
     html += '<div class="dd-header">';
     html += '<div class="dd-timer" id="dd-timer">' + state.roundTime + 's</div>';
     html += '<div class="dd-lives">❤️ '.repeat(state.lives) + '</div>';
@@ -91,8 +179,8 @@
     html += buildPhraseHTML();
     html += '</div>';
 
-    // Input invisível (foco automático)
-    html += '<input type="text" id="dd-input" class="dd-input-hidden" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">';
+    // Instrução visual (sem input hidden)
+    html += '<div class="dd-hint">⌨️ Digite a frase acima usando o teclado</div>';
 
     // Ranking lateral dos jogadores
     html += '<div class="dd-players" id="dd-players">';
@@ -102,23 +190,6 @@
     html += '</div>';
 
     DOM.gameArea.innerHTML = html;
-
-    // Focar no input
-    var input = document.getElementById('dd-input');
-    if (input) {
-      input.focus();
-      input.addEventListener('input', handleInput);
-      input.addEventListener('keydown', handleKeydown);
-    }
-
-    // Clicar na frase também foca o input
-    var phraseBox = document.getElementById('dd-phrase-box');
-    if (phraseBox) {
-      phraseBox.addEventListener('click', function () {
-        var inp = document.getElementById('dd-input');
-        if (inp) inp.focus();
-      });
-    }
   }
 
   function buildPhraseHTML() {
@@ -164,80 +235,9 @@
     container.innerHTML = buildPlayersHTML();
   }
 
-  // ==================== INPUT HANDLING ====================
-
-  function handleInput(e) {
-    if (!state.roundActive || state.finished) return;
-
-    var inputVal = e.target.value;
-    var pos = state.typed.length;
-
-    // Se o usuário apagou (backspace)
-    if (inputVal.length < state.typed.length) {
-      state.typed = state.typed.slice(0, inputVal.length);
-      refreshPhrase();
-      return;
-    }
-
-    // Nova letra digitada
-    if (inputVal.length > state.typed.length) {
-      var newChar = inputVal[inputVal.length - 1];
-      var expected = state.phrase[pos];
-
-      if (newChar === expected) {
-        // Correto
-        state.typed += newChar;
-        if (AudioEngine && AudioEngine.click) AudioEngine.click();
-      } else {
-        // Errado: adicionar instabilidade, NÃO avançar
-        state.errors++;
-        state.instability = Math.min(100, state.instability + 10);
-        updateInstability();
-        shakePhrase();
-        if (AudioEngine && AudioEngine.error) AudioEngine.error();
-
-        // Verificar se atingiu 100% de instabilidade
-        if (state.instability >= 100) {
-          socket.emit('game:digite:instability-trigger', { instability: 100 });
-          state.instability = 0; // Reseta após trigger
-          updateInstability();
-        }
-      }
-
-      // Resetar o input para evitar acumulação
-      e.target.value = '';
-
-      // Verificar se completou a frase
-      if (state.typed.length === state.phrase.length) {
-        state.finished = true;
-        socket.emit('game:digite:finished', {
-          errors: state.errors,
-          timeLeft: state.roundTime
-        });
-        if (AudioEngine && AudioEngine.reveal) AudioEngine.reveal();
-      } else {
-        // Enviar progresso
-        socket.emit('game:digite:progress', {
-          progress: Math.round((state.typed.length / state.phrase.length) * 100),
-          instability: state.instability
-        });
-      }
-
-      refreshPhrase();
-    }
-  }
-
-  function handleKeydown(e) {
-    // Prevenir comportamentos padrão que interferem
-    if (e.key === 'Tab') e.preventDefault();
-  }
-
   function refreshPhrase() {
     var box = document.getElementById('dd-phrase-box');
     if (box) box.innerHTML = buildPhraseHTML();
-    // Manter foco
-    var input = document.getElementById('dd-input');
-    if (input) input.focus();
   }
 
   function updateInstability() {
@@ -256,17 +256,16 @@
   function shakePhrase() {
     var box = document.getElementById('dd-phrase-box');
     if (!box) return;
+    box.classList.remove('dd-shake');
+    void box.offsetWidth; // force reflow para reiniciar animação
     box.classList.add('dd-shake');
-    setTimeout(function () { box.classList.remove('dd-shake'); }, 300);
   }
 
   // ==================== TIMER ====================
-
   function startTimer() {
     stopTimer();
     var remaining = state.roundTime;
     var timerEl = document.getElementById('dd-timer');
-
     state.timerInterval = setInterval(function () {
       remaining--;
       if (timerEl) {
@@ -276,7 +275,7 @@
       if (remaining <= 0) {
         stopTimer();
         if (!state.finished) {
-          socket.emit('game:digite:timeout');
+          socket.emit('game:action', { action: 'timeout' });
         }
       }
     }, 1000);
@@ -290,7 +289,6 @@
   }
 
   // ==================== RESULTADOS ====================
-
   function showRoundResult(data) {
     var html = '<div class="dd-result-card">';
     html += '<h2 class="dd-result-title">📝 FIM DO ROUND</h2>';
@@ -333,9 +331,9 @@
   }
 
   // ==================== UTILITÁRIOS ====================
-
   function resetState() {
     stopTimer();
+    unbindGlobalInput();
     state.typed = '';
     state.errors = 0;
     state.instability = 0;
@@ -348,9 +346,13 @@
     return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
 
-  // Cleanup ao sair
+  // Cleanup ao sair do jogo
   socket.on('game:ended', function () {
     resetState();
   });
 
+  // Cleanup ao sair da sala ou recarregar
+  window.addEventListener('beforeunload', function () {
+    unbindGlobalInput();
+  });
 })();

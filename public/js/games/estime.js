@@ -328,7 +328,7 @@
         const ref = availableReferences[idx];
         if (!ref) return;
 
-        try { AudioEngine.hover(); } catch (e) {}
+        try { AudioEngine.click(); } catch (e) {}
 
         if (activeReference && activeReference.name === ref.name) {
           activeReference = null;
