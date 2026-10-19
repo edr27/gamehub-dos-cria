@@ -65,14 +65,16 @@
       }
     }
     if (data.id === state.myId) {
-      state.errors = data.errors || 0;
-      state.totalErrors = data.totalErrors || 0;
-      state.alive = data.alive !== false;
-      state.inRoulette = !!data.inRoulette;
+      // Usar.hasOwnProperty para distinguir 0 de undefined
+      state.errors = (data.errors !== undefined) ? data.errors : state.errors;
+      state.totalErrors = (data.totalErrors !== undefined) ? data.totalErrors : state.totalErrors;
+      state.alive = (data.alive !== undefined) ? data.alive : state.alive;
+      state.inRoulette = (data.inRoulette !== undefined) ? !!data.inRoulette : state.inRoulette;
       if (data.currentPhraseIndex !== undefined) {
         state.currentPhraseIndex = data.currentPhraseIndex;
         state.typed = '';
       }
+      console.log('[DD] player-update MY:', JSON.stringify({errors: state.errors, inRoulette: state.inRoulette, alive: state.alive}));
     }
     updateHUD();
   });

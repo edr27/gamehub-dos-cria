@@ -100,7 +100,19 @@ const gameHandler = {
 
     const pid = socket.id;
     const player = gs.players[pid];
-    if (!player || !player.alive || player.inRoulette) return;
+    if (!player || !player.alive) return;
+
+    // roulette-survived DEVE ser processado mesmo com inRoulette=true
+    if (data.action === 'roulette-survived') {
+      if (!player.inRoulette) return;
+      player.inRoulette = false;
+      player.errors = 0; // zera ciclo de erros
+      broadcastPlayerState(gs, io, roomCode, pid);
+      return;
+    }
+
+    // Bloquear outras ações durante roleta
+    if (player.inRoulette) return;
 
     switch (data.action) {
 
