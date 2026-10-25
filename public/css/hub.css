@@ -581,6 +581,10 @@
   letter-spacing: 0.01em;
   color: var(--lb-paper);
 }
+@media (max-width: 520px) {
+  #screen-game .game-current-title { font-size: 1.25rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+  #screen-game .game-title-bar { min-width: 0; }
+}
 #screen-game .game-room-code { font-family: var(--lb-font); font-weight: 800; font-stretch: 125%; letter-spacing: 0.1em; color: var(--lb-yellow); }
 #screen-game #btn-back-lobby { font-family: var(--lb-font); font-weight: 700; color: var(--lb-paper); border: 0; box-shadow: inset 0 0 0 2px rgba(239, 238, 233, 0.35); border-radius: 2px; }
 #screen-game #btn-back-lobby:hover { box-shadow: inset 0 0 0 2px var(--lb-paper); background: transparent; }

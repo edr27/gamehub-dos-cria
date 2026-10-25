@@ -15,6 +15,7 @@ Todo texto de interface, comentários e mensagens ao usuário são em português
 
 ```
 server.js                      Servidor principal (~4.300 linhas): salas, chat, GAME_LIST e gameHandlers de 12 jogos
+server/vem-na-mao.js           Servidor autoritativo do Vem na Mão (exporta { createHandler })
 server/digite-direito.js       Servidor autoritativo do Digite Direito v4 (exporta { createHandler })
 server/death-ball.js           Servidor autoritativo do Death Ball v2 (exporta { createHandler })
 data/cartas_cards.json         Baralho: blackCards (364: {id,text,pick}) e whiteCards (1254: {id,text}), textos em MAIÚSCULAS
@@ -24,9 +25,11 @@ public/css/hub.css             Identidade "muro de lambe-lambe": home, lobby, ch
 public/css/digite-direito.css  Estilos do Digite Direito v4 (papel, revólver, pistas de corrida, resultados)
 public/js/audio.js             Define a const global AudioEngine (Web Audio, sons procedurais)
 public/js/app.js               Cliente principal (hub): telas, salas, chat, lobby, window.GameHub
-public/js/games/<id>.js        Um arquivo de cliente por jogo (13 arquivos)
+public/js/games/<id>.js        Um arquivo de cliente por jogo (14 arquivos)
 public/js/games/deathball/shared.js  Física/constantes do Death Ball, usada pelo servidor (require) e pelo navegador
 public/css/death-ball.css      Estilos do Death Ball v2 (HUD, controles de toque, resultados)
+public/js/games/vemnamao/shared.js   Constantes, armas, mapas, colisão e passo de movimento do Vem na Mão (servidor + navegador)
+public/css/vem-na-mao.css      Estilos do Vem na Mão (HUD de lambe-lambe, minimapa, controles de toque, resultados)
 ```
 
 Observação: o `server.js` ainda faz `require('./scratch/extracted_cards.json')` como fallback do baralho.
@@ -62,7 +65,7 @@ Eventos servidor → cliente: `game-list`, `room:state`, `chat:message`, `chat:h
 `game:ended`, `game:error`.
 
 Desconexão: `connected=false`, jogador removido após 30 s, host transferido, sala apagada se esvaziar.
-Ganchos opcionais de handler (Death Ball e Digite Direito usam): `stop(room)` é chamado em `back-to-lobby`, antes de
+Ganchos opcionais de handler (Death Ball, Digite Direito e Vem na Mão usam): `stop(room)` é chamado em `back-to-lobby`, antes de
 um novo `game:start` (revanche) e quando a sala esvazia; `onDisconnect(room, io, roomCode, socketId)` na desconexão.
 
 Pontuação: `player.score` é o ranking geral do hub; `gameState.gameScores[sid]` é o placar da partida.
@@ -141,7 +144,7 @@ Paleta "Arena Tática" (zinc + âmbar), tema escuro. Usar as variáveis, nunca c
    ou em `room.gameInterval`.
 5. Cliente: criar `public/js/games/<id>.js` com o padrão acima e adicionar a `<script>` no `index.html`.
 6. Opcional: SVG em `GAME_ICONS` no `app.js`; CSS do jogo no `main.css` (ou arquivo próprio, como o digite-direito).
-7. Atualizar o texto "13 jogos" do rodapé da home no `index.html`.
+7. Atualizar o texto "14 jogos" do rodapé da home no `index.html`.
 
 ## Jogos
 
@@ -160,6 +163,7 @@ Paleta "Arena Tática" (zinc + âmbar), tema escuro. Usar as variáveis, nunca c
 | `death-ball` | `deathball` | v2 — ver seção abaixo | `ping`, `m`, `parry`, `dash`, `emote`, `profile` |
 | `cartas-contra-humanidade` (alias `cartas`) | `cartas` | Czar rotativo, mão de 10, 1 shuffle por jogador, vence quem chegar a 5 | `submit`, `shuffle-hand`, `reveal-card`, `judge`, `next-round` |
 | `digite-direito` | `digite` | v4 battle royale — ver seção abaixo (solo tem 3 bots) | `keys {s}` |
+| `vem-na-mao` | `vemnamao` | Briga de rua top-down battle royale — ver seção abaixo (solo tem 5 bots) | `ping`, `i {s, t, m}` |
 
 ### Digite Direito v4 (server/digite-direito.js + games/digite-direito.js) — battle royale estilo "Final Sentence"
 
@@ -183,6 +187,38 @@ Paleta "Arena Tática" (zinc + âmbar), tema escuro. Usar as variáveis, nunca c
 - `localStorage`: `gh_dd_best_wpm` (recorde pessoal), `gh_dd_muted`. Diagnóstico: `__digite()` no console.
 - Balanceamento validado com simulação headless (`createHandler(...)._tick`): ~2/3 das eliminações por último lugar,
   ~1/3 pela roleta, partidas de ~2 min com 2–7 jogadores.
+
+### Vem na Mão (server/vem-na-mao.js + vemnamao/shared.js + games/vem-na-mao.js) — briga de rua estilo bopz.io
+
+- Top-down, até 8 jogadores, battle royale por rodadas (último de pé; 3 rodadas, ou 2 com 4+ lutadores). Solo: 5 bots
+  (Marrento, Zé Pancada, Tia do Chinelo, Gordinho, Mestre Kiko) e a rodada acaba quando o humano cai.
+- Triângulo: PORRADA vence AGARRÃO (quem agarra alguém batendo toma "clank", 0,32 s tonto), AGARRÃO vence PARRY e
+  parado (segura 0,3 s, mira o arremesso: 16 de dano, empurrão forte; bater na parede = +7 "NA PAREDE"; corpo
+  arremessado derruba quem estiver no caminho), PARRY vence PORRADA (janela 0,2 s; quem bateu fica 0,85 s tonto e o
+  defensor ganha contra-ataque ×1,6 por 1,2 s; rebate projéteis). Errou parry/agarrão = recuperação vulnerável.
+- Dash: 2 cargas (1,35 s cada), 0,11 s de invulnerabilidade, cancela a recuperação dos golpes. Buffer de 0,16 s.
+- Armas no chão (pega andando por cima se estiver de mãos vazias; R troca/larga), gastam usos e quebram:
+  Chinelo (especial: chinelada que deixa lento), Taco (home run carregado), Peixeira (bote + sangramento),
+  Frigideira (panelaço = parry longo que devolve dano), Estilingue (tiro; especial: 3 pedras), Vassoura (alcance;
+  especial: varrida 360°), Bombinha (3 bombas com pavio). Mãos: voadora. Coxinha cura 30.
+- Mapas 2200×2200 em `MAPS` (A Quebrada: quarteirões e quadra; A Feira: barracas e praça), um por rodada.
+  Zona circular que fecha em 4 fases (`ZONE_PHASES`); com poucos jogadores começa mais adiantada (`zone.off`).
+  Minimapa mostra todos e setas na borda da tela apontam adversários fora da tela, para os x1 acontecerem.
+- Balanceamento/números: tudo em `shared.js` (`C`, `WEAPONS`, `SPECIAL`, `actPlan`). Mudou? Aumente o `?v=` dos dois
+  arquivos no index.html. Simulação headless: `createHandler(...)._tick` (bots contra bots).
+- Netcode: o cliente manda inputs numerados a 60 Hz (2 por pacote: `i {s: seq, t: relógio do servidor, m: [mx,my,ax,ay,b]*}`),
+  botões em bits (`BTN`). O servidor consome **1 input por passo do jogador** (fila vazia = o corpo espera; fila
+  acumulada = 2 passos no tick), então a simulação de cada humano anda no ritmo dos inputs dele. O cliente prevê o
+  próprio boneco com o mesmo `stepMove` + espelho dos timers de ação (`actPlan/actState`) e, a cada snapshot (30 Hz,
+  `volatile`, com `ack` e os timers SEM arredondar), volta ao estado do servidor e reaplica os inputs pendentes;
+  o erro restante é suavizado. Adversários interpolados 90 ms no passado. Golpe testa a vítima na posição atual e na
+  que o atacante via (até 160 ms). Golpe em humano que não está defendendo fica pendente ~meio ping + 45 ms: um parry
+  apertado quando a vítima VIU o golpe chegar (tempo do cliente + 90 ms de interpolação) ainda vale.
+- Estado interno em `room.vm`. Eventos s→c: `start, round, live, s, act, hit, parry, grab, throw, clank, splat, dodge,
+  dash, proj, projEnd, bomb, boom, wspawn, pick, break, item, eat, kill, roundEnd, gameover, pong`.
+- Pontos: nocaute +10, rodada +20, campeão +30 (somados ao `player.score` no `gameover`).
+- `localStorage`: `gh_vm_muted`, `gh_vm_games` (esconde a ajuda depois de 3 partidas; H mostra), `gh_vm_profile`.
+  Diagnóstico: `__vemnamao()` no console; F3 mostra FPS, seq/ack e correções da previsão.
 
 ### Death Ball v2 (server/death-ball.js + deathball/shared.js + games/death-ball.js)
 
@@ -228,7 +264,7 @@ Servidor, geral:
 4. `room:join` recusa entrada com jogo em andamento.
 5. `back-to-lobby` não limpa `ritmoTimers` (jogos com `stop(room)` — Death Ball e Digite Direito — já se limpam).
 6. Entradas dos jogadores quase sem validação (limites de palpite, tamanhos de texto). CORS `*` no Socket.IO.
-7. `server.js` monolítico, com bancos de perguntas embutidos. `server/digite-direito.js` e `server/death-ball.js` são obrigatórios no boot.
+7. `server.js` monolítico, com bancos de perguntas embutidos. `server/digite-direito.js`, `server/death-ball.js` e `server/vem-na-mao.js` são obrigatórios no boot.
 
 Jogos específicos:
 8. `ia-falsa`: o cliente usa gradientes/emojis fixos por posição (`['🌄','🐾','🍕','🏙️'][i]`), sem relação com o tema; só 4 temas, resposta correta fixa; sem imagens reais.

@@ -400,6 +400,7 @@ const GAME_ICONS = {
   'death-ball': `<svg viewBox="0 0 90 90" class="game-svg-icon lb-ico" aria-hidden="true"><g stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"><circle cx="52" cy="46" r="24" fill="currentColor" stroke="none"/><circle cx="44" cy="44" r="5" fill="var(--ico-hole, #efeee9)" stroke="none"/><circle cx="60" cy="44" r="5" fill="var(--ico-hole, #efeee9)" stroke="none"/><path d="M8 34h12M4 46h14M8 58h12"/></g></svg>`,
   'cartas-contra-humanidade': `<svg viewBox="0 0 90 90" class="game-svg-icon lb-ico" aria-hidden="true"><g stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"><rect x="14" y="22" width="34" height="48" rx="3" transform="rotate(-12 31 46)" fill="currentColor" stroke="none"/><rect x="42" y="18" width="34" height="48" rx="3" transform="rotate(10 59 42)"/></g></svg>`,
   'digite-direito': `<svg viewBox="0 0 90 90" class="game-svg-icon lb-ico" aria-hidden="true"><g stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"><circle cx="45" cy="45" r="28"/><circle cx="45" cy="27" r="5" fill="currentColor" stroke="none"/><circle cx="60.6" cy="36" r="5"/><circle cx="60.6" cy="54" r="5"/><circle cx="45" cy="63" r="5"/><circle cx="29.4" cy="54" r="5"/><circle cx="29.4" cy="36" r="5"/></g></svg>`,
+  'vem-na-mao': `<svg viewBox="0 0 90 90" class="game-svg-icon lb-ico" aria-hidden="true"><g stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"><rect x="24" y="28" width="38" height="34" rx="9" fill="currentColor" stroke="none"/><path d="M36 30v14M48 30v14" stroke="var(--ico-hole, #efeee9)" stroke-width="4"/><path d="M24 50h-6c-4 0-6 3-6 6v0c0 4 3 6 6 6h10" /><path d="M70 20l8-6M74 36h10M70 52l8 6"/></g></svg>`,
   'rinha': `<svg viewBox="0 0 90 90" class="game-svg-icon lb-ico" aria-hidden="true"><g stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M20 20l44 44M70 20L26 64"/><path d="M58 68l10-10M22 58l10 10" /></g></svg>`
 };
 
@@ -466,7 +467,7 @@ socket.on('game-list', (games) => {
 });
 
 // Jogos em destaque ganham cartaz duplo no muro
-const LB_FEATURED = new Set(['death-ball', 'digite-direito', 'cartas-contra-humanidade', 'consenso']);
+const LB_FEATURED = new Set(['vem-na-mao', 'death-ball', 'digite-direito', 'cartas-contra-humanidade', 'consenso']);
 
 function renderGamesGrid() {
   if (!state.gameList || state.gameList.length === 0) return;
