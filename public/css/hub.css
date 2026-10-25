@@ -475,7 +475,7 @@
 }
 
 .lb-gp-body { flex: 1; display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px 10px; }
-.lb-gp-icon { flex: none; width: 54px; height: 54px; margin-top: -2px; filter: grayscale(1) contrast(1.3); mix-blend-mode: multiply; }
+.lb-gp-icon { flex: none; width: 54px; height: 54px; margin-top: -2px; color: var(--lb-ink); --ico-hole: var(--lb-paper); }
 .lb-gp-icon .game-svg-icon { width: 100%; height: 100%; }
 .lb-gp-icon .game-emoji-fallback { font-size: 2.4rem; line-height: 1; filter: grayscale(1); }
 .lb-gp-desc { margin: 0; font-size: 0.95rem; line-height: 1.38; font-weight: 500; color: var(--lb-ink-soft); }
@@ -604,6 +604,183 @@
 /* =================================================================
    RESPONSIVO
    ================================================================= */
+/* =================================================================
+   TELAS DOS JOGOS: o tema antigo (main.css) remapeado para a identidade.
+   Os jogos usam essas variáveis; trocando-as só dentro de #screen-game,
+   todos herdam o visual sem mexer na lógica de nenhum jogo.
+   Continua escuro (os jogos foram desenhados para fundo escuro), mas com
+   o concreto quente do muro, o amarelo de gráfica e a Archivo.
+   ================================================================= */
+#screen-game {
+  --surface: #23201d;
+  --surface-raised: #2e2a26;
+  --surface-sunken: #191714;
+  --surface-hover: #3a3631;
+  --ink: #efeee9;
+  --ink-secondary: #d8d5cc;
+  --ink-muted: #948d82;
+  --ink-faint: #655f57;
+  --accent: #ffd400;
+  --accent-hover: #ebc300;
+  --accent-subtle: rgba(255, 212, 0, 0.12);
+  --success: #19e36b;
+  --info: #6d8bff;
+  --border: rgba(239, 238, 233, 0.1);
+  --border-strong: rgba(239, 238, 233, 0.2);
+  --border-accent: rgba(255, 212, 0, 0.45);
+  --shadow-glow: 0 0 20px rgba(255, 212, 0, 0.15);
+  --shadow-glow-strong: 0 0 30px rgba(255, 212, 0, 0.25);
+
+  /* aliases legados precisam ser redeclarados aqui (no :root eles já foram resolvidos) */
+  --bg-primary: var(--surface);
+  --bg-secondary: var(--surface-raised);
+  --bg-tertiary: #34302b;
+  --bg-card: var(--surface-raised);
+  --bg-card-hover: var(--surface-hover);
+  --bg-glass: var(--surface-raised);
+  --bg-glass-strong: var(--surface-hover);
+  --text-primary: var(--ink);
+  --text-secondary: var(--ink-secondary);
+  --text-muted: var(--ink-muted);
+  --text-accent: var(--accent);
+  --accent-primary: var(--accent);
+  --accent-secondary: var(--lb-pink);
+  --accent-tertiary: var(--success);
+  --accent-warning: var(--accent);
+  --accent-error: var(--danger);
+  --accent-success: var(--success);
+  --gradient-primary: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+  --gradient-secondary: linear-gradient(135deg, var(--success) 0%, var(--info) 100%);
+  --gradient-warm: linear-gradient(135deg, var(--accent) 0%, var(--lb-pink) 100%);
+  --gradient-bg: var(--surface);
+  --border-subtle: var(--border);
+
+  --font-main: var(--lb-font);
+  --font-display: var(--lb-font);
+
+  /* impresso, não "app": cantos quase retos */
+  --radius-sm: 2px;
+  --radius-md: 3px;
+  --radius-lg: 4px;
+  --radius-xl: 6px;
+}
+
+#screen-game .btn-primary,
+#screen-game .btn-confirm {
+  background: var(--lb-yellow);
+  color: var(--lb-ink);
+  border: 0;
+  box-shadow: 3px 3px 0 var(--lb-pink);
+  font-weight: 800;
+}
+#screen-game .btn-primary:hover:not(:disabled),
+#screen-game .btn-confirm:hover:not(:disabled) { background: var(--lb-yellow); transform: translate(-1px, -1px); box-shadow: 5px 5px 0 var(--lb-pink); }
+#screen-game .btn-primary:active:not(:disabled),
+#screen-game .btn-confirm:active:not(:disabled) { transform: translate(3px, 3px); box-shadow: 0 0 0 var(--lb-pink); }
+
+/* =================================================================
+   CARREGAMENTO: um cartaz sendo colado
+   ================================================================= */
+#screen-game .game-area { background-color: #24211e; background-image: var(--lb-noise); }
+
+.lb-loading { gap: 26px; }
+.lb-loading-poster {
+  position: relative;
+  width: min(420px, 86vw);
+  padding: 34px 26px 28px;
+  background-color: var(--ink-bg);
+  background-image: var(--lb-grain);
+  color: var(--ink-fg);
+  --ico-hole: var(--ink-bg);
+  transform: rotate(-2deg);
+  box-shadow: 0 24px 34px -18px rgba(0, 0, 0, 0.9);
+  animation: lbSlapMain 0.5s cubic-bezier(0.2, 1.25, 0.5, 1) both;
+}
+.lb-loading-poster .lb-tape { top: -12px; left: 50%; margin-left: -46px; transform: rotate(3deg); }
+.lb-loading-ico { width: 74px; height: 74px; margin-bottom: 14px; }
+.lb-loading-ico svg { width: 100%; height: 100%; }
+.lb-loading-name {
+  font-family: var(--lb-font);
+  font-weight: 900;
+  font-stretch: 62%;
+  font-size: clamp(3rem, 11vw, 4.6rem);
+  line-height: 0.86;
+  text-transform: uppercase;
+  text-shadow: 0.045em 0.03em 0 var(--ink-over);
+  overflow-wrap: break-word;
+}
+.lb-loading-name.is-long { font-size: clamp(2.2rem, 7vw, 3.2rem); }
+.lb-loading-msg { font-family: var(--lb-font); font-weight: 600; font-size: 1.05rem; color: rgba(239, 238, 233, 0.8); }
+
+/* =================================================================
+   RESULTADOS: cartaz preto (vale para todos os jogos)
+   ================================================================= */
+.results-overlay { background-color: rgba(58, 54, 49, 0.9); background-image: var(--lb-noise); }
+.results-overlay .results-card {
+  position: relative;
+  border: 0;
+  border-radius: 0;
+  background-color: var(--lb-ink);
+  background-image: var(--lb-noise);
+  color: var(--lb-paper);
+  transform: rotate(-0.6deg);
+  box-shadow: 0 30px 50px -20px rgba(0, 0, 0, 0.95);
+  font-family: var(--lb-font);
+  overflow-x: hidden;
+}
+.results-overlay .results-card::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  width: 96px;
+  height: 24px;
+  margin-left: -48px;
+  background: var(--lb-tape);
+  transform: rotate(-2deg);
+  pointer-events: none;
+}
+.results-overlay .results-card h2 {
+  margin-top: 8px;
+  font-family: var(--lb-font);
+  font-weight: 900;
+  font-stretch: 62%;
+  font-size: clamp(2.4rem, 7vw, 3.2rem);
+  line-height: 0.9;
+  text-transform: uppercase;
+  color: var(--lb-paper);
+  text-shadow: 0.045em 0.03em 0 var(--lb-pink);
+}
+.results-overlay .result-row {
+  background: transparent;
+  border: 0;
+  border-top: 2px dashed rgba(239, 238, 233, 0.18);
+  border-radius: 0;
+  margin-bottom: 0;
+  padding: 12px 6px;
+}
+.results-overlay .result-rank { font-weight: 900; font-stretch: 62%; font-size: 1.8rem; color: var(--lb-paper); }
+.results-overlay .result-row:nth-child(1) .result-rank { color: var(--lb-yellow); }
+.results-overlay .result-row:nth-child(2) .result-rank { color: var(--lb-pink); }
+.results-overlay .result-row:nth-child(3) .result-rank { color: var(--lb-green); }
+.results-overlay .result-name { font-weight: 700; font-size: 1.05rem; }
+.results-overlay .result-points { font-weight: 900; font-stretch: 80%; color: var(--lb-yellow); }
+.results-overlay .results-card .btn {
+  font-family: var(--lb-font);
+  font-weight: 800;
+  font-stretch: 80%;
+  font-size: 1.15rem;
+  border: 0;
+  border-radius: 2px;
+  background: var(--lb-yellow);
+  color: var(--lb-ink);
+  box-shadow: 4px 4px 0 var(--lb-pink);
+  transition: transform 0.08s, box-shadow 0.08s;
+}
+.results-overlay .results-card .btn:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--lb-pink); background: var(--lb-yellow); }
+.results-overlay .results-card .btn:active { transform: translate(4px, 4px); box-shadow: 0 0 0 var(--lb-pink); }
+.results-overlay #results-waiting-host { font-family: var(--lb-font); color: rgba(239, 238, 233, 0.7) !important; }
+
 @media (max-width: 900px) {
   .lb-room-main { grid-template-columns: minmax(0, 1fr); }
   .lb-roll { position: relative; top: 0; transform: rotate(0.4deg); }

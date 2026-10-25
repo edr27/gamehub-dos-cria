@@ -48,6 +48,30 @@ function getRoomPlayers(roomCode) {
   }));
 }
 
+/**
+ * Cópia do gameState segura para enviar pela rede: remove timers (Timeout/Immediate), funções e
+ * referências circulares. Vários jogos guardam timers no gameState (roundTimer/turnTimer...) e,
+ * enviados crus, fazem o Socket.IO entrar em recursão infinita e derrubar o servidor inteiro.
+ */
+function safeGameState(gs) {
+  if (!gs || typeof gs !== 'object') return gs || null;
+  const seen = new WeakSet();
+  try {
+    return JSON.parse(JSON.stringify(gs, (key, value) => {
+      if (typeof value === 'function') return undefined;
+      if (value && typeof value === 'object') {
+        const ctor = value.constructor && value.constructor.name;
+        if (ctor === 'Timeout' || ctor === 'Immediate') return undefined;
+        if (seen.has(value)) return undefined;
+        seen.add(value);
+      }
+      return value;
+    }));
+  } catch (e) {
+    return { gameId: gs.gameId, phase: gs.phase };
+  }
+}
+
 function broadcastRoomState(roomCode) {
   const room = rooms.get(roomCode);
   if (!room) return;
@@ -55,7 +79,7 @@ function broadcastRoomState(roomCode) {
     code: roomCode,
     players: getRoomPlayers(roomCode),
     currentGame: room.currentGame,
-    gameState: room.gameState,
+    gameState: safeGameState(room.gameState),
     hostId: room.hostId
   });
 }

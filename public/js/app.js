@@ -385,341 +385,22 @@ function getPlayerAvatarSvg(name, index, size = 44) {
   return avatars[idx];
 }
 
+// Ícones de carimbo: uma cor só (currentColor), herdam a tinta do cartaz
 const GAME_ICONS = {
-  'ritmo': `<svg viewBox="0 0 90 90" class="game-svg-icon">
-    <defs>
-      <linearGradient id="drumBody" x1="0%" y1="0%" x2="0%" y2="100%">
-        <stop offset="0%" stop-color="#9333ea"/>
-        <stop offset="100%" stop-color="#4c1d95"/>
-      </linearGradient>
-      <linearGradient id="drumHead" x1="0%" y1="0%" x2="0%" y2="100%">
-        <stop offset="0%" stop-color="#fdf4ff"/>
-        <stop offset="100%" stop-color="#e9d5ff"/>
-      </linearGradient>
-      <filter id="glowRitmo">
-        <feGaussianBlur stdDeviation="3" result="blur"/>
-        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-      </filter>
-    </defs>
-    <path d="M12 36 Q8 45 12 54 M6 30 Q0 45 6 60" stroke="#00f0ff" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.85" filter="url(#glowRitmo)"/>
-    <path d="M78 36 Q82 45 78 54 M84 30 Q90 45 84 60" stroke="#ec4899" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.85" filter="url(#glowRitmo)"/>
-    <line x1="22" y1="20" x2="38" y2="40" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
-    <circle cx="38" cy="40" r="3" fill="#f59e0b"/>
-    <line x1="68" y1="20" x2="52" y2="40" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
-    <circle cx="52" cy="40" r="3" fill="#f59e0b"/>
-    <path d="M22 46 C22 56 68 56 68 46 L68 62 C68 70 22 70 22 62 Z" fill="url(#drumBody)"/>
-    <path d="M25 48 L32 63 M45 49 L45 65 M65 48 L58 63" stroke="#00f0ff" stroke-width="1.8" opacity="0.7"/>
-    <ellipse cx="45" cy="62" rx="23" ry="6" fill="#3b0764"/>
-    <ellipse cx="45" cy="45" rx="23" ry="7.5" fill="url(#drumHead)" stroke="#00f0ff" stroke-width="2.5" filter="url(#glowRitmo)"/>
-    <ellipse cx="45" cy="45" rx="17" ry="5" fill="none" stroke="#d8b4fe" stroke-width="1" stroke-dasharray="3,3"/>
-  </svg>`,
-
-  'pesos-medidas': `<svg viewBox="0 0 90 90" class="game-svg-icon">
-    <defs>
-      <linearGradient id="protGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#00f0ff"/>
-        <stop offset="100%" stop-color="#ec4899"/>
-      </linearGradient>
-      <filter id="glowAngulo">
-        <feGaussianBlur stdDeviation="3.5" result="blur"/>
-        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-      </filter>
-    </defs>
-    <polygon points="20,72 74,72 20,18" fill="rgba(0, 240, 255, 0.12)" stroke="#00f0ff" stroke-width="2" stroke-linejoin="round" opacity="0.6"/>
-    <polygon points="26,67 58,67 26,35" fill="none" stroke="#00f0ff" stroke-width="1.5" opacity="0.4"/>
-    <path d="M22 65 A28 28 0 0 1 78 65 Z" fill="rgba(236, 72, 153, 0.15)" stroke="url(#protGrad)" stroke-width="2.8" filter="url(#glowAngulo)"/>
-    <line x1="50" y1="37" x2="50" y2="42" stroke="#ffffff" stroke-width="1.5"/>
-    <line x1="33" y1="42" x2="36" y2="46" stroke="#ffffff" stroke-width="1.5"/>
-    <line x1="67" y1="42" x2="64" y2="46" stroke="#ffffff" stroke-width="1.5"/>
-    <circle cx="50" cy="65" r="4" fill="#00f0ff" filter="url(#glowAngulo)"/>
-    <line x1="50" y1="65" x2="68" y2="42" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" filter="url(#glowAngulo)"/>
-    <polygon points="68,42 63,45 66,48" fill="#ffffff"/>
-  </svg>`,
-
-  'cronometro-cego': `<svg viewBox="0 0 90 90" class="game-svg-icon">
-    <defs>
-      <linearGradient id="goldRim" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#fef08a"/>
-        <stop offset="40%" stop-color="#eab308"/>
-        <stop offset="100%" stop-color="#ca8a04"/>
-      </linearGradient>
-      <radialGradient id="dialFace" cx="40%" cy="40%" r="60%">
-        <stop offset="0%" stop-color="#ffffff"/>
-        <stop offset="100%" stop-color="#fef9c3"/>
-      </radialGradient>
-      <filter id="glowGold">
-        <feGaussianBlur stdDeviation="3" result="blur"/>
-        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-      </filter>
-    </defs>
-    <circle cx="45" cy="15" r="7" fill="none" stroke="url(#goldRim)" stroke-width="3"/>
-    <rect x="42" y="19" width="6" height="6" rx="1.5" fill="url(#goldRim)"/>
-    <circle cx="45" cy="52" r="28" fill="url(#goldRim)" filter="url(#glowGold)"/>
-    <circle cx="45" cy="52" r="23" fill="url(#dialFace)"/>
-    <line x1="45" y1="33" x2="45" y2="37" stroke="#854d0e" stroke-width="2" stroke-linecap="round"/>
-    <line x1="45" y1="67" x2="45" y2="71" stroke="#854d0e" stroke-width="2" stroke-linecap="round"/>
-    <line x1="26" y1="52" x2="30" y2="52" stroke="#854d0e" stroke-width="2" stroke-linecap="round"/>
-    <line x1="60" y1="52" x2="64" y2="52" stroke="#854d0e" stroke-width="2" stroke-linecap="round"/>
-    <line x1="45" y1="52" x2="45" y2="39" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
-    <line x1="45" y1="52" x2="57" y2="47" stroke="#e11d48" stroke-width="1.8" stroke-linecap="round"/>
-    <circle cx="45" cy="52" r="3" fill="#ca8a04"/>
-    <polygon points="68,26 70,30 74,32 70,34 68,38 66,34 62,32 66,30" fill="#fde047"/>
-    <polygon points="22,34 23,37 26,38 23,39 22,42 21,39 18,38 21,37" fill="#fde047"/>
-  </svg>`,
-
-  'quem-escreveu': `<svg viewBox="0 0 90 90" class="game-svg-icon">
-    <defs>
-      <filter id="noteGlow">
-        <feGaussianBlur stdDeviation="3" result="blur"/>
-        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-      </filter>
-      <linearGradient id="paperGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-        <stop offset="0%" stop-color="#ffffff"/>
-        <stop offset="100%" stop-color="#f1f5f9"/>
-      </linearGradient>
-    </defs>
-    <rect x="25" y="18" width="42" height="54" rx="4" fill="url(#paperGrad)" stroke="#cbd5e1" stroke-width="1.5" transform="rotate(-4 46 45)"/>
-    <line x1="31" y1="36" x2="61" y2="34" stroke="#93c5fd" stroke-width="1.5"/>
-    <line x1="31" y1="44" x2="61" y2="42" stroke="#93c5fd" stroke-width="1.5"/>
-    <line x1="31" y1="52" x2="61" y2="50" stroke="#93c5fd" stroke-width="1.5"/>
-    <line x1="31" y1="60" x2="52" y2="58" stroke="#93c5fd" stroke-width="1.5"/>
-    <circle cx="28" cy="22" r="2.5" fill="#3b82f6"/>
-    <circle cx="36" cy="21.5" r="2.5" fill="#3b82f6"/>
-    <circle cx="44" cy="21" r="2.5" fill="#3b82f6"/>
-    <circle cx="52" cy="20.5" r="2.5" fill="#3b82f6"/>
-    <circle cx="60" cy="20" r="2.5" fill="#3b82f6"/>
-    <text x="32" y="32" font-family="Space Grotesk, sans-serif" font-weight="900" font-size="14" fill="#fbbf24" filter="url(#noteGlow)">?</text>
-    <text x="46" y="29" font-family="Space Grotesk, sans-serif" font-weight="900" font-size="16" fill="#38bdf8" filter="url(#noteGlow)">?</text>
-    <g transform="translate(48, 22) rotate(42)">
-      <polygon points="0,0 8,0 4,32" fill="#f59e0b"/>
-      <polygon points="0,0 8,0 4,-6" fill="#f43f5e"/>
-      <polygon points="3,26 5,26 4,33" fill="#1e293b"/>
-    </g>
-  </svg>`,
-
-  'ia-falsa': `<svg viewBox="0 0 90 90" class="game-svg-icon">
-    <defs>
-      <linearGradient id="frameGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#38bdf8"/>
-        <stop offset="100%" stop-color="#1d4ed8"/>
-      </linearGradient>
-      <filter id="eyeGlow">
-        <feGaussianBlur stdDeviation="3.5" result="blur"/>
-        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-      </filter>
-    </defs>
-    <rect x="18" y="20" width="50" height="42" rx="5" fill="#0f172a" stroke="url(#frameGrad)" stroke-width="2.5"/>
-    <clipPath id="picClip">
-      <rect x="21" y="23" width="44" height="36" rx="3"/>
-    </clipPath>
-    <g clip-path="url(#picClip)">
-      <rect x="20" y="20" width="48" height="40" fill="#38bdf8"/>
-      <circle cx="30" cy="30" r="4.5" fill="#fde047"/>
-      <polygon points="18,59 36,38 52,59" fill="#15803d"/>
-      <polygon points="34,59 50,33 66,59" fill="#22c55e"/>
-    </g>
-    <g transform="translate(56, 54)" filter="url(#eyeGlow)">
-      <circle cx="12" cy="12" r="14" fill="#0b1329" stroke="#00f0ff" stroke-width="2.5"/>
-      <ellipse cx="12" cy="12" rx="9" ry="6" fill="#00f0ff" opacity="0.3"/>
-      <circle cx="12" cy="12" r="5" fill="#00f0ff"/>
-      <circle cx="12" cy="12" r="2.5" fill="#ffffff"/>
-      <line x1="0" y1="12" x2="5" y2="12" stroke="#00f0ff" stroke-width="2"/>
-      <line x1="19" y1="12" x2="24" y2="12" stroke="#00f0ff" stroke-width="2"/>
-    </g>
-  </svg>`,
-
-  'consenso': `<svg viewBox="0 0 90 90" class="game-svg-icon">
-    <defs>
-      <linearGradient id="suitLeft" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#3b82f6"/>
-        <stop offset="100%" stop-color="#1d4ed8"/>
-      </linearGradient>
-      <linearGradient id="suitRight" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#6366f1"/>
-        <stop offset="100%" stop-color="#4338ca"/>
-      </linearGradient>
-      <filter id="handGlow">
-        <feGaussianBlur stdDeviation="3.5" result="blur"/>
-        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-      </filter>
-    </defs>
-    <circle cx="45" cy="45" r="22" fill="rgba(0, 229, 255, 0.18)" filter="url(#handGlow)"/>
-    <path d="M12 34 L26 36 L24 56 L12 52 Z" fill="url(#suitLeft)"/>
-    <rect x="25" y="36" width="4" height="18" rx="2" fill="#ffffff"/>
-    <path d="M78 34 L64 36 L66 56 L78 52 Z" fill="url(#suitRight)"/>
-    <rect x="61" y="36" width="4" height="18" rx="2" fill="#ffffff"/>
-    <path d="M29 39 C34 39 40 43 46 47 C43 51 38 52 35 52 L29 46 Z" fill="#fed7aa"/>
-    <path d="M61 39 C56 39 50 43 44 47 C47 51 52 52 55 52 L61 46 Z" fill="#fcd34d"/>
-    <ellipse cx="45" cy="48" rx="9" ry="6.5" fill="#fbbf24" stroke="#d97706" stroke-width="1.5"/>
-    <path d="M38 45 Q45 51 52 45" stroke="#b45309" stroke-width="1.8" fill="none"/>
-    <polygon points="45,22 47,26 51,28 47,30 45,34 43,30 39,28 43,26" fill="#00e5ff" filter="url(#handGlow)"/>
-  </svg>`,
-
-  'quao-grande': `<svg viewBox="0 0 90 90" class="game-svg-icon">
-    <defs>
-      <linearGradient id="tapeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#fde047"/>
-        <stop offset="100%" stop-color="#eab308"/>
-      </linearGradient>
-      <filter id="tapeGlow">
-        <feGaussianBlur stdDeviation="2.5" result="blur"/>
-        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-      </filter>
-    </defs>
-    <rect x="16" y="24" width="42" height="42" rx="12" fill="#1e293b" stroke="#facc15" stroke-width="3"/>
-    <circle cx="37" cy="45" r="14" fill="url(#tapeGrad)"/>
-    <circle cx="37" cy="45" r="6" fill="#0f172a"/>
-    <rect x="56" y="41" width="22" height="8" rx="1" fill="#fef08a" filter="url(#tapeGlow)"/>
-    <line x1="61" y1="41" x2="61" y2="45" stroke="#1e293b" stroke-width="1.5"/>
-    <line x1="67" y1="41" x2="67" y2="46" stroke="#1e293b" stroke-width="1.8"/>
-    <line x1="73" y1="41" x2="73" y2="45" stroke="#1e293b" stroke-width="1.5"/>
-    <rect x="76" y="39" width="3" height="12" rx="1" fill="#94a3b8"/>
-  </svg>`,
-
-  'temperatura': `<svg viewBox="0 0 90 90" class="game-svg-icon">
-    <defs>
-      <linearGradient id="flameGrad" x1="0%" y1="100%" x2="0%" y2="0%">
-        <stop offset="0%" stop-color="#f97316"/>
-        <stop offset="50%" stop-color="#ef4444"/>
-        <stop offset="100%" stop-color="#fde047"/>
-      </linearGradient>
-      <linearGradient id="iceGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-        <stop offset="0%" stop-color="#00f0ff"/>
-        <stop offset="100%" stop-color="#3b82f6"/>
-      </linearGradient>
-      <filter id="tempGlow">
-        <feGaussianBlur stdDeviation="3.5" result="blur"/>
-        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-      </filter>
-    </defs>
-    <path d="M22 66 C14 56 16 42 26 34 C25 44 32 46 32 38 C36 48 34 60 22 66 Z" fill="url(#flameGrad)" filter="url(#tempGlow)"/>
-    <g transform="translate(64, 46)" stroke="url(#iceGrad)" stroke-width="2.5" stroke-linecap="round" filter="url(#tempGlow)">
-      <line x1="0" y1="-14" x2="0" y2="14"/>
-      <line x1="-12" y1="0" x2="12" y2="0"/>
-      <line x1="-8" y1="-8" x2="8" y2="8"/>
-      <line x1="-8" y1="8" x2="8" y2="-8"/>
-    </g>
-    <rect x="41" y="16" width="8" height="42" rx="4" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
-    <circle cx="45" cy="62" r="9" fill="#ef4444" stroke="#f8fafc" stroke-width="1.5"/>
-    <rect x="43" y="32" width="4" height="26" fill="#ef4444"/>
-  </svg>`,
-
-  'historia-cadeia': `<svg viewBox="0 0 90 90" class="game-svg-icon">
-    <defs>
-      <linearGradient id="bookCover" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stop-color="#06b6d4"/>
-        <stop offset="100%" stop-color="#8b5cf6"/>
-      </linearGradient>
-      <filter id="magicGlow">
-        <feGaussianBlur stdDeviation="3.5" result="blur"/>
-        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-      </filter>
-    </defs>
-    <path d="M45 54 C35 50 20 52 14 57 L14 30 C20 26 35 24 45 28 Z" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
-    <path d="M45 54 C55 50 70 52 76 57 L76 30 C70 26 55 24 45 28 Z" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
-    <path d="M45 54 L45 28" stroke="#8b5cf6" stroke-width="2.5"/>
-    <path d="M12 59 C20 54 35 52 45 56 C55 52 70 54 78 59" stroke="url(#bookCover)" stroke-width="3" fill="none"/>
-    <ellipse cx="38" cy="24" rx="8" ry="4.5" fill="none" stroke="#00f0ff" stroke-width="2.5" transform="rotate(-30 38 24)" filter="url(#magicGlow)"/>
-    <ellipse cx="46" cy="18" rx="8" ry="4.5" fill="none" stroke="#a855f7" stroke-width="2.5" transform="rotate(25 46 18)" filter="url(#magicGlow)"/>
-    <ellipse cx="54" cy="23" rx="8" ry="4.5" fill="none" stroke="#00f0ff" stroke-width="2.5" transform="rotate(-15 54 23)" filter="url(#magicGlow)"/>
-  </svg>`,
-
-  'estime': `<svg viewBox="0 0 90 90" class="game-svg-icon">
-    <defs>
-      <linearGradient id="boxTop" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#d97706"/>
-        <stop offset="100%" stop-color="#b45309"/>
-      </linearGradient>
-      <linearGradient id="boxSide" x1="0%" y1="0%" x2="0%" y2="100%">
-        <stop offset="0%" stop-color="#b45309"/>
-        <stop offset="100%" stop-color="#78350f"/>
-      </linearGradient>
-      <filter id="boxGlow">
-        <feGaussianBlur stdDeviation="3" result="blur"/>
-        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-      </filter>
-    </defs>
-    <polygon points="45,18 72,32 45,46 18,32" fill="url(#boxTop)"/>
-    <polygon points="18,32 45,46 45,72 18,58" fill="url(#boxSide)"/>
-    <polygon points="45,46 72,32 72,58 45,72" fill="#92400e"/>
-    <polygon points="45,18 50,21 23,35 18,32" fill="#fef08a" opacity="0.6"/>
-    <path d="M12 66 L78 66" stroke="#facc15" stroke-width="5" stroke-linecap="round" filter="url(#boxGlow)"/>
-    <line x1="24" y1="64" x2="24" y2="68" stroke="#1e293b" stroke-width="1.5"/>
-    <line x1="36" y1="64" x2="36" y2="68" stroke="#1e293b" stroke-width="1.5"/>
-    <line x1="48" y1="64" x2="48" y2="68" stroke="#1e293b" stroke-width="1.5"/>
-    <line x1="60" y1="64" x2="60" y2="68" stroke="#1e293b" stroke-width="1.5"/>
-  </svg>`,
-
-  'death-ball': `<svg viewBox="0 0 90 90" class="game-svg-icon">
-    <defs>
-      <linearGradient id="skullFlame" x1="0%" y1="100%" x2="0%" y2="0%">
-        <stop offset="0%" stop-color="#00f0ff"/>
-        <stop offset="60%" stop-color="#8b5cf6"/>
-        <stop offset="100%" stop-color="#ec4899"/>
-      </linearGradient>
-      <filter id="flameGlow">
-        <feGaussianBlur stdDeviation="4.5" result="blur"/>
-        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-      </filter>
-    </defs>
-    <path d="M22 45 C15 30 25 15 45 8 C55 18 68 15 68 35 C78 48 70 65 60 70 C40 85 28 65 22 45 Z" fill="url(#skullFlame)" filter="url(#flameGlow)" opacity="0.85"/>
-    <ellipse cx="45" cy="46" rx="18" ry="16" fill="#f8fafc"/>
-    <rect x="36" y="56" width="18" height="11" rx="3" fill="#e2e8f0"/>
-    <line x1="41" y1="57" x2="41" y2="66" stroke="#475569" stroke-width="1.5"/>
-    <line x1="45" y1="57" x2="45" y2="66" stroke="#475569" stroke-width="1.5"/>
-    <line x1="49" y1="57" x2="49" y2="66" stroke="#475569" stroke-width="1.5"/>
-    <ellipse cx="37" cy="46" rx="5" ry="6" fill="#1e1b4b"/>
-    <ellipse cx="53" cy="46" rx="5" ry="6" fill="#1e1b4b"/>
-    <circle cx="37" cy="46" r="2" fill="#00f0ff" filter="url(#flameGlow)"/>
-    <circle cx="53" cy="46" r="2" fill="#00f0ff" filter="url(#flameGlow)"/>
-    <polygon points="45,52 43,56 47,56" fill="#475569"/>
-  </svg>`,
-
-  'cartas-contra-humanidade': `<svg viewBox="0 0 90 90" class="game-svg-icon">
-    <defs>
-      <filter id="cardsGlow">
-        <feGaussianBlur stdDeviation="3.5" result="blur"/>
-        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-      </filter>
-    </defs>
-    <g transform="translate(34, 46) rotate(-14) translate(-34, -46)">
-      <rect x="18" y="20" width="30" height="44" rx="4" fill="#0f172a" stroke="#475569" stroke-width="1.5" filter="url(#cardsGlow)"/>
-      <circle cx="33" cy="40" r="7" fill="none" stroke="#f8fafc" stroke-width="1.5"/>
-      <circle cx="31" cy="38" r="1" fill="#f8fafc"/>
-      <circle cx="35" cy="38" r="1" fill="#f8fafc"/>
-      <path d="M30 43 Q33 40 36 43" stroke="#f8fafc" stroke-width="1.5" fill="none"/>
-    </g>
-    <g transform="translate(56, 46) rotate(12) translate(-56, -46)">
-      <rect x="42" y="20" width="30" height="44" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#cardsGlow)"/>
-      <circle cx="57" cy="40" r="7" fill="none" stroke="#0f172a" stroke-width="1.5"/>
-      <circle cx="55" cy="38" r="1" fill="#0f172a"/>
-      <circle cx="59" cy="38" r="1" fill="#0f172a"/>
-      <path d="M54 41 Q57 45 60 41" stroke="#0f172a" stroke-width="1.5" fill="none"/>
-    </g>
-  </svg>`,
-
-  'rinha': `<svg viewBox="0 0 90 90" class="game-svg-icon">
-    <defs>
-      <linearGradient id="bladeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#00e5ff"/>
-        <stop offset="50%" stop-color="#ffd700"/>
-        <stop offset="100%" stop-color="#ff1744"/>
-      </linearGradient>
-      <filter id="rinhaGlow">
-        <feGaussianBlur stdDeviation="3.5" result="blur"/>
-        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-      </filter>
-    </defs>
-    <!-- Espadas Cruzadas de Duelo -->
-    <path d="M22 22 L68 68" stroke="url(#bladeGrad)" stroke-width="4.5" stroke-linecap="round" filter="url(#rinhaGlow)"/>
-    <path d="M68 22 L22 68" stroke="url(#bladeGrad)" stroke-width="4.5" stroke-linecap="round" filter="url(#rinhaGlow)"/>
-    <line x1="28" y1="36" x2="36" y2="28" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round"/>
-    <line x1="62" y1="36" x2="54" y2="28" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round"/>
-    <line x1="28" y1="54" x2="36" y2="62" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round"/>
-    <line x1="62" y1="54" x2="54" y2="62" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round"/>
-    <circle cx="45" cy="45" r="5" fill="#ffd700" filter="url(#rinhaGlow)"/>
-    <path d="M45 35 L47 43 L55 45 L47 47 L45 55 L43 47 L35 45 L43 43 Z" fill="#ffffff"/>
-  </svg>`
+  'ritmo': `<svg viewBox="0 0 90 90" class="game-svg-icon lb-ico" aria-hidden="true"><g stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"><ellipse cx="45" cy="38" rx="26" ry="9"/><path d="M19 38v22c0 5 12 9 26 9s26-4 26-9V38"/><path d="M28 18l14 16M62 18L48 34"/><path d="M19 52l26 8 26-8" stroke-width="4"/></g></svg>`,
+  'pesos-medidas': `<svg viewBox="0 0 90 90" class="game-svg-icon lb-ico" aria-hidden="true"><g stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M14 64a31 31 0 0 1 62 0z"/><path d="M45 64L63 40"/><circle cx="45" cy="64" r="3" fill="currentColor" stroke="none"/><path d="M24 54l4 3M45 41v5M66 54l-4 3" stroke-width="4"/></g></svg>`,
+  'cronometro-cego': `<svg viewBox="0 0 90 90" class="game-svg-icon lb-ico" aria-hidden="true"><g stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"><circle cx="45" cy="52" r="24"/><path d="M38 20h14M45 20v8M64 30l5-5"/><path d="M45 52V38"/><path d="M16 58l58-18" stroke-width="8"/></g></svg>`,
+  'quem-escreveu': `<svg viewBox="0 0 90 90" class="game-svg-icon lb-ico" aria-hidden="true"><g stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M58 14l18 18-34 34-22 4 4-22z"/><path d="M50 22l18 18"/><path d="M24 66l8-8"/><circle cx="24" cy="66" r="2" fill="currentColor" stroke="none"/></g></svg>`,
+  'ia-falsa': `<svg viewBox="0 0 90 90" class="game-svg-icon lb-ico" aria-hidden="true"><g stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"><rect x="14" y="18" width="62" height="54" rx="2"/><path d="M14 62l18-18 12 12 10-10 22 22"/><circle cx="58" cy="34" r="6" fill="currentColor" stroke="none"/></g></svg>`,
+  'consenso': `<svg viewBox="0 0 90 90" class="game-svg-icon lb-ico" aria-hidden="true"><g stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M12 22h38v24H30l-10 9v-9h-8z"/><path d="M40 40h38v24h-8v9l-10-9H40z"/></g></svg>`,
+  'quao-grande': `<svg viewBox="0 0 90 90" class="game-svg-icon lb-ico" aria-hidden="true"><g stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M14 58L58 14l18 18-44 44z"/><path d="M29 43l7 7M38 34l5 5M47 25l7 7M23 49l4 4M32 40l4 4M41 31l4 4" stroke-width="4"/></g></svg>`,
+  'temperatura': `<svg viewBox="0 0 90 90" class="game-svg-icon lb-ico" aria-hidden="true"><g stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M38 56V18a7 7 0 0 1 14 0v38"/><circle cx="45" cy="64" r="12"/><circle cx="45" cy="64" r="6" fill="currentColor" stroke="none"/><path d="M45 58V28"/><path d="M60 24h8M60 34h6M60 44h8" stroke-width="4"/></g></svg>`,
+  'historia-cadeia': `<svg viewBox="0 0 90 90" class="game-svg-icon lb-ico" aria-hidden="true"><g stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M45 26c-8-6-20-7-31-4v42c11-3 23-2 31 4 8-6 20-7 31-4V22c-11-3-23-2-31 4z"/><path d="M45 26v42"/></g></svg>`,
+  'estime': `<svg viewBox="0 0 90 90" class="game-svg-icon lb-ico" aria-hidden="true"><g stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M45 20l26 12v26L45 70 19 58V32z"/><path d="M19 32l26 12 26-12M45 44v26"/><path d="M78 30v30M74 34l4-4 4 4M74 56l4 4 4-4" stroke-width="4"/></g></svg>`,
+  'death-ball': `<svg viewBox="0 0 90 90" class="game-svg-icon lb-ico" aria-hidden="true"><g stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"><circle cx="52" cy="46" r="24" fill="currentColor" stroke="none"/><circle cx="44" cy="44" r="5" fill="var(--ico-hole, #efeee9)" stroke="none"/><circle cx="60" cy="44" r="5" fill="var(--ico-hole, #efeee9)" stroke="none"/><path d="M8 34h12M4 46h14M8 58h12"/></g></svg>`,
+  'cartas-contra-humanidade': `<svg viewBox="0 0 90 90" class="game-svg-icon lb-ico" aria-hidden="true"><g stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"><rect x="14" y="22" width="34" height="48" rx="3" transform="rotate(-12 31 46)" fill="currentColor" stroke="none"/><rect x="42" y="18" width="34" height="48" rx="3" transform="rotate(10 59 42)"/></g></svg>`,
+  'digite-direito': `<svg viewBox="0 0 90 90" class="game-svg-icon lb-ico" aria-hidden="true"><g stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"><circle cx="45" cy="45" r="28"/><circle cx="45" cy="27" r="5" fill="currentColor" stroke="none"/><circle cx="60.6" cy="36" r="5"/><circle cx="60.6" cy="54" r="5"/><circle cx="45" cy="63" r="5"/><circle cx="29.4" cy="54" r="5"/><circle cx="29.4" cy="36" r="5"/></g></svg>`,
+  'rinha': `<svg viewBox="0 0 90 90" class="game-svg-icon lb-ico" aria-hidden="true"><g stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M20 20l44 44M70 20L26 64"/><path d="M58 68l10-10M22 58l10 10" /></g></svg>`
 };
 
 // ==================== RENDER PLAYERS & RANKING ====================
@@ -912,10 +593,16 @@ socket.on('game:starting', (data) => {
 
   // Mostrar tela do jogo com loading
   showScreen('game');
+  const idx = Math.max(0, (state.gameList || []).findIndex(g => g.id === data.gameId));
+  const ink = LB_INKS[idx % LB_INKS.length];
   DOM.gameArea.innerHTML = `
-    <div class="game-loading">
-      <div class="spinner"></div>
-      <p>Preparando ${data.icon} ${data.gameName}...</p>
+    <div class="game-loading lb-loading">
+      <div class="lb-loading-poster ink-${ink}">
+        <span class="lb-tape" aria-hidden="true"></span>
+        <div class="lb-loading-ico">${GAME_ICONS[data.gameId] || ''}</div>
+        <div class="lb-loading-name${data.gameName.length > 12 ? ' is-long' : ''}">${escapeHtml(data.gameName)}</div>
+      </div>
+      <p class="lb-loading-msg">Colando o cartaz… o jogo começa em instantes.</p>
     </div>
   `;
 });

@@ -43,6 +43,8 @@ Estado global em memória:
 - `player = { id, name, score, isHost, connected }` (alguns jogos leem `player.color`, que nunca é definida)
 
 Funções utilitárias: `generateRoomCode()`, `getRoomPlayers()`, `broadcastRoomState(roomCode)`.
+`broadcastRoomState` envia `safeGameState(room.gameState)`: cópia sem timers/funções/ciclos. Antes, jogos com
+`roundTimer`/`turnTimer` no gameState derrubavam o servidor inteiro (recursão no Socket.IO) num `room:state`.
 
 Eventos cliente → servidor:
 
@@ -109,7 +111,11 @@ Fonte única **Archivo** variável (Google Fonts): largura 62% nos títulos de c
 Cada jogo do lobby vira um cartaz (`renderGamesGrid` no app.js: tinta pelo índice, inclinação estável por id,
 `LB_FEATURED` ocupa 2 colunas, Enter/Espaço iniciam). Ranking = "lista de chamada" (`renderPlayers`, carimbos `stampAvatar`).
 Assinatura: sobreimpressão desalinhada (text-shadow na cor `--ink-over`) só em títulos. Movimento só na abertura da home.
-As telas internas dos jogos continuam usando o main.css (tema escuro).
+Telas dos jogos: `hub.css` remapeia as variáveis do main.css **dentro de `#screen-game`** (concreto quente, amarelo
+`--accent: #ffd400`, Archivo, raios de 2–6 px) e redeclara os aliases legados ali — no `:root` eles já vêm resolvidos.
+Jogos novos devem usar essas variáveis em vez de cores soltas. Carregamento = cartaz sendo colado (`game:starting` no app.js);
+resultados = "cartaz preto" (`.results-card`, vale para todos os jogos). Ícones em `GAME_ICONS` são carimbos de uma cor
+(`currentColor`, furos em `--ico-hole`). Alguns jogos antigos ainda têm cores neon fixas no próprio JS (ex.: Ritmo).
 
 ## CSS (main.css)
 
