@@ -3,127 +3,104 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>GameHub — Jogos Multiplayer com Amigos</title>
+  <title>GameHub dos Cria</title>
+  <meta name="theme-color" content="#3a3631">
   <meta name="description" content="Hub de jogos multiplayer em tempo real para jogar com amigos no navegador. Sem instalação!">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/main.css?v=11">
+  <link rel="stylesheet" href="/css/hub.css?v=3">
   <link rel="stylesheet" href="/css/digite-direito.css?v=3">
   <link rel="stylesheet" href="/css/death-ball.css?v=2">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
 </head>
 <body>
-  <!-- ==================== TELA INICIAL ==================== -->
-  <div id="screen-home" class="screen active">
-    <div class="home-bg">
-      <div class="floating-shapes">
-        <div class="shape shape-1"></div>
-        <div class="shape shape-2"></div>
-        <div class="shape shape-3"></div>
-        <div class="shape shape-4"></div>
-        <div class="shape shape-5"></div>
-      </div>
-    </div>
-    <div class="home-container">
-      <div class="logo-section">
-        <div class="logo-icon">🎮</div>
-        <h1 class="logo-text">Game<span class="logo-highlight">Hub</span></h1>
-        <p class="logo-tagline">Jogos multiplayer com amigos — direto no navegador!</p>
+  <!-- ==================== TELA INICIAL (muro de lambe-lambe) ==================== -->
+  <div id="screen-home" class="screen active lb-wall">
+    <div class="lb-home">
+      <div class="lb-backposters" aria-hidden="true">
+        <div class="lb-bp ink-pink" style="--x:4%;--y:6%;--r:-4deg;--d:0ms">Death<br>Ball</div>
+        <div class="lb-bp ink-yellow" style="--x:70%;--y:3%;--r:3deg;--d:70ms">Digite<br>Direito</div>
+        <div class="lb-bp ink-blue" style="--x:76%;--y:56%;--r:-2deg;--d:140ms">Cartas</div>
+        <div class="lb-bp ink-green" style="--x:2%;--y:60%;--r:2.5deg;--d:210ms">Consenso</div>
+        <div class="lb-bp ink-paper" style="--x:38%;--y:78%;--r:-1deg;--d:280ms">Quem<br>escreveu?</div>
       </div>
 
-      <div class="home-card">
-        <div class="input-group">
+      <main class="lb-poster lb-poster-main">
+        <span class="lb-tape lb-tape-l" aria-hidden="true"></span>
+        <span class="lb-tape lb-tape-r" aria-hidden="true"></span>
+        <h1 class="lb-title"><span class="lb-title-a">GameHub</span><span class="lb-title-b">dos Cria</span></h1>
+        <p class="lb-lede">13 jogos pra jogar com a galera, cada um no próprio celular ou PC. Crie uma sala e mande o código no grupo.</p>
+
+        <div class="lb-field">
           <label for="player-name">Seu nome</label>
-          <input type="text" id="player-name" placeholder="Digite seu nome..." maxlength="20" autocomplete="off">
+          <input type="text" id="player-name" placeholder="Como a galera te chama" maxlength="20" autocomplete="off">
         </div>
+        <button id="btn-create-room" class="lb-btn lb-btn-ink">Criar sala</button>
 
-        <div class="home-actions">
-          <button id="btn-create-room" class="btn btn-primary btn-lg">
-            <span class="btn-icon">✨</span>
-            Criar Sala
-          </button>
-          <div class="divider"><span>ou</span></div>
-          <div class="join-row">
-            <input type="text" id="room-code-input" placeholder="CÓDIGO" maxlength="5" class="room-code-field" autocomplete="off">
-            <button id="btn-join-room" class="btn btn-secondary btn-lg">
-              <span class="btn-icon">🚪</span>
-              Entrar
-            </button>
+        <div class="lb-field lb-join">
+          <label for="room-code-input">Já tem um código?</label>
+          <div class="lb-join-row">
+            <input type="text" id="room-code-input" placeholder="ABCDE" maxlength="5" class="lb-code-input" autocomplete="off" autocapitalize="characters">
+            <button id="btn-join-room" class="lb-btn lb-btn-line">Entrar</button>
           </div>
         </div>
-      </div>
-
-      <div class="home-footer">
-        <p>📱 Funciona no celular • ⚡ Tempo real • 🎯 13 jogos</p>
-      </div>
+      </main>
     </div>
   </div>
 
   <!-- ==================== TELA DA SALA (LOBBY) ==================== -->
-  <div id="screen-room" class="screen">
-    <div class="room-layout">
-      <!-- Header da sala -->
-      <header class="room-header">
-        <button id="btn-leave-room" class="btn btn-leave">← Sair</button>
-        <div class="room-code-display">
-          <span class="room-code-label">SALA</span>
-          <div id="btn-copy-code" class="room-code-badge" title="Clique para copiar o código">
-            <span id="display-room-code" class="room-code-value">XXXXX</span>
-            <span class="room-code-copy-icon">📋</span>
-          </div>
-        </div>
-        <div class="room-header-right">
-          <div id="header-avatars-row" class="header-avatars-row"></div>
-          <div class="room-player-count">
-            <span id="player-count">0</span>/8 👥
-          </div>
+  <div id="screen-room" class="screen lb-wall">
+    <div class="room-layout lb-room">
+      <header class="lb-room-top">
+        <button id="btn-leave-room" class="lb-btn lb-btn-wall">Sair da sala</button>
+        <button id="btn-copy-code" class="lb-ticket" title="Copiar o código da sala">
+          <span class="lb-ticket-k">Sala</span>
+          <span id="display-room-code" class="lb-ticket-code">XXXXX</span>
+          <span class="lb-ticket-hint">toque para copiar</span>
+        </button>
+        <div class="lb-people">
+          <div id="header-avatars-row" class="lb-people-row"></div>
+          <span class="lb-people-count"><span id="player-count">0</span> na sala</span>
         </div>
       </header>
 
-      <!-- Conteúdo principal -->
-      <main class="room-main">
-        <!-- Painel de jogadores e ranking -->
-        <section class="players-panel">
-          <div class="panel-header ranking-panel-header">
-            <h2 class="ranking-panel-title">🏆 Ranking Geral</h2>
-            <button id="btn-reset-scores" class="btn btn-reset-ranking host-only">🔄 Reset</button>
+      <main class="lb-room-main">
+        <section class="lb-roll" aria-labelledby="lb-roll-title">
+          <div class="lb-roll-head">
+            <h2 id="lb-roll-title">Ranking da noite</h2>
+            <button id="btn-reset-scores" class="lb-mini host-only">Zerar pontos</button>
           </div>
-          <div id="players-list" class="players-list">
-            <!-- Renderizado via JS -->
-          </div>
+          <div id="players-list" class="lb-roll-list"></div>
         </section>
 
-        <!-- Seleção de jogos -->
-        <section class="games-panel">
-          <div class="panel-header games-panel-header">
-            <h2 class="games-panel-title">🎲 Jogos</h2>
-            <span id="host-hint" class="host-hint">✨ Você é o Host — escolha um jogo! 👑</span>
+        <section class="lb-games" aria-labelledby="lb-games-title">
+          <div class="lb-games-head">
+            <h2 id="lb-games-title">Escolha o jogo</h2>
+            <span id="host-hint" class="lb-host-hint"></span>
           </div>
-          <div id="games-grid" class="games-grid">
-            <!-- Renderizado via JS -->
-          </div>
+          <div id="games-grid" class="lb-grid"></div>
         </section>
       </main>
 
-      <!-- Chat flutuante moderno no canto inferior direito -->
-      <aside class="floating-chat-widget">
+      <!-- Chat flutuante -->
+      <aside class="floating-chat-widget lb-chat">
         <div id="chat-container" class="floating-chat-container hidden">
           <div class="chat-header">
-            <div class="chat-title"><span>💬</span> Chat da Sala</div>
+            <div class="chat-title">Conversa da sala</div>
             <button id="btn-close-chat" class="btn-close-chat" title="Fechar">✕</button>
           </div>
           <div id="chat-messages" class="chat-messages"></div>
           <div class="chat-input-row">
-            <input type="text" id="chat-input" placeholder="Mensagem..." maxlength="200" autocomplete="off">
-            <button id="btn-send-chat" class="btn btn-primary btn-sm">➤</button>
+            <input type="text" id="chat-input" placeholder="Mandar mensagem" maxlength="200" autocomplete="off">
+            <button id="btn-send-chat" class="lb-btn lb-btn-ink lb-btn-sm">Enviar</button>
           </div>
         </div>
-        <div class="floating-chat-toggle" id="chat-toggle" title="Abrir Chat">
-          <span class="chat-toggle-icon">💬</span>
+        <button class="floating-chat-toggle" id="chat-toggle" title="Abrir conversa">
           <span class="chat-toggle-text">Chat</span>
           <span id="chat-badge" class="chat-badge hidden">0</span>
-        </div>
+        </button>
       </aside>
     </div>
   </div>
@@ -132,7 +109,7 @@
   <div id="screen-game" class="screen">
     <div class="game-layout">
       <header class="game-header">
-        <button id="btn-back-lobby" class="btn btn-ghost btn-sm host-only">← Lobby</button>
+        <button id="btn-back-lobby" class="btn btn-ghost btn-sm host-only">Voltar ao lobby</button>
         <div class="game-title-bar">
           <span id="game-icon" class="game-current-icon"></span>
           <span id="game-title" class="game-current-title"></span>
@@ -168,7 +145,7 @@
   <!-- Scripts -->
   <script src="/socket.io/socket.io.js"></script>
   <script src="/js/audio.js?v=6"></script>
-  <script src="/js/app.js?v=11"></script>
+  <script src="/js/app.js?v=12"></script>
   <script src="/js/games/cronometro-cego.js?v=2"></script>
   <script src="/js/games/consenso.js?v=3"></script>
   <script src="/js/games/temperatura.js?v=2"></script>

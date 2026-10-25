@@ -20,6 +20,7 @@ server/death-ball.js           Servidor autoritativo do Death Ball v2 (exporta {
 data/cartas_cards.json         Baralho: blackCards (364: {id,text,pick}) e whiteCards (1254: {id,text}), textos em MAIÚSCULAS
 public/index.html              Página única com 3 telas (home, room, game) e a lista de <script>
 public/css/main.css            ~5.000 linhas, estilos globais + uma seção por jogo
+public/css/hub.css             Identidade "muro de lambe-lambe": home, lobby, chat, cabeçalho do jogo e toasts
 public/css/digite-direito.css  Estilos do Digite Direito v4 (papel, revólver, pistas de corrida, resultados)
 public/js/audio.js             Define a const global AudioEngine (Web Audio, sons procedurais)
 public/js/app.js               Cliente principal (hub): telas, salas, chat, lobby, window.GameHub
@@ -98,6 +99,17 @@ Depois de pontuar, chamar `broadcastRoomState(roomCode)`.
 - `AudioEngine`: `click, hover, success, error, notification, tap, beat, countdown, gameStart, gameEnd, correct,
   wrong, hit, powerHit, explosion, reveal, tick, drumKick, drumSnare, drumHiHat, drumTom, drumPlay(inst), drumBeat(inst),
   clash, whiff, wallBounce, lockOn, dash, perfectParry, heartbeat`. Instrumentos do Ritmo: `kick, snare, hihat, tom`.
+
+## Identidade visual do hub (hub.css)
+
+Home e lobby são um "muro de lambe-lambe": concreto texturizado com cartazes colados em tinta fluorescente.
+Tokens `--lb-*` em `hub.css` (muro `#3a3631`, papel `#efeee9`, tinta `#191714`, rosa `#ff3d8b`, amarelo `#ffd400`,
+verde `#19e36b`, azul `#2448ff`); classes de tinta `.ink-pink/yellow/green/blue/paper` definem `--ink-bg/--ink-fg/--ink-over`.
+Fonte única **Archivo** variável (Google Fonts): largura 62% nos títulos de cartaz, 100% na interface, 125% no código da sala.
+Cada jogo do lobby vira um cartaz (`renderGamesGrid` no app.js: tinta pelo índice, inclinação estável por id,
+`LB_FEATURED` ocupa 2 colunas, Enter/Espaço iniciam). Ranking = "lista de chamada" (`renderPlayers`, carimbos `stampAvatar`).
+Assinatura: sobreimpressão desalinhada (text-shadow na cor `--ink-over`) só em títulos. Movimento só na abertura da home.
+As telas internas dos jogos continuam usando o main.css (tema escuro).
 
 ## CSS (main.css)
 

@@ -178,10 +178,14 @@ DOM.btnLeaveRoom.addEventListener('click', () => {
 });
 
 DOM.btnCopyCode.addEventListener('click', () => {
-  navigator.clipboard.writeText(state.roomCode).then(() => {
-    showToast('Código copiado! 📋', 'success');
+  const done = () => {
+    showToast(`Código ${state.roomCode} copiado. Cola no grupo da galera.`, 'success');
     AudioEngine.click();
-  });
+    DOM.btnCopyCode.classList.remove('is-copied'); void DOM.btnCopyCode.offsetWidth;
+    DOM.btnCopyCode.classList.add('is-copied');
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(state.roomCode).then(done, done);
+  else done();
 });
 
 DOM.btnResetScores.addEventListener('click', () => {
@@ -205,7 +209,7 @@ function updateHostVisibility() {
 
   const hostHint = $('#host-hint');
   if (hostHint) {
-    hostHint.textContent = state.isHost ? '✨ Você é o Host — escolha um jogo! 👑' : 'Aguardando o Host iniciar um jogo...';
+    hostHint.textContent = state.isHost ? 'Você é o host: toque num cartaz para começar.' : 'O host escolhe o jogo. Fica ligado.';
   }
 
   const waitingHost = $('#results-waiting-host');
@@ -720,61 +724,44 @@ const GAME_ICONS = {
 
 // ==================== RENDER PLAYERS & RANKING ====================
 
+// Tintas do muro de lambe-lambe (mesma ordem do hub.css)
+const LB_INKS = ['pink', 'yellow', 'green', 'blue'];
+
+function stampAvatar(name, index, cls = '') {
+  const ink = LB_INKS[index % LB_INKS.length];
+  const initial = escapeHtml((name || '?').trim().charAt(0).toUpperCase() || '?');
+  return `<span class="lb-stamp ink-${ink} ${cls}" aria-hidden="true">${initial}</span>`;
+}
+
 function renderPlayers() {
   const players = state.players || [];
   const sorted = [...players].sort((a, b) => b.score - a.score);
+  // cor fixa por pessoa (ordem de entrada), não pela posição no ranking
+  const order = new Map(players.map((p, i) => [p.id, i]));
 
-  // Player count in header
-  if (DOM.playerCount) {
-    DOM.playerCount.textContent = sorted.length;
-  }
+  if (DOM.playerCount) DOM.playerCount.textContent = sorted.length;
 
-  // Left column: ranking panel
   if (DOM.playersList) {
     if (sorted.length === 0) {
-      DOM.playersList.innerHTML = `
-        <div style="text-align: center; color: var(--text-muted); font-size: 0.85rem; padding: 20px 0;">
-          Aguardando jogadores entrarem...
-        </div>
-      `;
+      DOM.playersList.innerHTML = `<p class="lb-roll-empty">Ninguém por aqui ainda. Mande o código da sala pra galera.</p>`;
     } else {
       DOM.playersList.innerHTML = sorted.map((p, i) => {
-        const avatarSvg = getPlayerAvatarSvg(p.name, i, 44);
-        const hostCrown = p.isHost ? '<span class="crown-icon" title="Host da Sala">👑</span>' : '';
-        const disconnected = p.connected ? '' : ' player-disconnected';
+        const me = p.id === socket.id;
+        const pts = p.score === 1 ? '1 ponto' : `${p.score} pontos`;
         return `
-          <div class="ranking-player-card${disconnected}">
-            <div class="ranking-player-avatar">${avatarSvg}</div>
-            <div class="ranking-player-info">
-              <div class="ranking-player-name-row">
-                <span class="ranking-player-rank">${i + 1}º</span>
-                <span class="ranking-player-name">${escapeHtml(p.name)}</span>
-                ${hostCrown}
-              </div>
-              <div class="ranking-player-score">(${p.score} pts gerais)</div>
-            </div>
-          </div>
-        `;
+          <div class="lb-roll-row${p.connected ? '' : ' is-away'}${me ? ' is-me' : ''}">
+            <span class="lb-roll-pos">${i + 1}</span>
+            ${stampAvatar(p.name, order.get(p.id) || 0)}
+            <span class="lb-roll-name">${escapeHtml(p.name)}${me ? ' <em>(você)</em>' : ''}${p.isHost ? ' <span class="lb-host" title="Host da sala">host</span>' : ''}</span>
+            <span class="lb-roll-pts">${pts}</span>
+          </div>`;
       }).join('');
     }
   }
 
-  // Top-right header avatars row
   if (DOM.headerAvatarsRow) {
-    let html = '';
-    const maxSlots = 8;
-    sorted.forEach((p, idx) => {
-      const avatarSvg = getPlayerAvatarSvg(p.name, idx, 32);
-      html += `<div class="header-avatar-slot active" title="${escapeHtml(p.name)}">${avatarSvg}</div>`;
-    });
-    for (let i = sorted.length; i < maxSlots; i++) {
-      html += `
-        <div class="header-avatar-slot empty" title="Vaga livre">
-          <svg viewBox="0 0 24 24" class="silhouette-icon"><path fill="currentColor" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-        </div>
-      `;
-    }
-    DOM.headerAvatarsRow.innerHTML = html;
+    DOM.headerAvatarsRow.innerHTML = players.map((p, i) =>
+      `<span title="${escapeHtml(p.name)}">${stampAvatar(p.name, i, 'lb-stamp-sm' + (p.connected ? '' : ' is-away'))}</span>`).join('');
   }
 }
 
@@ -797,23 +784,42 @@ socket.on('game-list', (games) => {
   renderGamesGrid();
 });
 
+// Jogos em destaque ganham cartaz duplo no muro
+const LB_FEATURED = new Set(['death-ball', 'digite-direito', 'cartas-contra-humanidade', 'consenso']);
+
 function renderGamesGrid() {
   if (!state.gameList || state.gameList.length === 0) return;
-  DOM.gamesGrid.innerHTML = state.gameList.map(game => {
+  DOM.gamesGrid.innerHTML = state.gameList.map((game, i) => {
     const iconSvg = GAME_ICONS[game.id] || `<div class="game-emoji-fallback">${game.icon}</div>`;
-    const isHighlighted = (game.id === 'consenso' || game.id === 'cartas-contra-humanidade') ? 'highlighted' : '';
+    const ink = LB_INKS[i % LB_INKS.length];
+    // inclinação estável por jogo (não muda a cada render)
+    let h = 0; for (const c of game.id) h = (h * 31 + c.charCodeAt(0)) | 0;
+    const tilt = ((Math.abs(h) % 7) - 3) * 0.45;
+    const featured = LB_FEATURED.has(game.id) ? ' is-featured' : '';
+    const range = game.minPlayers === game.maxPlayers ? `${game.minPlayers}` : `${game.minPlayers} a ${game.maxPlayers}`;
     return `
-      <div class="game-card ${isHighlighted} host-only ${state.isHost ? 'is-host' : ''}"
-           data-game-id="${game.id}"
-           style="--card-color: ${game.color}; cursor: ${state.isHost ? 'pointer' : 'default'}">
-        <div class="game-card-icon-wrapper">${iconSvg}</div>
-        <div class="game-card-name">${escapeHtml(game.name)}</div>
-        <div class="game-card-desc">${escapeHtml(game.desc)}</div>
-        <div class="game-card-players-badge">${game.minPlayers}-${game.maxPlayers} jogadores</div>
-      </div>
-    `;
+      <div class="game-card lb-gp ink-${ink}${featured} host-only ${state.isHost ? 'is-host' : ''}"
+           data-game-id="${game.id}" style="--tilt:${tilt}deg"
+           ${state.isHost ? 'role="button" tabindex="0"' : ''} aria-label="${escapeHtml(game.name)}">
+        <span class="lb-tape" aria-hidden="true"></span>
+        <div class="lb-gp-head"><span class="lb-gp-name">${escapeHtml(game.name)}</span></div>
+        <div class="lb-gp-body">
+          <div class="lb-gp-icon">${iconSvg}</div>
+          <p class="lb-gp-desc">${escapeHtml(game.desc)}</p>
+        </div>
+        <div class="lb-gp-foot">${range} jogadores</div>
+      </div>`;
   }).join('');
 }
+
+// Teclado: Enter/Espaço num cartaz focado inicia o jogo
+DOM.gamesGrid.addEventListener('keydown', (e) => {
+  if (e.key !== 'Enter' && e.key !== ' ') return;
+  const card = e.target.closest('.game-card');
+  if (!card) return;
+  e.preventDefault();
+  card.click();
+});
 
 // Event delegation for game selection
 DOM.gamesGrid.addEventListener('click', (e) => {
